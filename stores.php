@@ -10,8 +10,8 @@ $active = "";
 
 if(isset($ID)) {
 	$queryStore = "SELECT * FROM STORES WHERE ID = '$ID'";
-	$resultStore = mysql_query($queryStore);
-	$rowStore = mysql_fetch_assoc($resultStore);
+	$resultStore = $db->query($queryStore);
+	$rowStore = $resultStore->fetch();
 	
 	$code = $rowStore["code"];
 	$last = $rowStore["last"];
@@ -35,8 +35,8 @@ if(isset($ID)) {
   </thead>
   <tbody>
     <?php
-		$myQuery = mysql_query("SELECT * FROM STORES ORDER BY ID ASC");
-		while($row = mysql_fetch_assoc($myQuery)){			
+		$myQuery = $db->query("SELECT * FROM STORES ORDER BY ID ASC");
+		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>
 				  <td>".$row["ID"]."</td>

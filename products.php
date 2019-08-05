@@ -9,8 +9,8 @@ if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }
 $storesQuery.= "ORDER BY ID ASC";
-$storesResult = mysql_query($storesQuery);
-while ($storesRow = mysql_fetch_assoc($storesResult)) {
+$storesResult = $db->query($storesQuery);
+while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];
 	$storeNames[] = $storesRow["code"];
 }
@@ -52,8 +52,8 @@ echo "<a class='sButton' href='inventariocosto.php' target='_blank'>CREAR XLS</a
   </thead>
   <tbody>
     <?php
-		$myQuery = mysql_query("SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, (SELECT SUM(qty) FROM PRDL T4 WHERE T4.prodCode = T1.code) qty FROM PRODUCT T1 INNER JOIN CAT T2 ON T1.catID = T2.ID INNER JOIN VENDOR T3 ON T1.vendorID = T3.ID ORDER BY T1.name ASC");
-		while($row = mysql_fetch_array($myQuery)){			
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, (SELECT SUM(qty) FROM PRDL T4 WHERE T4.prodCode = T1.code) qty FROM PRODUCT T1 INNER JOIN CAT T2 ON T1.catID = T2.ID INNER JOIN VENDOR T3 ON T1.vendorID = T3.ID ORDER BY T1.name ASC");
+		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>
 				  <td width='200px'>".$row["code"]."</td>
@@ -65,8 +65,8 @@ echo "<a class='sButton' href='inventariocosto.php' target='_blank'>CREAR XLS</a
 			}
 			foreach ($storeIDs as $i => $storeID) {
 				$byStore = "SELECT qty FROM PRDL WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."'";
-				$resByStore = mysql_query($byStore);
-				$rowByStore = mysql_fetch_assoc($resByStore);
+				$resByStore = $db->query($byStore);
+				$rowByStore = $resByStore->fetch();
 				echo "<td>".$rowByStore["qty"]."</td>";
 			}
 			if($_SESSION["role"] == 'Y') {

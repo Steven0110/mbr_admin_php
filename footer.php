@@ -30,5 +30,5 @@ $(document).ready(function(){
 
 </html>
 <?php
-mysql_close($dbhandle);
+//mysql_close($dbhandle);
 ?>

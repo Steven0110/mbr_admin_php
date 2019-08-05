@@ -5,8 +5,8 @@
 	// Top products
 		$topProducts = array();
 		$tpSales = array();
-		$myQuery = mysql_query("SELECT T1.ID, T1.code, T1.name, IFNULL(SUM(T2.qty), 0) sales FROM PRODUCT T1 LEFT JOIN OUTLN T2 ON T1.code = T2.prodCode INNER JOIN OUTFLOWS T3 ON T2.outID = T3.ID INNER JOIN STORES T4 ON T3.storeID = T4.ID WHERE T1.active = 'Y' AND T4.code = '$storeCode[$i]' GROUP BY T1.code ORDER BY sales DESC LIMIT 10");
-		while($row = mysql_fetch_array($myQuery)){			
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name, IFNULL(SUM(T2.qty), 0) sales FROM PRODUCT T1 LEFT JOIN OUTLN T2 ON T1.code = T2.prodCode INNER JOIN OUTFLOWS T3 ON T2.outID = T3.ID INNER JOIN STORES T4 ON T3.storeID = T4.ID WHERE T1.active = 'Y' AND T4.code = '$storeCode[$i]' GROUP BY T1.code ORDER BY sales DESC LIMIT 10");
+		while($row = $myQuery->fetch()){			
 			$topProducts[] = utf8_encode($row['name']);
 			$tpSales[] = $row['sales'];
 		};
@@ -60,7 +60,7 @@
 				series: [{
 					name: '<?php echo $storeCode[$i]; ?>Outflows',
 					data: js_<?php echo $storeCode[$i]; ?>tpSales,
-					color: '#ffffff',
+					color: '#c54695',
 					dataLabels: {
 						enabled: true,
 						color: '#FFFFFF',
@@ -104,16 +104,16 @@
 	// Get Inflows
 	$dayInflows = array();
 	$dayInflowsArray = array();
-	$myQuery = mysql_query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM INFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
-	while($row = mysql_fetch_array($myQuery)){			
+	$myQuery = $db->query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM INFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
+	while($row = $myQuery->fetch()){			
 		$dayInflows[$row['day']] = $row['quant'];
 	};
 	
 	// Get Outflows
 	$dayOutflows = array();
 	$dayOutflowsArray = array();
-	$myQuery = mysql_query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM OUTFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
-	while($row = mysql_fetch_array($myQuery)){			
+	$myQuery = $db->query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM OUTFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
+	while($row = $myQuery->fetch()){			
 		$dayOutflows[$row['day']] = $row['quant'];
 	};
 	
@@ -172,7 +172,7 @@
 			series: [{
 				name: 'Entradas',
 				data: js_<?php echo $storeCode[$i]; ?>inflows,
-				color: '#555555',
+				color: '#4e12ad',
 				dataLabels: {
 					enabled: true,
 					color: '#FFFFFF',
@@ -187,7 +187,7 @@
 			{
 				name: 'Salidas',
 				data: js_<?php echo $storeCode[$i]; ?>outflows,
-				color: '#ffffff',
+				color: '#c54695',
 				dataLabels: {
 					enabled: true,
 					color: '#FFFFFF',

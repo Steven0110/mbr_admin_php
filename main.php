@@ -1,4 +1,4 @@
-<?php include 'head.php'; ?>
+<?php include 'head.php'; require('includes/mysqlconn.php');?>
 
 <!--
 <div class="sectionTitle">VISIÓN GENERAL</div>-->
@@ -7,8 +7,8 @@
 <div id="genGraphs">
     <div>
     	<?php
-		$myQuery = mysql_query("SELECT COUNT(*) quant FROM OUTFLOWS");
-		$row = mysql_fetch_assoc($myQuery);
+		$myQuery = $db->query("SELECT COUNT(*) quant FROM OUTFLOWS");
+		$row = $myQuery->fetch();
 		$totCount = $row["quant"];
 		$avgCount = $totCount / 8;
 		
@@ -17,8 +17,8 @@
 		// Rank Stores
 		$stores = array();
 		$outflows = array();
-		$myQuery = mysql_query("SELECT T1.ID, T1.code, T1.name, IFNULL(T2.quant, 0) sales FROM STORES T1 LEFT JOIN (SELECT storeID, COUNT(*) quant FROM OUTFLOWS GROUP BY storeID) T2 ON T1.ID = T2.storeID GROUP BY T1.ID ORDER BY sales DESC");
-		while($row = mysql_fetch_array($myQuery)){
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name, IFNULL(T2.quant, 0) sales FROM STORES T1 LEFT JOIN (SELECT storeID, COUNT(*) quant FROM OUTFLOWS GROUP BY storeID) T2 ON T1.ID = T2.storeID GROUP BY T1.ID ORDER BY sales DESC");
+		while($row = $myQuery->fetch()){
 			$stores[] = utf8_encode($row['name']);
 			$outflows[] = $row['sales'];
 		};
@@ -138,7 +138,7 @@ $(function () {
         series: [{
 			name: 'Outflows',
             data: js_outflows,
-			color: '#ffffff',
+			color: '#c54695',
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',
@@ -192,7 +192,7 @@ $(function () {
         series: [{
 			name: 'Outflows',
             data: js_tpSales,
-			color: '#ffffff',
+			color: '#c54695',
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',
@@ -218,11 +218,11 @@ $storeName = array();
 $storeCode = array();
 
 if ($_SESSION["role"] == 'Y') {
-	$myQuery = mysql_query("SELECT ID, code, name FROM STORES ORDER BY name ASC");
+	$myQuery = $db->query("SELECT ID, code, name FROM STORES ORDER BY name ASC");
 } else {
-	$myQuery = mysql_query("SELECT ID, code, name FROM STORES WHERE ID = '".$_SESSION["store"]."' ORDER BY code ASC");
+	$myQuery = $db->query("SELECT ID, code, name FROM STORES WHERE ID = '".$_SESSION["store"]."' ORDER BY code ASC");
 }
-while($row = mysql_fetch_array($myQuery)){
+while($row = $myQuery->fetch()){
 	$storeName[] = $row['name'];
 	$storeCode[] = $row['code'];
 };

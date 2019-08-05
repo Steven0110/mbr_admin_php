@@ -8,9 +8,9 @@ if (isset($_POST["username"], $_POST["password"]) && $_POST["username"] != "" &&
     $password = $_POST["password"];
 	
 	$query = "SELECT ID, storeID, role, first, last, username, email, password, active, salesPrson FROM CREW WHERE username = '$username'";
-	$result = mysql_query($query);
+	$result = $db->query($query);
 	
-	if ($row = mysql_fetch_assoc($result)) {
+	if ($row = $result->fetch()) {
 		$pass = $row["password"];
 		$active = $row["active"];
 		

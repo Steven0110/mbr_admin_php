@@ -5,8 +5,8 @@ $storeIDs = array();
 $storeNames = array();
 
 $storesQuery = "SELECT ID, code, name FROM STORES WHERE ID <> 100 ORDER BY name ASC";
-$storesResult = mysql_query($storesQuery);
-while ($storesRow = mysql_fetch_assoc($storesResult)) {
+$storesResult = $db->query($storesQuery);
+while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];
 	$storeCodes[] = $storesRow["code"];
 	$storeNames[] = $storesRow["name"];

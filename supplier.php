@@ -5,8 +5,8 @@ $vendorIDs = array();
 $vendorNames = array();
 
 $vendorQuery = "SELECT ID, name FROM VENDOR ORDER BY name ASC";
-$vendorResult = mysql_query($vendorQuery);
-while ($vendorRow = mysql_fetch_assoc($vendorResult)) {
+$vendorResult = $db->query($vendorQuery);
+while ($vendorRow = $vendorResult->fetch()) {
 	$vendorIDs[] = $vendorRow["ID"];
 	$vendorNames[] = $vendorRow["name"];
 }
@@ -19,8 +19,8 @@ if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }
 $storesQuery.= "ORDER BY ID ASC";
-$storesResult = mysql_query($storesQuery);
-while ($storesRow = mysql_fetch_assoc($storesResult)) {
+$storesResult = $db->query($storesQuery);
+while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];
 	$storeCodes[] = $storesRow["code"];
 	$storeNames[] = $storesRow["name"];

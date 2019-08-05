@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 session_start();
-if($_SESSION["authenticated_user"]) {
+if($_SESSION['authenticated_user']) {
 	header("Location: main.php");
 	die();
 }
@@ -13,8 +13,8 @@ if($_SESSION["authenticated_user"]) {
 <meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 <title>U&ntilde;as Sal&oacute;n y M&aacute;s - Intranet</title>
-<link href="/resource/1353549783000/fav_ico" rel="icon" type="image/x-icon" />
-<link href="/resource/1353549783000/fav_ico" rel="shortcut icon" type="image/x-icon" />
+<link href="resource/1353549783000/fav_ico" rel="icon" type="image/x-icon" />
+<link href="resource/1353549783000/fav_ico" rel="shortcut icon" type="image/x-icon" />
 <style>
 html {
 	height:100%;
@@ -103,8 +103,6 @@ input {
     <div class="grid_4" id="article" style="display:block; float:none; margin:0px auto; width:400px;">
         <div class="login_message">BIENVENIDO</div>
             
-
-                      
     <div id="form">
         <form action="includes/process_login.php" method="post" name="login_form" class="loginForm">                              
         <div style="background-color: #FCF8E3;">

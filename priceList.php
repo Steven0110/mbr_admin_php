@@ -15,8 +15,8 @@
   </thead>
   <tbody>
     <?php
-		$myQuery = mysql_query("SELECT T1.ID, T1.code, T1.name product, T3.name vendor, T1.price, T2.catName cat FROM PRODUCT T1 JOIN CAT T2 ON T1.catID = T2.ID JOIN VENDOR T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' ORDER BY T1.name ASC");
-		while($row = mysql_fetch_array($myQuery)){			
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name product, T3.name vendor, T1.price, T2.catName cat FROM PRODUCT T1 JOIN CAT T2 ON T1.catID = T2.ID JOIN VENDOR T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' ORDER BY T1.name ASC");
+		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>
 				  <td>".$row["code"]."</td>

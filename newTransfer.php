@@ -12,8 +12,8 @@
         	<select id="orStore" name="orStore" style="margin-top:10px;" required>
                 <option value="-1" selected disabled>Selecciona...</option>
                 <?php
-                $myQuery = mysql_query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES");
-                while($row = mysql_fetch_array($myQuery)){
+                $myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES");
+                while($row = $myQuery->fetch()){
                 	echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
                 };
                 ?>
@@ -270,8 +270,8 @@ $(document).on('keypress', function(e) {
 
 var stores = "<?php
 	//echo "<option value=''>Selecciona...</option>";
-	$myQuery = mysql_query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES WHERE ID = 100");
-	while($row = mysql_fetch_array($myQuery)){
+	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES WHERE ID = 100");
+	while($row = $myQuery->fetch()){
 		echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
 	};
 	?>";

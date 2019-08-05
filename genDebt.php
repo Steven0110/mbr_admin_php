@@ -20,8 +20,8 @@ include "head.php";
                 	<select id="store" name="store" style="margin-top:10px;" required>
                         <option value="" selected disabled>Selecciona...</option>
                         <?php
-                        $myQuery = mysql_query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES WHERE ID <> 100 ORDER BY name");
-                        while($row = mysql_fetch_array($myQuery)){
+                        $myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES WHERE ID <> 100 ORDER BY name");
+                        while($row = $myQuery->fetch()){
                             echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
                         };
                         ?>

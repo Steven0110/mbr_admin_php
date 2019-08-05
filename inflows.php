@@ -9,8 +9,8 @@ if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }
 $storesQuery.= "ORDER BY ID ASC";
-$storesResult = mysql_query($storesQuery);
-while ($storesRow = mysql_fetch_assoc($storesResult)) {
+$storesResult = $db->query($storesQuery);
+while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];
 	$storeCodes[] = $storesRow["code"];
 	$storeNames[] = $storesRow["name"];

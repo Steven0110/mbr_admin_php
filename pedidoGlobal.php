@@ -13,8 +13,8 @@ $pdf->SetFont('Arial','',8, 'C');
 
 //Datos entrega
 $query1 = "SELECT T1.ID, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM ORDERS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$ordID'";
-$result1 = mysql_query($query1);
-$row1 = mysql_fetch_assoc($result1);
+$result1 = $db->query($query1);
+$row1 = $result1->fetch();
 
 $dsStoreID = $row1["dsStoreID"];
 $remarks= $row1["remarks"];
@@ -23,10 +23,10 @@ $remarks= $row1["remarks"];
 	
 // Lineas
 $queryTran = "SELECT SUM(T1.qty) qty, T1.prodCode, T3.name, T4.name vendor, T3.price, (SUM(T1.qty) * T3.price) import FROM ORDL T1 JOIN ORDERS T2 ON T1.ordID = T2.ID JOIN PRODUCT T3 ON T1.prodCode = T3.code JOIN VENDOR T4 ON T3.vendorID = T4.ID WHERE T2.active = 'Y' GROUP BY T1.prodCode ORDER BY T3.name ASC";
-$resultTran = mysql_query($queryTran);
+$resultTran = $db->query($queryTran);
 $pdf->SetDrawColor(255,255,255);
 $total = 0;
-while($rowTran = mysql_fetch_array($resultTran)) {
+while($rowTran = $resultTran->fetch()) {
 	$pdf->SetWidths(array(16,40,65,35,20,20));
 	$pdf->SetAligns(array('','','','','R','R'));
 	$pdf->Row(array($rowTran["qty"],$rowTran["prodCode"],$rowTran["name"],$rowTran["vendor"],"$ ".$rowTran["price"],"$ ".$rowTran["import"]));

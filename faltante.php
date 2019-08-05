@@ -31,8 +31,8 @@ if ($_SESSION["role"] != 'Y') {
 }
 $storesQuery.= "ORDER BY ID ASC";
 
-$storesResult = mysql_query($storesQuery);
-while ($storesRow = mysql_fetch_assoc($storesResult)) {
+$storesResult = $db->query($storesQuery);
+while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];
 	$storeNames[] = $storesRow["code"];
 }
@@ -71,14 +71,14 @@ foreach ($selectedVendors as $v => $selectedVendor) {
 
 $query.= "T2.ID = ".$selectedVendors[0].") ORDER BY T2.name, T1.name ASC";
 $grandTotal = 0;
-$result = mysql_query($query);
-while($row = mysql_fetch_array($result)){
+$result = $db->query($query);
+while($row = $result->fetch()){
 	$total = 0;
 	$price = $row["price"];
 	foreach ($storeIDs as $i => $storeID) {
 		$byStore = "SELECT (maxq - qty) qty FROM PRDL WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."' ORDER BY storeID ASC";
-		$resByStore = mysql_query($byStore);
-		while($rowByStore = mysql_fetch_assoc($resByStore)) {
+		$resByStore = $db->query($byStore);
+		while($rowByStore = $resByStore->fetch()) {
 			if ($rowByStore["qty"] < 0) {
 				array_push($row, "0");
 			} else {

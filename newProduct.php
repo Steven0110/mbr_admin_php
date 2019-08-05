@@ -27,8 +27,8 @@
       	<div style="margin-top:10px"><select id="cat" name="cat" style="margin-top:10px;" required>
         	<option value="" disabled selected>Selecciona...</option>
         	<?php
-			$myQuery = mysql_query("SELECT ID, CONCAT(catName, ' (', ID, ')') catName FROM CAT ORDER BY catName");
-			while($row = mysql_fetch_array($myQuery)){			
+			$myQuery = $db->query("SELECT ID, CONCAT(catName, ' (', ID, ')') catName FROM CAT ORDER BY catName");
+			while($row = $myQuery->fetch()){			
 				echo "<option value='".$row["ID"]."'>".$row["catName"]."</option>";
 			};
 			?>
@@ -38,8 +38,8 @@
         <div style="margin-top:10px"><select id="vendor" name="vendor" required>
         	<option value="" disabled selected>Selecciona...</option>
         	<?php
-			$myQuery = mysql_query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM VENDOR ORDER BY name");
-			while($row = mysql_fetch_array($myQuery)){			
+			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM VENDOR ORDER BY name");
+			while($row = $myQuery->fetch()){			
 				echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
 			};
 			?>
@@ -71,9 +71,9 @@
 				</table>
 			</div>
         	<?php
-        	$myQuery = mysql_query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM STORES ORDER BY name");
+        	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM STORES ORDER BY name");
 			
-			while($row = mysql_fetch_array($myQuery)){			
+			while($row = $myQuery->fetch()){			
 				echo "
 					<div class='item'>
 						<table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
