@@ -2,18 +2,18 @@
 
 $tranID = $_REQUEST["tranID"];
 
-$myQuery = mysql_query("SELECT T1.ID, T1.code, T2.name orStore, T3.name dsStore, T1.created_at, T1.empID, T1.remarks FROM TRANSFERS T1 JOIN STORES T2 ON T1.orStore = T2.ID JOIN STORES T3 ON T1.dsStore = T3.ID WHERE T1.ID = '$tranID'");
-$row = mysql_fetch_assoc($myQuery);
+$myQuery = $db->query("SELECT T1.ID, T1.code, T2.name orStore, T3.name dsStore, T1.created_at, T1.empID, T1.remarks FROM TRANSFERS T1 JOIN STORES T2 ON T1.orStore = T2.ID JOIN STORES T3 ON T1.dsStore = T3.ID WHERE T1.ID = '$tranID'");
+$row = $myQuery->fetch();
 $remarks = $row["remarks"];
 
 $queryNext = "SELECT MIN(ID) nextID FROM TRANSFERS WHERE ID > '$tranID'";
-$resultNext = mysql_query($queryNext);
-$rowNext = mysql_fetch_assoc($resultNext);
+$resultNext = $db->query($queryNext);
+$rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
 $queryPrev = "SELECT MAX(ID) prevID FROM TRANSFERS WHERE ID < '$tranID'";
-$resultPrev = mysql_query($queryPrev);
-$rowPrev = mysql_fetch_assoc($resultPrev);
+$resultPrev = $db->query($queryPrev);
+$rowPrev = $resultPrev->fetch;
 $prevID = $rowPrev["prevID"];
 ?>
 
@@ -53,9 +53,9 @@ $prevID = $rowPrev["prevID"];
 				</table>
 			</div>
         	<?php
-        	$myQuery = mysql_query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM TRLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.tranID = '$tranID'");
+        	$myQuery = $db->query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM TRLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.tranID = '$tranID'");
 			
-			while($row = mysql_fetch_assoc($myQuery)){			
+			while($row = $myQuery->fetch()){			
 				echo "
 					<div class='item'>
 						<table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>

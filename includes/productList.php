@@ -37,8 +37,8 @@ if ($_SESSION["role"] == "Y") {
 }
 
 // getting total number records without any search
-$resultTotal = mysql_query("SELECT COUNT(*) quant FROM PRODUCT");
-$rowTotal = mysql_fetch_assoc($resultTotal);
+$resultTotal = $db->query("SELECT COUNT(*) quant FROM PRODUCT");
+$rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
@@ -68,8 +68,8 @@ if (!empty($requestData['search']['value'])) {   // if there is a search paramet
 			break;
 	}
 		
-	$result = mysql_query($query);
-	$totalFiltered = mysql_num_rows($result); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+	$result = $db->query($query);
+	$totalFiltered = $result->fetch(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";
@@ -77,10 +77,10 @@ $query.= " ORDER BY ". $columns[$requestData['order'][0]['column']]." ".$request
 //$query.= " LIMIT 100";
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
 
-$result = mysql_query($query);
+$result = $db->query($query);
 
 $data = array();
-while($row = mysql_fetch_assoc($result)) {
+while($row = $result->fetch()) {
 	$nestedData = array();
 
 	$nestedData[] = utf8_encode($row["code"]);

@@ -2,19 +2,19 @@
 
 $infID = $_REQUEST["infID"];
 
-$myQuery = mysql_query("SELECT T1.ID, T1.code, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created, T1.remarks FROM INFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$infID'");
-$row = mysql_fetch_array($myQuery);
+$myQuery = $db->query("SELECT T1.ID, T1.code, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created, T1.remarks FROM INFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$infID'");
+$row = $myQuery->fetch();
 $remarks = $row["remarks"];
 $folio = $row["code"];
 
 $queryNext = "SELECT MIN(ID) nextID FROM INFLOWS WHERE ID > '$infID' AND storeID <> 0";
-$resultNext = mysql_query($queryNext);
-$rowNext = mysql_fetch_assoc($resultNext);
+$resultNext = $db->query($queryNext);
+$rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
 $queryPrev = "SELECT MAX(ID) prevID FROM INFLOWS WHERE ID < '$infID' AND storeID <> 0";
-$resultPrev = mysql_query($queryPrev);
-$rowPrev = mysql_fetch_assoc($resultPrev);
+$resultPrev = $db->query($queryPrev);
+$rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
 ?>
 
@@ -53,9 +53,9 @@ $prevID = $rowPrev["prevID"];
 				</table>
 			</div>
         	<?php
-        	$myQuery = mysql_query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM INLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.infID = '$infID'");
+        	$myQuery = $db->query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM INLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.infID = '$infID'");
 			
-			while($row = mysql_fetch_assoc($myQuery)){			
+			while($row = $myQuery->fetch()){			
 				echo "
 					<div class='item'>
 						<table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
