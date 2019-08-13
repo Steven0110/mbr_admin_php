@@ -6,7 +6,7 @@ $proyectCodes = array();
 $proyectNames = array();
 //bring all proyects from db
 //$storesQuery = "SELECT ID, proyect_name, client FROM PROYECTS ";
-$proyectQuery = "SELECT ID, proyectname, client FROM PROYECTS ";
+$proyectQuery = "SELECT ID, proyectname, client FROM proyects ";
 
 $proyectQuery.= "ORDER BY ID ASC";
 $proyectResult = $db->prepare($proyectQuery);

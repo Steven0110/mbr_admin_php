@@ -3,15 +3,15 @@ include 'head.php';
 
 $outID = $_REQUEST["outID"];
 
-$myQuery = $db->query("SELECT * FROM PROYECTS WHERE ID = '$outID'");
+$myQuery = $db->query("SELECT * FROM proyects WHERE ID = '$outID'");
 $row = $myQuery->fetch();
 
-$queryNext = "SELECT MIN(ID) nextID FROM PROYECTS WHERE ID > '$outID'";
+$queryNext = "SELECT MIN(ID) nextID FROM proyects WHERE ID > '$outID'";
 $resultNext = $db->query($queryNext);
 $rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
-$queryPrev = "SELECT MAX(ID) prevID FROM PROYECTS WHERE ID < '$outID'";
+$queryPrev = "SELECT MAX(ID) prevID FROM proyects WHERE ID < '$outID'";
 $resultPrev = $db->query($queryPrev);
 $rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
@@ -88,7 +88,7 @@ $prevID = $rowPrev["prevID"];
 				</table>
 			</div>
         	<?php
-        	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM STORES ORDER BY name");
+        	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM stores ORDER BY name");
 			
 			while($row = $myQuery->fetch()){			
 				echo "

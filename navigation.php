@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<div id="main-logo"><img src="images/logo.png"></div>
+<div id="main-logo"></div>
 <ul class="mainNav">
     <li><a href="main.php">GENERAL</a></li>
     <?php

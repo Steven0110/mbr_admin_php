@@ -15,7 +15,7 @@ $columns = array(
 );
 
 // getting total number records without any search
-$queryTotal = "SELECT COUNT(*) quant FROM PROYECTS";
+$queryTotal = "SELECT COUNT(*) quant FROM proyects";
 /*if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$queryTotal.= "";
 } else {
@@ -26,7 +26,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT ID,proyectname,client FROM PROYECTS";
+$query = "SELECT ID,proyectname,client FROM proyects";
 /*
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";

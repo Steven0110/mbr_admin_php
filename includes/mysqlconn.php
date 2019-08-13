@@ -1,9 +1,9 @@
 <?php
 $username = "root";
-$password = "";
+$password = "toor";
 $hostname = "localhost";
 
-$db = new PDO('mysql:host=localhost;dbname=unassalo_intranet;charset=utf8', $username, $password);
+$db = new PDO('mysql:host=localhost;dbname=mbr_admin;charset=utf8', $username, $password);
 
 /*connection to the database
 $dbhandle = mysqli_connect($hostname, $username, $password) 

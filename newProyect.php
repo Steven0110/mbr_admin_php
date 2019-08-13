@@ -68,7 +68,7 @@
 				</table>
 			</div>
         	<?php
-        	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM STORES ORDER BY name");
+        	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM stores ORDER BY name");
 			
 			while($row = $myQuery->fetch()){			
 				echo "

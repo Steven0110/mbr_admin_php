@@ -37,7 +37,7 @@ if ($_SESSION["role"] == "Y") {
 }
 
 // getting total number records without any search
-$resultTotal = $db->query("SELECT COUNT(*) quant FROM PRODUCT");
+$resultTotal = $db->query("SELECT COUNT(*) quant FROM product");
 $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
@@ -45,12 +45,12 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 $query = "SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, ";
 
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
-	$query.= "(SELECT SUM(qty) FROM PRDL T4 WHERE T4.prodCode = T1.code) qty, (SELECT SUM(OnOrder) FROM PRDL T4 WHERE T4.prodCode = T1.code) OnOrder ";
+	$query.= "(SELECT SUM(qty) FROM prdl T4 WHERE T4.prodCode = T1.code) qty, (SELECT SUM(OnOrder) FROM prdl T4 WHERE T4.prodCode = T1.code) OnOrder ";
 } else {
-	$query.= "(SELECT qty FROM PRDL T4 WHERE T4.prodCode = T1.code AND T4.storeID = '".$wareHouse."') qty, (SELECT OnOrder FROM PRDL T4 WHERE T4.prodCode = T1.code AND T4.storeID = '".$wareHouse."') OnOrder ";
+	$query.= "(SELECT qty FROM prdl T4 WHERE T4.prodCode = T1.code AND T4.storeID = '".$wareHouse."') qty, (SELECT OnOrder FROM prdl T4 WHERE T4.prodCode = T1.code AND T4.storeID = '".$wareHouse."') OnOrder ";
 }
 
-$query.= "FROM PRODUCT T1 JOIN CAT T2 ON T1.catID = T2.ID JOIN VENDOR T3 ON T1.vendorID = T3.ID";
+$query.= "FROM product T1 JOIN cat T2 ON T1.catID = T2.ID JOIN vendor T3 ON T1.vendorID = T3.ID";
 
 if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
@@ -60,7 +60,7 @@ if (!empty($requestData['search']['value'])) {   // if there is a search paramet
 		case "NOMBRE":
 			$query.= " AND T1.name LIKE '%".$term."%'";
 			break;
-		case "CATEGORIA":
+		case "catEGORIA":
 			$query.= " AND T2.catName LIKE '%".$term."%'";
 			break;
 		case "PROVEEDOR":
