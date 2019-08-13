@@ -2,7 +2,7 @@
 session_start();
 include "mysqlconn.php";
 
-$proyect_name = $_POST["proyectname"];
+$proyectname = $_POST["proyectname"];
 $fchinicio = $_POST["fchinicio"];
 $fchterm = $_POST['fchterm'];
 $proyectcst = $_POST['proyectcst'];

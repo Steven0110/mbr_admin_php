@@ -9,43 +9,41 @@ $wareHouse = $_REQUEST["wh"];
 $by = $_REQUEST["by"];
 $columns = array( 
 // datatable column index  => database column name
-	0 => 'store', 
-	1 => 'code',
-	2 => 'created',
-	3 => 'emp',
-	4 => 'ID'
+	0 => 'client', 
+	1 => 'proyect_namee',
+	2 => 'ID'
 );
 
 // getting total number records without any search
-$queryTotal = "SELECT COUNT(*) quant FROM OUTFLOWS";
-if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
+$queryTotal = "SELECT COUNT(*) quant FROM PROYECTS";
+/*if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$queryTotal.= "";
 } else {
 	$queryTotal.= " WHERE storeID = '$wareHouse'";
-}
+}*/
 $resultTotal = $db->query($queryTotal);
 $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT T2.name store, T1.code, DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') created, CONCAT(T3.first, ' ', T3.last) emp, T1.ID FROM OUTFLOWS T1 JOIN STORES T2 ON T1.storeID = T2.ID JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.storeID <> 0";
-
+$query = "SELECT ID,proyectname,client FROM PROYECTS";
+/*
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";
 } else {
 	$query.= " AND T2.ID = '$wareHouse'";
-}
+}*/
 
 if (!empty($term)) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
 		case "FOLIO":
-			$query.= " AND T1.code LIKE '%".$term."%'";
+			$query.= " WHERE ID LIKE '%".$term."%'";
 			break;
-		case "FECHA":
-			$query.= " AND DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') LIKE '%".$term."%'";
+		case "PROYECTO":
+			$query.= " WHERE proyectname LIKE '%".$term."%'";
 			break;
-		case "EMPLEADO":
-			$query.= " AND CONCAT(T3.first, ' ', T3.last) LIKE '%".$term."%'";
+		case "CLIENTE":
+			$query.= " WHERE client LIKE '%".$term."%'";
 			break;
 	}
 
@@ -55,18 +53,19 @@ if (!empty($term)) {   // if there is a search parameter, $requestData['search']
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";
-$query.= " ORDER BY ".$columns[$requestData['order'][0]['column']]." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start'].", ".$requestData['length']."";
+/*$query.= " ORDER BY ".$columns[$requestData['order'][0]['column']]." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start'].", ".$requestData['length']."";
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
 $result = $db->query($query);
 $data = array();
 while($row = $result->fetch()) {
 	$nestedData = array();
 
-	$nestedData[] = utf8_encode($row["store"]);
-	$nestedData[] = utf8_encode($row["code"]);
-	$nestedData[] = utf8_encode($row["created"]);
-	$nestedData[] = utf8_encode($row["emp"]);
-	$nestedData[] = "<a href='outflowDetail.php?outID=".$row["ID"]."'><i class='fa fa-eye' aria-hidden='true'></i></a>";
+    $nestedData[] = utf8_encode($row["ID"]);
+	$nestedData[] = utf8_encode($row["proyectname"]);
+    $nestedData[] = utf8_encode($row["client"]);
+	
+	//$nestedData[] = utf8_encode($row["emp"]);
+	$nestedData[] = "<a href='proyectDetail.php?outID=".$row["ID"]."'><i class='fa fa-eye' aria-hidden='true'></i></a>";
 	$data[] = $nestedData;	
 }
 

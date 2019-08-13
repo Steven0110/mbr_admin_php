@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require "mysqlconn.php";
 // storing  request (ie, get/post) global array to a variable  
 $requestData = $_REQUEST;
 $term = utf8_decode($requestData['search']['value']);
@@ -48,16 +48,15 @@ if (!empty($term)) {   // if there is a search parameter, $requestData['search']
 			break;
 	}
 
-	$result = $db->query($query);
-	$totalFiltered = $result->fetchColumn(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+	$result = $db->prepare($query);
+    $result->execute;
+	$totalFiltered = $result->fetchColumns(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";
 $query.= " ORDER BY ".$columns[$requestData['order'][0]['column']]." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start'].", ".$requestData['length']."";
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
-
 $result = $db->query($query);
-
 $data = array();
 while($row = $result->fetch()) {
 	$nestedData = array();

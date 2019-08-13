@@ -2,8 +2,9 @@
 include 'head.php';
 
 $storeIDs = array();
+$storeCodes = array();
 $storeNames = array();
-
+//"SELECT ID, code, name FROM STORES ";
 $storesQuery = "SELECT ID, code, name FROM STORES ";
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";

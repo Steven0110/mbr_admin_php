@@ -1,16 +1,13 @@
 <?php
 include_once 'head.php';
-?>
-<body>
-<?php if (login_check($mysqli) == true) : ?>
-<?php
+
 include_once 'header.php';
 ?>
 
 <div id="pageContainer">
 
 <?php
-$myQuery = mysql_query("SELECT ID, name, cnt_first, cnt_last, phone, email FROM CLIENTS ORDER BY ID");
+$myQuery = $db->query("SELECT ID, name, cnt_first, cnt_last, phone, email FROM CLIENTS ORDER BY ID");
 			
 echo "<table border='0' cellpadding='0' cellspacing='0' class='recordsTable'>
 <thead>
@@ -24,7 +21,7 @@ echo "<table border='0' cellpadding='0' cellspacing='0' class='recordsTable'>
 </tr>
 </thead>
 <tbody>";
-while($row = mysql_fetch_array($myQuery)){
+while($row = $myQuery->fetch()){
     echo "<tr>
     <td>".$row["ID"]."</td>
     <td>".$row["name"]."</td>
@@ -38,12 +35,6 @@ echo "</tbody></table>";
 ?>
 
 </div>
-
-<?php else : ?>
-
-No pasa
-
-<?php endif; ?>
 
 <?php
 include_once 'footer.php';

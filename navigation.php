@@ -7,10 +7,8 @@
     <?php
 	if ($_SESSION["role"] == 'Y') {
         echo ("<li><a href='proyects.php'>PROYECTOS</a></li>");
-		echo ("<li><a href='inflows.php'>ENTRADAS</a></li>");
 		echo ("<li><a href='transfers.php'>TRANSFERENCIAS</a></li>");
-        echo ("<li><a href='clients.php'>CLIENTES</a></li>");
-        echo ("<li><a href='usedTools.php'>CONTROL</a></li>");
+        echo ("<li><a href='inflows.php'>ENTRADAS</a></li>");
 	}
 	?>
     <li><a href="outflows.php">SALIDAS</a></li>

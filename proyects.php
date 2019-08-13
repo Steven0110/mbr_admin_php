@@ -6,10 +6,11 @@ $proyectCodes = array();
 $proyectNames = array();
 //bring all proyects from db
 //$storesQuery = "SELECT ID, proyect_name, client FROM PROYECTS ";
-$proyectQuery = "SELECT ID,proyectname,client FROM proyects";
+$proyectQuery = "SELECT ID, proyectname, client FROM PROYECTS ";
 
 $proyectQuery.= "ORDER BY ID ASC";
-$proyectResult = $db->query($proyectQuery);
+$proyectResult = $db->prepare($proyectQuery);
+$proyectResult->execute();
 while ($proyectRow = $proyectResult->fetch()) {
 	$proyectIDs[] = $proyectRow["ID"];
 	$proyectCodes[] = $proyectRow["proyectname"];
@@ -19,7 +20,7 @@ while ($proyectRow = $proyectResult->fetch()) {
 
 <script type="text/javascript" charset="utf8" src="js/dt/js/jquery.dataTables.min.js"></script>
 
-<div class="sectionTitle">ENTRADAS</div>
+<div class="sectionTitle">PROYECTOS</div>
 <div class="sButtons"><a href="newProyect.php" class="sButton">NUEVO PROYECTO</a></div>
 
 <div class="searchDiv">
@@ -33,15 +34,15 @@ Mostrar proyectos <select id="selectW" class="" name="">
 </select><br>
 Busqueda por
 <input type="radio" name="searchBy[]" class="searchBy" value="FOLIO" checked> Folio
-<input type="radio" name="searchBy[]" class="searchBy" value="FECHA"> Fecha
-<input type="radio" name="searchBy[]" class="searchBy" value="EMPLEADO"> Empleado
+<input type="radio" name="searchBy[]" class="searchBy" value="PROYECTO"> Proyecto
+<input type="radio" name="searchBy[]" class="searchBy" value="CLIENTE"> Cliente
 
 </div>
 
 <table id="inflowList" class="display" cellspacing="0" cellpadding="0" width="100%">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>Folio</th>
             <th>Proyecto</th>
             <th>Cliente</th>
             <th width="25px">Ver</th>
@@ -55,15 +56,15 @@ Busqueda por
 $(document).ready(function() {
 	var table = $('#inflowList').DataTable({
 		"aoColumnDefs": [
-			{'bSortable': false, 'aTargets': [4] },
-			{'className': 'dt-center', 'aTargets': [4] }//,
+			{'bSortable': false, 'aTargets': [3] },
+			{'className': 'dt-center', 'aTargets': [3] }//,
 			//{'visible': false, 'aTargets': [0] }
 		],
 		"scrollX": true,
 		"processing": true,
 		"serverSide": true,
 		"ajax": {
-			url: "includes/inflowList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val(),
+			url: "includes/proyectList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val(),
 			type: "post"
 		},
 		"order": [[2, 'desc']]//,
@@ -88,8 +89,7 @@ $(document).ready(function() {
 	
 	var sendValues = function() {
 		$("#searchParam").prop("placeholder", $(".searchBy:checked").val());
-		table.ajax.url("includes/inflowList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val()).load();
-		
+		table.ajax.url("includes/proyectList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val()).load();
 	};
 	
 	$("#selectW").on("change", sendValues);
