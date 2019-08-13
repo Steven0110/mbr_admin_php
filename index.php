@@ -20,7 +20,6 @@ html {
 	height:100%;
 }
 body {
-	background:url(images/stripes-back.jpg) #FFFFFF center center;
 	color:#FFF;
 	margin:0;
 	padding:0;
@@ -46,7 +45,7 @@ a {
 	padding:10px;
 	width:100%;
 	box-sizing:border-box;
-	border:1px solid #c54695;
+	border:1px solid black;
 	font-size:24px;
 	margin-top:20px;
 	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -63,17 +62,17 @@ input {
 #header {
 	margin-top:0;
 	margin-bottom:60px;
-	border-top:6px solid #c54695;
-	border-bottom:6px solid #c54695;
+	border-top:6px solid gray;
+	border-bottom:6px solid gray;
 	padding:10px 0;
 	background-color:#000000;
 }
 #content {
-	border: 4px solid #000;
+	border: 1px solid #000;
 	margin: 60px auto;
 	display: table;
 	padding: 25px;
-	background:url(images/leather-back.jpg) #c54695 center center;
+	background: gray;
 	background-size:15%;
 	text-align:center;
 	font-size:20px
@@ -95,7 +94,7 @@ input {
     <body>
 <div id="header">
     <div align="center">
-        <img src="images/logo.png" class="loginLogo" />
+        <!--<img src="images/logo.png" class="loginLogo" />-->
     </div>
 </div>
     
