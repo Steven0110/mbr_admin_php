@@ -9,7 +9,7 @@ $term = utf8_decode($requestData['search']['value']);
 if ($_SESSION["role"] != "Y") {
 	$wareHouse = $_SESSION["store"];
 } else {
-	$wareHouse = $_REQUEST["wh"];
+	$wareHouse = $_REQUEST['wh'];
 }
 
 $by = $_REQUEST["by"];
