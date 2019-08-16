@@ -6,13 +6,13 @@ $proyectCodes = array();
 $proyectNames = array();
 //bring all proyects from db
 //$storesQuery = "SELECT ID, proyect_name, client FROM PROYECTS ";
-$proyectQuery = "SELECT ID, proyectname, client FROM proyects ";
+$proyectQuery = "SELECT ID Folio, proyectname, client FROM proyects ";
 
 $proyectQuery.= "ORDER BY ID ASC";
 $proyectResult = $db->prepare($proyectQuery);
 $proyectResult->execute();
 while ($proyectRow = $proyectResult->fetch()) {
-	$proyectIDs[] = $proyectRow["ID"];
+	$proyectIDs[] = $proyectRow["Folio"];
 	$proyectCodes[] = $proyectRow["proyectname"];
 	$proyectNames[] = $proyectRow["client"];
 }

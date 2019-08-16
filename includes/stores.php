@@ -15,24 +15,24 @@ if(isset($_POST["active"])) {
 if($ID == "") {
 	// Discover next ID
 	$queryID = "SELECT ID FROM STORES ORDER BY ID DESC LIMIT 1";
-	$resultID = mysql_query($queryID);
-	$rowID = mysql_fetch_assoc($resultID);
+	$resultID = $db->query($queryID);
+	$rowID = $resultID->fetch();
 	$lastID = $rowID["ID"];
 	$nextID = $lastID + 1;
 		
 	$query = "INSERT INTO STORES (ID, code, name, phone, address, active) VALUES ($nextID, '$code', '$name', '$phone', '$address', '$active')";
 	
 	$queryProducts = "SELECT code FROM PRODUCT";
-	$resultProducts = mysql_query($queryProducts);
-	while($rowProducts = mysql_fetch_assoc($resultProducts)) {
+	$resultProducts = $db->query($queryProducts);
+	while($rowProducts = $resultProducts->fetch()) {
 		$queryLines = "INSERT INTO PRDL (ID, prodCode, storeID, qty, minq, maxq) VALUES (NULL, '".$rowProducts["code"]."', $nextID, 0, '1', '1')";
-		$resultLines = mysql_query($queryLines);
+		$resultLines = $db->query($queryLines);
 	};
 	
 } else {
 	$query = "UPDATE STORES SET code = '$code', name = '$name', phone = '$phone', address = '$address', active = '$active' WHERE ID = '$ID'";
 }
-$result = mysql_query($query);
+$result = $db->query($query);
 
 if(!$result) {
 	die('Could not enter data STORE: ' . mysql_error());
