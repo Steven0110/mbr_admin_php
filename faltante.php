@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+ 
 $timeout = 7200; // 2 hours
  if(isset($_SESSION['timeout'])) {
     $duration = time() - (int)$_SESSION['timeout'];

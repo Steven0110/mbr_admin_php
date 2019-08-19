@@ -15,14 +15,15 @@ Selecciona la lista<select id="selectW" class="" name="">
     <tr>
       <td width="200px">C&oacute;digo</td>
       <td>Nombre</td>
-      <td>Proveedor</td>
+      <td>Codigo</td>
       <td>Precio</td>
+      <td>Referencia</td>
     </tr>
   </thead>
   <tbody>
     <?php
       /*LISTA 1 DE PRECIOS*/
-		$myQuery = $db->query("SELECT T1.ID code1,T1.REFERENCE code,T1.NAME product,T1.PRICESELL price FROM products T1");
+		$myQuery = $db->query("SELECT t1.ID id, t1.REFERENCE code, t1.CODE code1, t1.NAME product, t1.PRICESELL price,t1.MARCA vendor FROM products t1 ORDER BY t1.ID ASC");
 		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>
@@ -30,6 +31,7 @@ Selecciona la lista<select id="selectW" class="" name="">
 				  <td>".$row["product"]."</td>
 				  <td>".$row["code1"]."</td>
 				  <td>$".$row["price"]."</td>
+                  <td>".$row["vendor"]."</td>
 				</tr>
 			";
 		};
