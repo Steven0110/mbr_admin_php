@@ -5,19 +5,19 @@ include "head.php";
 $orderID = $_REQUEST["ordID"];
 
 $queryOrder = "SELECT T1.ID, T1.code, T1.created_at, T1.closed_at, T1.storeID, T3.name store, T1.empID, CONCAT(T2.first, ' ', T2.last) emp, T1.remarks, T1.active FROM ORDERS T1 JOIN CREW T2 ON T1.empID = T2.ID JOIN STORES T3 ON T1.storeID = T3.ID WHERE T1.ID = $orderID";
-$resultOrder = mysql_query($queryOrder);
-$rowOrder = mysql_fetch_assoc($resultOrder);
+$resultOrder = $db->query($queryOrder);
+$rowOrder = $resultOrder->fetch();
 
 $folio = $rowOrder["code"];
 
 $queryNext = "SELECT MIN(ID) nextID FROM ORDERS WHERE ID > '$orderID' AND storeID <> 0";
-$resultNext = mysql_query($queryNext);
-$rowNext = mysql_fetch_assoc($resultNext);
+$resultNext = $db->query($queryNext);
+$rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
 $queryPrev = "SELECT MAX(ID) prevID FROM ORDERS WHERE ID < '$orderID' AND storeID <> 0";
-$resultPrev = mysql_query($queryPrev);
-$rowPrev = mysql_fetch_assoc($resultPrev);
+$resultPrev = $db->query($queryPrev);
+$rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
 
 $status = "";
@@ -37,13 +37,13 @@ switch ($rowOrder["active"]) {
 if ($rowOrder["active"] == "N") {
 	if ($rowOrder["storeID"] == 100) {
 		$queryRelDoc = "SELECT ID FROM INFLOWS WHERE baseOrd = '$folio'";
-		$resultRelDoc = mysql_query($queryRelDoc);
-		$rowRelDoc = mysql_fetch_assoc($resultRelDoc);
+		$resultRelDoc = $db->query($queryRelDoc);
+		$rowRelDoc = $resultRelDoc->fetch();
 		$relDoc = $rowRelDoc["ID"];
 	} else {
 		$queryRelDoc = "SELECT ID FROM TRANSFERS WHERE baseOrd = '$folio'";
-		$resultRelDoc = mysql_query($queryRelDoc);
-		$rowRelDoc = mysql_fetch_assoc($resultRelDoc);
+		$resultRelDoc = $db->query($queryRelDoc);
+		$rowRelDoc = $resultRelDoc->fetch();
 		$relDoc = $rowRelDoc["ID"];
 	}
 }
@@ -218,12 +218,12 @@ $("#viewRelated").closest("li").remove();
 if ($rowOrder["active"] == "N" || $rowOrder["active"] == "C") {
 ?>
 $("#cancelBT").closest("li").remove();
-<?
+<?php
 }
 
 $queryLines = "SELECT T1.prodCode, T2.name, T2.price, T1.qty FROM ORDL T1 JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.ordID = $orderID";
-$resultLines = mysql_query($queryLines);
-while ($rowLines = mysql_fetch_assoc($resultLines)) {
+$resultLines = $db->query($queryLines);
+while ($rowLines = $resultLines->fetch()) {
 	$quants[] = utf8_encode($rowLines["qty"]);
 	$codes[] = utf8_encode($rowLines["prodCode"]);
 	$products[] = utf8_encode($rowLines["name"]);
@@ -319,4 +319,3 @@ function getback() {
 
 <?php
 include "footer.php";
-?>

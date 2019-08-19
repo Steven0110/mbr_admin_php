@@ -4,19 +4,19 @@ include 'head.php';
 
 $salID = $_REQUEST["salID"];
 
-$myQuery = mysql_query("SELECT T1.ID, T1.code, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created, T1.remarks FROM SALES T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$salID'");
-$row = mysql_fetch_array($myQuery);
+$myQuery = $db->query("SELECT T1.ID, T1.code, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created, T1.remarks FROM SALES T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$salID'");
+$row = $myQuery->fetch();
 $remarks = $row["remarks"];
 $code = $row["code"];
 
 $queryNext = "SELECT MIN(ID) nextID FROM SALES WHERE ID > '$salID'";
-$resultNext = mysql_query($queryNext);
-$rowNext = mysql_fetch_assoc($resultNext);
+$resultNext = $db->query($queryNext);
+$rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
 $queryPrev = "SELECT MAX(ID) prevID FROM SALES WHERE ID < '$salID'";
-$resultPrev = mysql_query($queryPrev);
-$rowPrev = mysql_fetch_assoc($resultPrev);
+$resultPrev = $db->query($queryPrev);
+$rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
 ?>
 
@@ -57,9 +57,9 @@ $prevID = $rowPrev["prevID"];
 				</table>
 			</div>
         	<?php
-        	$myQuery = mysql_query("SELECT T2.ID, T2.code, T2.name, T1.qty, T1.price FROM SALLN T1 JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.salID = '$salID'");
+        	$myQuery = $db->query("SELECT T2.ID, T2.code, T2.name, T1.qty, T1.price FROM SALLN T1 JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.salID = '$salID'");
 			
-			while($row = mysql_fetch_array($myQuery)){
+			while($row = $myQuery->fetch()){
 				$nPrice = $row["qty"] * $row["price"];		
 				echo "
 					<div class='item'>

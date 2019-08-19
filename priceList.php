@@ -28,7 +28,7 @@ Selecciona la lista<select id="selectW" class="" name="">
 			echo "
 				<tr>
 				  <td>".$row["code"]."</td>
-				  <td>".$row["product"]."</td>
+				  <td>".utf8_decode($row["product"])."</td>
 				  <td>".$row["code1"]."</td>
 				  <td>$".$row["price"]."</td>
                   <td>".$row["vendor"]."</td>

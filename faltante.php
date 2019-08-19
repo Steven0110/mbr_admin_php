@@ -1,6 +1,6 @@
 <?php
 session_start();
- 
+
 $timeout = 7200; // 2 hours
  if(isset($_SESSION['timeout'])) {
     $duration = time() - (int)$_SESSION['timeout'];
@@ -47,7 +47,7 @@ for($i=0; $i<$storesCount; $i++) {
 array_push($colWidths, 10);
 array_push($colWidths, 15);
 
-$tranID = $_GET["tranID"];
+//$tranID = $_GET["tranID"];
 $pdf = new PDF_MC_Table();
 $pdf->AddPage();
 $pdf->AliasNbPages();
@@ -116,12 +116,12 @@ $pdf->Cell(259,.1,'',0,1,'',true);
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(30,6,'Comentarios: ',0,1,'L');
 $pdf->SetFont('Arial','',8);
-$pdf->MultiCell(259, 10, $remarks,0,'L', false);
+$pdf->MultiCell(259, 10,"hola" /*$remarks*/,0,'L', false);
 $pdf->Cell(259,.1,'',0,1,'',true);
 $pdf->SetFont('Arial','B',8);
 $pdf->Ln(8);
 $pdf->Cell(51.5, 5,'',0,0, 'L');
-$pdf->Cell(58, 5,utf8_decode('Realizó:'),0,0, 'L');
+$pdf->Cell(58, 5,utf8_decode('Realiz贸:'),0,0, 'L');
 $pdf->Cell(40, 5,'',0,0, 'L');
 $pdf->Cell(58, 5,'Valida:',0,0, 'L');
 $pdf->Cell(51.5, 5,'',0,1,'L');
@@ -131,9 +131,9 @@ $pdf->Cell(40, 20,'',0,0, 'L');
 $pdf->Cell(58, 20,'','B',0, 'L');
 $pdf->Cell(51.5, 20,'',0,1, 'L');
 $pdf->Cell(51.5, 5,'',0,0, 'L');
-$pdf->Cell(58, 5,$nameFrom,0,0, 'C');
+$pdf->Cell(58, 5,"name form"/*$nameFrom*/,0,0, 'C');
 $pdf->Cell(40, 5,'',0,0, 'L');
-$pdf->Cell(58, 5,$nameTo,0,0, 'C');
+$pdf->Cell(58, 5,"nameTo"/*$nameTo*/,0,0, 'C');
 $pdf->Cell(51.5, 5,'',0,1,'L');
 $pdf->SetFont('Arial','',8);
 

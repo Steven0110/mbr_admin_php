@@ -51,7 +51,6 @@ function PDF_HTML($orientation='P', $unit='mm', $format='A4')
 	$this->B=0;
 	$this->I=0;
 	$this->U=0;
-	$this->lMargin=50;
 	$this->HREF='';
 	$this->fontlist=array('arial', 'times', 'courier', 'helvetica', 'symbol');
 	$this->issetfont=false;
@@ -206,22 +205,18 @@ var $aligns;
 function Header()
 {
     require('includes/mysqlconn.php');
-	$pmnID = $_REQUEST["pmnID"];
-
-	$queryPmnt = "SELECT T1.ID, T1.code, T1.created_at, T1.storeID, T3.name storeName, CONCAT(T2.first, ' ', T2.last) emp, T1.active, T1.fromDate, T1.toDate FROM PAYMENT T1 JOIN CREW T2 ON T1.empID = T2.ID JOIN STORES T3 ON T1.storeID = T3.ID WHERE T1.ID = $pmnID";
-	$resultPmnt = $db->query($queryPmnt);
-	$rowPmnt = $resultPmnt->fetch();
+	$outID = $_REQUEST["outID"];
 	
-	$code = $rowPmnt["code"];
-	$store = $rowPmnt["storeID"];
-	$storeName = $rowPmnt["storeName"];
-	$emp = $rowPmnt["emp"];
-	$fromDate = $rowPmnt["fromDate"];
-	$toDate = $rowPmnt["toDate"];
-	$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_POST["fromDate"])));
-	$toDateQ = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $_POST["toDate"])));
+	$query = "SELECT T1.ID, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM OUTFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$outID'";
+	$result = $db->query($query);
+	$row = $result->fetch();
 	
-	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$store' LIMIT 1";
+	$dsStoreID = $row["dsStoreID"];
+	$dsStore = $row["dsStore"];
+	$created_at = $row["created_at"];
+	$remarks = $row["remarks"];
+		
+	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
 	$resultTo = $db->query($queryTo);
 	$rowTo = $resultTo->fetch();
 	$nameTo = $rowTo["first"]." ".$rowTo["last"];
@@ -238,30 +233,28 @@ function Header()
 	//$this->Cell(110);
     // Title
 	$this->Cell(98,8,'',0,0,'');
-	$this->Cell(98,8,utf8_decode($storeName),0,1,'R');
+	$this->Cell(98,8,$dsStore,0,1,'R');
 	$this->SetFont('Arial','B',12);
 	$this->Cell(98,5,'',0,0,'');
-	$this->Cell(98,5,'Pago '.$code,0,1,'R');
+	$this->Cell(98,5,utf8_decode('Salida de producto ').$outID,0,1,'R');
 	$this->Cell(196,5,'',0,1,'L');
 	$this->SetFont('Arial','B',8);
-	$this->Cell(49,5,'Fecha desde',0,0,'L');
-	$this->Cell(49,5,'Fecha hasta',0,0,'L');
-	$this->Cell(49,5,'Responsable',0,0,'L');
+	$this->Cell(49,5,'Fecha de documento',0,0,'L');
+	$this->Cell(49,5,utf8_decode('Salón de salida'),0,0,'L');
+	$this->Cell(49,5,'Nombre',0,0,'L');
 	$this->Cell(49,5,'E-mail',0,1,'L');
 	$this->SetFont('Arial','',8);
-	$this->Cell(49,5,$fromDate,0,0,'L');
-	$this->Cell(49,5,$toDate,0,0,'L');
+	$this->Cell(49,5,$created_at,0,0,'L');
+	$this->Cell(49,5,$dsStore,0,0,'L');
 	$this->Cell(49,5,$nameTo,0,0,'L');
 	$this->Cell(49,5,$emailTo,0,1,'L');
 	$this->SetFont('Arial','B',8);
-	$this->Cell(49,5,utf8_decode('Fecha de documento'),0,0,'L');
-	$this->Cell(49,5,utf8_decode('Realizó'),0,0,'L');
-	$this->Cell(49,5,'Estatus',0,0,'L');
+	$this->Cell(49,5,utf8_decode('Teléfono'),0,0,'L');
+	$this->Cell(98,5,utf8_decode('Dirección'),0,0,'L');
 	$this->Cell(49,5,utf8_decode('Página'),0,1,'L');
 	$this->SetFont('Arial','',8);
-	$this->Cell(49,5,$rowPmnt["created_at"],0,0,'L');
-	$this->Cell(49,5,$emp,0,0,'L');
-	$this->Cell(49,5,$rowPmnt["active"],0,0,'L');
+	$this->Cell(49,5,$phoneTo,0,0,'L');
+	$this->Cell(98,5,$addressTo,0,0,'L');
 	$this->Cell(49,5,$this->PageNo()." de {nb}",0,1,'L');
 	$this->Ln(3);
 }

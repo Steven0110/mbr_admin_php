@@ -6,8 +6,8 @@ require('fpdf/mc_pago.php');
 $pmnID = $_REQUEST["pmnID"];
 
 $queryPmnt = "SELECT T1.ID, T1.code, T1.created_at, T1.storeID, T3.name storeName, CONCAT(T2.first, ' ', T2.last) emp, T1.active, T1.fromDate, T1.toDate FROM PAYMENT T1 JOIN CREW T2 ON T1.empID = T2.ID JOIN STORES T3 ON T1.storeID = T3.ID WHERE T1.ID = $pmnID";
-$resultPmnt = mysql_query($queryPmnt);
-$rowPmnt = mysql_fetch_assoc($resultPmnt);
+$resultPmnt = $db->query($queryPmnt);
+$rowPmnt = $resultPmnt->fetch();
 
 $code = $rowPmnt["code"];
 $store = $rowPmnt["storeID"];
@@ -15,8 +15,8 @@ $storeName = $rowPmnt["storeName"];
 $emp = $rowPmnt["emp"];
 $fromDate = $rowPmnt["fromDate"];
 $toDate = $rowPmnt["toDate"];
-$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_POST["fromDate"])));
-$toDateQ = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $_POST["toDate"])));
+$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $fromDate)));
+$toDateQ = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $toDate)));
 
 $pdf = new PDF_MC_Table();
 $pdf->AddPage();
@@ -32,10 +32,10 @@ $pdf->SetFont('Arial','',8, 'C');
 	
 // Entregas
 $queryTransfers = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM TRLN T3 JOIN PRODUCT T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM TRANSFERS T1 JOIN CREW T2 ON T1.empID = T2.ID WHERE T1.orStore = 100 AND T1.dsStore = $store AND T1.account = 'Y' AND pmntCode = '$code' ORDER BY T1.created_at ASC";
-$resultTransfers = mysql_query($queryTransfers);
+$resultTransfers = $db->query($queryTransfers);
 $pdf->SetDrawColor(255,255,255);
 $tranTotal = 0;
-while ($rowTransfers = mysql_fetch_assoc($resultTransfers)) {
+while ($rowTransfers = $resultTransfers->fetch()) {
 	$pdf->SetWidths(array(30,50,91,25));
 	$pdf->SetAligns(array('','','','R'));
 	$pdf->Row(array($rowTransfers["code"],$rowTransfers["created_at"],utf8_decode($rowTransfers["emp"]),"$ ".$rowTransfers["value"]));
@@ -59,10 +59,10 @@ $pdf->SetFont('Arial','',8, 'C');
 	
 // Devoluciones
 $queryDevs = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM TRLN T3 JOIN PRODUCT T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM TRANSFERS T1 JOIN CREW T2 ON T1.empID = T2.ID WHERE T1.orStore = $store AND T1.dsStore = 100 AND T1.account = 'Y' AND pmntCode = '$code' ORDER BY T1.created_at ASC";
-$resultDevs = mysql_query($queryDevs);
+$resultDevs = $db->query($queryDevs);
 $pdf->SetDrawColor(255,255,255);
 $devTotal = 0;
-while ($rowDevs = mysql_fetch_assoc($resultDevs)) {
+while ($rowDevs = $resultDevs->fetch()) {
 	$pdf->SetWidths(array(30,50,91,25));
 	$pdf->SetAligns(array('','','','R'));
 	$pdf->Row(array($rowDevs["code"],$rowDevs["created_at"],utf8_decode($rowDevs["emp"]),"$ ".$rowDevs["value"]));

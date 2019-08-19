@@ -202,6 +202,7 @@ var $aligns;
 
 function Header()
 {	
+    require('includes/mysqlconn.php');
     // Logo
     $this->Image("images/logo.png",10,5,70);
     // Arial bold 20
@@ -215,8 +216,8 @@ function Header()
 		$title = "Faltante por Proveedor";
 	} else {
 		$queryStore = "SELECT name FROM STORES WHERE ID = '".$_SESSION["store"]."'";
-		$resultStore = mysql_query($queryStore);
-		$rowStore = mysql_fetch_assoc($resultStore);
+		$resultStore = $db->query($queryStore);
+		$rowStore = $resultStore->fetch();
 		$title = "Inventario ".$rowStore["name"];
 	}
 	$this->Cell(129.5,10,$title,0,1,'R'); 
@@ -253,8 +254,8 @@ function Header()
 		$storesQuery.= "AND ID = '".$_SESSION["store"]."' ";
 	}
 	$storesQuery.= "ORDER BY ID ASC";
-	$storesResult = mysql_query($storesQuery);
-	while ($storesRow = mysql_fetch_assoc($storesResult)) {
+	$storesResult = $db->query($storesQuery);
+	while ($storesRow = $storesResult->fetch()) {
 		$storeIDs[] = $storesRow["ID"];
 		$storeNames[] = $storesRow["code"];
 	}
@@ -305,32 +306,38 @@ function SetAligns($a)
 
 function Row($data)
 {
-    //Calculate the height of the row
-    $nb=0;
-    for($i=0;$i<count($data);$i++)
-        $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
-    $h=5*$nb;
-    //Issue a page break first if needed
-    $this->CheckPageBreak($h);
-    //Draw the cells of the row
-    for($i=0;$i<count($data);$i++)
+    try
     {
-        $w=$this->widths[$i];
-        $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
-        //Save the current position
-        $x=$this->GetX();
-        $y=$this->GetY();
-        //Draw the border
-        $this->Rect($x,$y,$w,$h);
-        //Print the text
-        $this->MultiCell($w,5,$data[$i],0,$a);
-        //Put the position to the right of the cell
-        $this->SetXY($x+$w,$y);
+        //Calculate the height of the row
+        $nb=0;
+        for($i=0;$i<count($data);$i++)
+            $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
+        $h=5*$nb;
+        //Issue a page break first if needed
+        $this->CheckPageBreak($h);
+        //Draw the cells of the row
+        for($i=0;$i<count($data);$i++)
+        {
+            $w=$this->widths[$i];
+            $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
+            //Save the current position
+            $x=$this->GetX();
+            $y=$this->GetY();
+            //Draw the border
+            $this->Rect($x,$y,$w,$h);
+            //Print the text
+            $this->MultiCell($w,5,$data[$i],0,$a);
+            //Put the position to the right of the cell
+            $this->SetXY($x+$w,$y);
+        }
+        //Go to the next line
+        $this->Ln($h);
     }
-    //Go to the next line
-    $this->Ln($h);
+    catch(Exception $ex)
+    {
+        echo $ex;
+    }
 }
-
 function CheckPageBreak($h)
 {
     //If the height h would cause an overflow, add a new page immediately

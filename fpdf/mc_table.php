@@ -205,11 +205,12 @@ var $aligns;
 
 function Header()
 {
+    require('includes/mysqlconn.php');
 	$tranID = $_REQUEST["tranID"];
 	
 	$query = "SELECT T1.ID, T1.code, T1.orStore orStoreID, T1.dsStore dsStoreID, T2.name orStore, T3.name dsStore, T1.created_at, T1.empID, T1.remarks FROM TRANSFERS T1 JOIN STORES T2 ON T1.orStore = T2.ID JOIN STORES T3 ON T1.dsStore = T3.ID WHERE T1.ID = '$tranID'";
-	$result = mysql_query($query);
-	$row = mysql_fetch_assoc($result);
+	$result = $db->query($query);
+	$row = $result->fetch();
 	
 	$code = $row["code"];
 	$orStoreID = $row["orStoreID"];
@@ -217,20 +218,20 @@ function Header()
 	$dsStoreID = $row["dsStoreID"];
 	$dsStore = $row["dsStore"];
 	$created_at = $row["created_at"];
-	$TotalDoc = $row["Total_Doc"];
+	//$TotalDoc = $row["Total_Doc"];
 	$remarks = $row["remarks"];
 	
 	$queryFrom = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$orStoreID' LIMIT 1";
-	$resultFrom = mysql_query($queryFrom);
-	$rowFrom = mysql_fetch_assoc($resultFrom);
+	$resultFrom = $db->query($queryFrom);
+	$rowFrom = $resultFrom->fetch();
 	$nameFrom = $rowFrom["first"]." ".$rowFrom["last"];
 	$emailFrom = $rowFrom["email"];
 	$phoneFrom = $rowFrom["phone"];
 	$addressFrom = $rowFrom["address"];
 	
 	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
-	$resultTo = mysql_query($queryTo);
-	$rowTo = mysql_fetch_assoc($resultTo);
+	$resultTo = $db->query($queryTo);
+	$rowTo = $resultTo->fetch();
 	$nameTo = $rowTo["first"]." ".$rowTo["last"];
 	$emailTo = $rowTo["email"];
 	$phoneTo = $rowTo["phone"];

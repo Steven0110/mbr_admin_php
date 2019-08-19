@@ -103,7 +103,7 @@ $(document).ready(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax": {
-			url: "includes/productList.php?by=CODIGO",
+			url: "includes/productList.php?by=CODIGO&wh="+$("#selectW").val(),
 			type: "post",
 			beforeSend: function(xhr, settings){
 				if($("#searchParam").val().length <= 4 && $("#searchParam").val().length > 0)

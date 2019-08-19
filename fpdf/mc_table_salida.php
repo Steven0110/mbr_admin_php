@@ -204,21 +204,22 @@ var $aligns;
 
 function Header()
 {
+    require('includes/mysqlconn.php');
 	$outID = $_REQUEST["outID"];
 	
 	$query = "SELECT T1.ID, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM OUTFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$outID'";
-	$result = mysql_query($query);
-	$row = mysql_fetch_assoc($result);
+	$result = $db->query($query);
+	$row = $result->fetch();
 	
 	$dsStoreID = $row["dsStoreID"];
 	$dsStore = $row["dsStore"];
 	$created_at = $row["created_at"];
 	$remarks = $row["remarks"];
 		
-	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
-	$resultTo = mysql_query($queryTo);
-	$rowTo = mysql_fetch_assoc($resultTo);
-	$nameTo = $rowTo["first"]." ".$rowTo["last"];
+	$queryTo = "SELECT T1.first first, T1.last last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
+	$resultTo = $db->query($queryTo);
+	$rowTo = $resultTo->fetch();
+	$_SESSION['nameTo'] = $rowTo["first"]." ".$rowTo["last"];
 	$emailTo = $rowTo["email"];
 	$phoneTo = $rowTo["phone"];
 	$addressTo = $rowTo["address"];
@@ -245,7 +246,7 @@ function Header()
 	$this->SetFont('Arial','',8);
 	$this->Cell(49,5,$created_at,0,0,'L');
 	$this->Cell(49,5,$dsStore,0,0,'L');
-	$this->Cell(49,5,$nameTo,0,0,'L');
+	$this->Cell(49,5,$_SESSION['nameTo'],0,0,'L');
 	$this->Cell(49,5,$emailTo,0,1,'L');
 	$this->SetFont('Arial','B',8);
 	$this->Cell(49,5,utf8_decode('Teléfono'),0,0,'L');

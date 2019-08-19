@@ -17,8 +17,8 @@ $pdf->SetFont('Arial','',8, 'C');
 
 //Datos entrega
 $query1 = "SELECT T1.ID, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM INFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$infID'";
-$result1 = mysql_query($query1);
-$row1 = mysql_fetch_assoc($result1);
+$result1 = $db->query($query1);
+$row1 = $result1->fetch();
 
 $dsStoreID = $row1["dsStoreID"];
 $remarks= $row1["remarks"];
@@ -27,9 +27,9 @@ $remarks= $row1["remarks"];
 	
 // Lineas
 $queryTran = "SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM INLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.infID = '$infID'";
-$resultTran = mysql_query($queryTran);
+$resultTran = $db->query($queryTran);
 $pdf->SetDrawColor(255,255,255);
-while($rowTran = mysql_fetch_array($resultTran)) {
+while($rowTran = $resultTran->fetch()) {
 	$pdf->SetWidths(array(16,25,80,75));
 	$pdf->Row(array($rowTran["qty"],$rowTran["prodCode"],$rowTran["name"],""));
 }
@@ -68,7 +68,7 @@ $pdf->Cell(20, 20,'',0,1, 'L');
 $pdf->Cell(20, 5,'',0,0, 'L');
 $pdf->Cell(58, 5,'',0,0, 'C');
 $pdf->Cell(40, 5,'',0,0, 'L');
-$pdf->Cell(58, 5,$nameTo,0,0, 'C');
+$pdf->Cell(58, 5,$_SESSION['nameTo'],0,0, 'C');
 $pdf->Cell(20, 5,'',0,1,'L');
 $pdf->Cell(20, 5,'',0,0, 'L');
 $pdf->Cell(58, 5,'Fecha y hora:',0,0, 'L');
