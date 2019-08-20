@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require("mysqlconn.php");
 $by = $_REQUEST["by"];
 $param =  utf8_decode($_GET["param"]);
 $storeID = $_REQUEST["storeID"];

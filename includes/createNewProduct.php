@@ -13,7 +13,7 @@ $remarks = $_POST['remarks'];
 
 // Enter New Product to DB
 $sql = "INSERT INTO PRODUCT (ID, code, name, detail, vendorID, catID, cost, price, inventory, remarks) VALUES (NULL, '$code', '$product', '$detail', '$vendor', '$cat', '$cost', '$price', 0, '$remarks')";
-$retval = mysql_query($sql);
+$retval = $db->query($sql);
 if(!$retval)
 {
   die('Could not enter data: ' . mysql_error());
@@ -24,7 +24,7 @@ foreach ($_POST['storeID'] as $key => $value) {
 	$min = $_POST['min'][$key];
 	$max = $_POST['max'][$key];
 	$sql = "INSERT INTO PRDL (ID, prodCode, storeID, qty, minq, maxq) VALUES (NULL, '$code', '$value', 0, '$min', '$max')";
-	$retval = mysql_query($sql);
+	$retval = $db->query($sql);
 	if(! $retval )
 	{
 	  die('Could not enter data: ' . mysql_error());

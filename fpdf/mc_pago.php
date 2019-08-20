@@ -218,9 +218,9 @@ function Header()
 	$emp = $rowPmnt["emp"];
 	$fromDate = $rowPmnt["fromDate"];
 	$toDate = $rowPmnt["toDate"];
-	$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_POST["fromDate"])));
+	/*$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_POST["fromDate"])));
 	$toDateQ = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $_POST["toDate"])));
-	
+	*/
 	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$store' LIMIT 1";
 	$resultTo = $db->query($queryTo);
 	$rowTo = $resultTo->fetch();

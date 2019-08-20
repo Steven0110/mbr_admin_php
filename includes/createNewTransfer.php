@@ -15,7 +15,7 @@ if (isset($_POST["ordCode"])) {
 	$baseOrd = $_POST["ordCode"];
 	
 	$queryCloseOrder = "UPDATE ORDERS SET active = 'N', closed_at = CURRENT_TIMESTAMP WHERE code = '$baseOrd'";
-	$resultCloseOrder = mysql_query($queryCloseOrder);
+	$resultCloseOrder = $db->query($queryCloseOrder);
 	if (!$resultCloseOrder)
 	{
 		die('Could not write data CloseOrder: ' . mysql_error());
@@ -25,14 +25,14 @@ if (isset($_POST["ordCode"])) {
 	foreach ($_POST['prodCode'] as $key => $value) {
 		$quant = $_POST['quant'][$key];
 		// Current QTY onOrder
-		$myQuery = mysql_query("SELECT OnOrder FROM PRDL WHERE prodCode = '$value' AND storeID = '$dsStore'");
-		$row = mysql_fetch_assoc($myQuery);
+		$myQuery = $db->query("SELECT OnOrder FROM PRDL WHERE prodCode = '$value' AND storeID = '$dsStore'");
+		$row = $myQuery->fetch();
 		$curQty = $row["OnOrder"];
 		
 		$newQty = $curQty - $quant;
 		
 		$sql = "UPDATE PRDL SET OnOrder = '$newQty' WHERE prodCode = '$value' AND storeID = '$dsStore'";
-		$retval = mysql_query($sql);
+		$retval = $db->query($sql);
 		if(! $retval )
 		{
 		  die('Could not enter data: ' . mysql_error());
@@ -42,26 +42,26 @@ if (isset($_POST["ordCode"])) {
 
 // Discover next ID
 $numQuery = "SELECT ID FROM TRANSFERS ORDER BY ID DESC LIMIT 1";
-$resultID = mysql_query($numQuery);
+$resultID = $db->query($numQuery);
 if (!$resultID)
 {
 	die('Could not read data: ' . mysql_error());
 } else {
-	$rowID = mysql_fetch_array($resultID);	
+	$rowID = $resultID->fetch();	
 	$ID = $rowID["ID"] + 1;
 }
 
 // Discover next code
 $codeQuery = "SELECT code FROM TRANSFERS WHERE dsStore = $dsStore ORDER BY code DESC LIMIT 1";
-$resultCode = mysql_query($codeQuery);
+$resultCode = $db->query($codeQuery);
 if (!$resultCode)
 {
 	die('Could not read data Code: ' . mysql_error());
 } else {
-	$rowCode = mysql_fetch_assoc($resultCode);
+	$rowCode = $resultCode->fetch();
 	if ($rowCode["code"] == "" || $rowCode["code"] == NULL) {
-		$queryStore = mysql_query("SELECT code FROM STORES WHERE ID = $dsStore");
-		$rowStore = mysql_fetch_assoc($queryStore);
+		$queryStore = $db->query("SELECT code FROM STORES WHERE ID = $dsStore");
+		$rowStore = $queryStore->fetch();
 		$code = $rowStore["code"]."-TRN-100001";
 	} else {
 		$curCode = str_split($rowCode["code"], 8);
@@ -73,7 +73,7 @@ if (!$resultCode)
 
 // Enter Transfer to DB
 $sql = "INSERT INTO TRANSFERS (ID, code, baseOrd, orStore, dsStore, empID, created_at, account, remarks) VALUES ('$ID', '$code', '$baseOrd', '$orStore', '$dsStore', '$employee', CURRENT_TIMESTAMP, 'N', '$remarks')";
-$retval = mysql_query($sql);
+$retval = $db->query($sql);
 if(! $retval )
 {
   die('Could not enter data: ' . mysql_error());
@@ -83,7 +83,7 @@ if(! $retval )
 foreach ($_POST['prodCode'] as $key => $value) {
 	$quant = $_POST['quant'][$key];
 	$sql = "INSERT INTO TRLN (ID, tranID, prodCode, qty) VALUES (NULL, '$ID', '$value', '$quant')";
-	$retval = mysql_query($sql);
+	$retval = $db->query($sql);
 	if(! $retval )
 	{
 	  die('Could not enter data: ' . mysql_error());
@@ -91,27 +91,27 @@ foreach ($_POST['prodCode'] as $key => $value) {
 	
 	// Modify inventory
 	// Current QTY
-	$myQuery = mysql_query("SELECT qty FROM PRDL WHERE prodCode = '$value' AND storeID = '$orStore'");
-	$row = mysql_fetch_assoc($myQuery);
+	$myQuery = $db->query("SELECT qty FROM PRDL WHERE prodCode = '$value' AND storeID = '$orStore'");
+	$row = $myQuery->fetch();
 	$curQty = $row['qty'];
 	
 	$newQty = $curQty - $quant;
 	
 	$sql = "UPDATE PRDL SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$orStore'";
-	$retval = mysql_query($sql);
+	$retval = $db->query($sql);
 	if(! $retval )
 	{
 	  die('Could not enter data: ' . mysql_error());
 	}
 	
-	$myQuery = mysql_query("SELECT qty FROM PRDL WHERE prodCode = '$value' AND storeID = '$dsStore'");
-	$row = mysql_fetch_assoc($myQuery);
+	$myQuery = $db->query("SELECT qty FROM PRDL WHERE prodCode = '$value' AND storeID = '$dsStore'");
+	$row = $myQuery->fetch();
 	$curQty = $row['qty'];
 	
 	$newQty = $curQty + $quant;
 	
 	$sql = "UPDATE PRDL SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$dsStore'";
-	$retval = mysql_query($sql);
+	$retval = $db->query($sql);
 	if(! $retval )
 	{
 	  die('Could not enter data: ' . mysql_error());

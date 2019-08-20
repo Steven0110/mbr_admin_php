@@ -202,6 +202,7 @@ var $aligns;
 
 function Header()
 {	
+	require("includes/mysqlconn.php");
     // Logo
     $this->Image("images/logo.png",10,5,70);
     // Arial bold 20
@@ -215,8 +216,8 @@ function Header()
 		$title = "Inventario General";
 	} else {
 		$queryStore = "SELECT name FROM STORES WHERE ID = '".$_SESSION["store"]."'";
-		$resultStore = mysql_query($queryStore);
-		$rowStore = mysql_fetch_assoc($resultStore);
+		$resultStore = $db->query($queryStore);
+		$rowStore = $resultStore->fetch();
 		$title = "Inventario ".$rowStore["name"];
 	}
 	$this->Cell(129.5,10,$title,0,1,'R'); 
@@ -253,8 +254,8 @@ function Header()
 		$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 	}
 	$storesQuery.= "ORDER BY ID ASC";
-	$storesResult = mysql_query($storesQuery);
-	while ($storesRow = mysql_fetch_assoc($storesResult)) {
+	$storesResult = $db->query($storesQuery);
+	while ($storesRow = $storesResult->fetch()) {
 		$storeIDs[] = $storesRow["ID"];
 		$storeNames[] = $storesRow["code"];
 	}

@@ -28,8 +28,8 @@ if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }
 $storesQuery.= "ORDER BY ID ASC";
-$storesResult = mysql_query($storesQuery);
-while ($storesRow = mysql_fetch_assoc($storesResult)) {
+$storesResult = $db->query($storesQuery);
+while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];
 	$storeNames[] = $storesRow["code"];
 }
@@ -57,12 +57,12 @@ if ($_SESSION["role"] == 'Y') {
 	$query.= ", (SELECT SUM(qty) FROM PRDL T4 WHERE T4.prodCode = T1.code) total";
 }
 $query.= " FROM PRODUCT T1 INNER JOIN CAT T2 ON T1.catID = T2.ID WHERE T1.active != 'N' ORDER BY T1.name ASC";
-$result = mysql_query($query);
-while($row = mysql_fetch_array($result)){
+$result = $db->query($query);
+while($row = $result->fetch()){
 	foreach ($storeIDs as $i => $storeID) {
 		$byStore = "SELECT qty FROM PRDL WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."' ORDER BY storeID ASC";
-		$resByStore = mysql_query($byStore);
-		while($rowByStore = mysql_fetch_assoc($resByStore)) {
+		$resByStore = $db->query($byStore);
+		while($rowByStore = $resByStore->fetch()) {
 			array_push($row, $rowByStore["qty"]);
 		};
 	}

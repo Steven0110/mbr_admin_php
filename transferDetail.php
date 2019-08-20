@@ -13,7 +13,7 @@ $nextID = $rowNext["nextID"];
 
 $queryPrev = "SELECT MAX(ID) prevID FROM TRANSFERS WHERE ID < '$tranID'";
 $resultPrev = $db->query($queryPrev);
-$rowPrev = $resultPrev->fetch;
+$rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
 ?>
 

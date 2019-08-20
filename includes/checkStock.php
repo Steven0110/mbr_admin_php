@@ -23,11 +23,11 @@ $stock = 0;
 $i = 0;
 foreach($products as $product){
 	$sql = "SELECT qty FROM PRDL WHERE prodCode = '".$product."' AND storeID = '".$store."'";
-	$resultSet = mysql_query($sql);
+	$resultSet = $db->query($sql);
 	if(!$resultSet)
 		die("{\"code\":-1, \"msg\":\"" . mysql_error() . "\"}");
 	else{
-		$row = mysql_fetch_assoc($resultSet);
+		$row = $resultSet->fetch();
 		if(intval($row["qty"]) < intval( $q[ $i ] )){
 		    $stock = intval( $row["qty"] );
 			$responseCode = 0;

@@ -13,9 +13,9 @@ $storeName = $rowPmnt["storeName"];
 $emp = $rowPmnt["emp"];
 $fromDate = $rowPmnt["fromDate"];
 $toDate = $rowPmnt["toDate"];
-$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_POST["fromDate"])));
+/*$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_POST["fromDate"])));
 $toDateQ = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $_POST["toDate"])));
-
+*/
 ?>
 <form method="post" id="pmntForm">
 <div class="sectionTitle">
