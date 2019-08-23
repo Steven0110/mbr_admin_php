@@ -8,9 +8,9 @@ $employee = $_SESSION["empID"];
 $remarks = $_POST["remarks"];
 $empEnc = $_POST["emp"];
 
-$selectquery = $db->query("SELECT ID_PRESTAMO FROM prestamos GROUP BY ID_PRESTAMO ORDER BY ID_PRESTAMO DESC");
+$selectquery = $db->query("SELECT ID_PRESTAMO FROM prestamos GROUP BY ID_PRESTAMO ORDER BY ID_PRESTAMO DESC LIMIT 1");
 $oldID = $selectquery->fetch();
-$nuevoID = (int)$oldID + 1;
+$nuevoID = $oldID["ID_PRESTAMO"] + 1;
 // Enter Inflow Lines
 foreach ($_POST['prodCode'] as $key => $value) {
 	$quant = $_POST['quant'][$key];

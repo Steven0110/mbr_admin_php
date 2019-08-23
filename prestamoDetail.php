@@ -2,10 +2,11 @@
 
 $infID = $_REQUEST["infID"];
 
-$myQuery = $db->query("SELECT t1.ID_PRESTAMO prestamo, t4.proyectname proyect, t2.NOMBRE emp, t1.ID_HERRAMIENTA, t3.name store, t1.CREATED_AT created, t1.REMARKS remarks, t1.STATUS FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN stores t3 ON t1.ID_STORE = t3.ID INNER JOIN proyects t4 ON t1.ID_PROYECTO = t4.ID WHERE t1.ID_PRESTAMO = '$infID'");
+$myQuery = $db->query("SELECT t1.ID_PRESTAMO prestamo, t4.proyectname proyect, t2.NOMBRE emp, t1.ID_HERRAMIENTA, t3.name store, t1.ID_STORE storeID, t1.CREATED_AT created, t1.REMARKS remarks, t1.STATUS FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN stores t3 ON t1.ID_STORE = t3.ID INNER JOIN proyects t4 ON t1.ID_PROYECTO = t4.ID WHERE t1.ID_PRESTAMO = '$infID'");
 $row = $myQuery->fetch();
 $remarks = $row["remarks"];
 $folio = $row["created"]."  ID= ".$row["prestamo"];
+$storeID = $row["storeID"];
 
 $queryNext = "SELECT MIN(ID_PRESTAMO) nextID FROM prestamos WHERE ID_PRESTAMO > '$infID' AND ID_STORE <> 0";
 $resultNext = $db->query($queryNext);
@@ -30,9 +31,9 @@ for ($i = 0; $i<$rowprueba["max"];$i++)
 ?>
 
 <div class="sectionTitle">
-    <a href="inflowDetail.php?infID=<?php echo $prevID; ?>"><i class="fa fa-arrow-left prev" aria-hidden="true"></i></a>
+    <a href="prestamoDetail.php?infID=<?php echo $prevID; ?>"><i class="fa fa-arrow-left prev" aria-hidden="true"></i></a>
     ENTRADA <?php echo $folio; ?>
-    <a href="inflowDetail.php?infID=<?php echo $nextID; ?>"><i class="fa fa-arrow-right next" aria-hidden="true"></i></a>
+    <a href="prestamoDetail.php?infID=<?php echo $nextID; ?>"><i class="fa fa-arrow-right next" aria-hidden="true"></i></a>
 </div>
 
 <div class="format">
@@ -98,9 +99,10 @@ for ($i = 0; $i<$rowprueba["max"];$i++)
     	<td colspan="2">
         	<ul id="buttonBar">
             	<li><button type='button' class='formButton blueB' onClick="getback();"><i class='fa fa-hand-o-left' aria-hidden='true'></i> Regresar</button></li>
+              <li><a href="includes/toolRtn.php?infID=<?php echo $infID; ?>&storeID=<?php echo $storeID; ?>" class="formButton blueB"><i class='fa ' aria-hidden='true'></i> Cerrar Prestamo</a></li>
                 <li><a class="formButton blueB" href="entrada.php?infID=<?php echo $infID; ?>" target="_blank"><i class='fa fa-file-pdf-o' aria-hidden='true'></i> PDF</a></li>
-    		</ul>
-        </td>
+    		  </ul>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -110,6 +112,7 @@ for ($i = 0; $i<$rowprueba["max"];$i++)
 function getback() {
 	window.history.back();
 }
+
 </script>
     
 <?php include 'footer.php'; ?>

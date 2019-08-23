@@ -26,7 +26,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT t1.ID_PRESTAMO ID, t1.ID_PROYECTO ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO GROUP BY t1.ID_PRESTAMO";
+$query = "SELECT t1.ID_PRESTAMO ID, t1.ID_PROYECTO ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO WHERE t1.STATUS = 'A'";
 /*
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";
@@ -37,13 +37,13 @@ if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 if (!empty($term)) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
 		case "ID":
-			$query.= " WHERE t1.ID_PROYECTO LIKE '%".$term."%'";
+			$query.= " AND t1.ID_PROYECTO LIKE '%".$term."%' GROUP BY t1.ID_PRESTAMO";
 			break;
 		case "PRESTAMO": /*AND DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') LIKE '%".$term."%'*/
-			$query.= " WHERE t1.ID_PRESTAMO LIKE '%".$term."%'";
+			$query.= " AND t1.ID_PRESTAMO LIKE '%".$term."%' GROUP BY t1.ID_PRESTAMO";
 			break;
 		case "EMPLEADO":
-			$query.= " WHERE t2.ID_EMPLEADO LIKE '%".$term."%'";
+			$query.= " AND t2.ID_EMPLEADO LIKE '%".$term."%' GROUP BY t1.ID_PRESTAMO";
 			break;
 	}
 
@@ -64,7 +64,7 @@ while($row = $result->fetch()) {
 	$nestedData[] = utf8_encode($row["ID"]);
 	$nestedData[] = utf8_encode($row["created"]);
 	$nestedData[] = utf8_encode($row["name"]);
-	$nestedData[] = "<a href='inflowDetail.php?infID=".$row["ID"]."'><i class='fa fa-eye' aria-hidden='true'></i></a>";
+	$nestedData[] = "<a href='prestamoDetail.php?infID=".$row["ID"]."'><i class='fa fa-eye' aria-hidden='true'></i></a>";
 	$data[] = $nestedData;	
 }
 

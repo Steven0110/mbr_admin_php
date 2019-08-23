@@ -22,8 +22,8 @@ while ($storesRow = $storesResult->fetch()) {
 
 <script type="text/javascript" charset="utf8" src="js/dt/js/jquery.dataTables.min.js"></script>
 
-<div class="sectionTitle">ENTRADAS</div>
-<div class="sButtons"><a href="newPrestamo.php" class="sButton">REGISTRAR ENTRADA</a></div>
+<div class="sectionTitle">PRESTAMOS ACTIVOS</div>
+<div class="sButtons"><a href="newPrestamo.php" class="sButton">REGISTRAR PRESTAMO</a></div>
 
 <div class="searchDiv">
 Mostrar registros del empleado: <select id="selectW" class="" name="">

@@ -7,7 +7,7 @@
     <?php
 	if ($_SESSION["role"] == 'Y') {
         echo ("<li><a href='proyects.php'>PROYECTOS</a></li>");
-        echo ("<li><a href='prestamos.php'>Herramientas</a></li>");
+        echo ("<li><a href='prestamos.php'>HERRAMIENTAS</a></li>");
 	}
 	?>
     <!--<li><a href="outflows.php">SALIDAS</a></li>-->
