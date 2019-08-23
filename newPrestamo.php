@@ -6,7 +6,7 @@
 <div class="sectionTitle">REGISTRAR ENTRADA</div>
 
 <div class="format">
-<form method="post" action="includes/createNewInflow.php" id="inflowForm">
+<form method="post" action="includes/createNewPrestamo.php" id="inflowForm">
 <table width="100%" border="0" cellspacing="20px" cellpadding="0">
   <tbody>
     <tr>
@@ -22,7 +22,31 @@
 			?>
         </select></div>
       </td>
-      <td width="50%">
+    </tr>
+    <tr>
+    	<td width="50%">Proyecto<br>
+      	<div style="margin-top:10px">
+        	<select id="proyect" name="proyect" style="margin-top:10px;" required>
+            <option value="" selected disabled>Selecciona...</option>
+        	<?php
+			$myQuery = $db->query("SELECT ID, CONCAT(proyectname, ' (', ID, ')') name FROM proyects");
+			while($row = $myQuery->fetch()){
+				echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
+			};
+			?>
+        </select></div>
+      </td>
+      <td width="50%">Empleados<br>
+		<div style="margin-top:10px">
+        	<select id="emp" name="emp" style="margin-top:10px;" required>
+            <option value="" selected disabled>Selecciona...</option>
+        	<?php
+			$myQuery = $db->query("SELECT ID_EMPLEADO,NUMERO, CONCAT(NOMBRE, ' (',NUMERO,')') NOMBRE FROM empleados");
+			while($row = $myQuery->fetch()){
+				echo "<option value='".$row["ID_EMPLEADO"]."'>".$row["NOMBRE"]."</option>";
+			};
+			?>
+        </select></div>
         </td>
     </tr>
     <tr>

@@ -8,49 +8,47 @@ $wareHouse = $_REQUEST["wh"];
 $by = $_REQUEST["by"];
 $columns = array( 
 // datatable column index  => database column name
-	0 => 'store', 
-	1 => 'code',
-	2 => 'created',
-	3 => 'emp',
-	4 => 'ID'
+	0 => 'NOMBRE',
+	1 => 'CREATED_AT',
+	2 => 'ID_PROYECTO',
+	3 => 'ID_PRESTAMO'
 );
 
 // getting total number records without any search
-$queryTotal = "SELECT COUNT(*) quant FROM INFLOWS";
-if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
+$queryTotal = "SELECT COUNT(*) quant FROM prestamos GROUP BY ID_PRESTAMO";
+/*if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$queryTotal.= "";
 } else {
 	$queryTotal.= " WHERE storeID = '$wareHouse'";
-}
+}*/
 $resultTotal = $db->query($queryTotal);
 $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT T2.name store, T1.code, DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') created, CONCAT(T3.first, ' ', T3.last) emp, T1.ID FROM INFLOWS T1 JOIN STORES T2 ON T1.storeID = T2.ID JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.storeID <> 0";
-
+$query = "SELECT t1.ID_PRESTAMO ID, t1.ID_PROYECTO ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO GROUP BY t1.ID_PRESTAMO";
+/*
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";
 } else {
 	$query.= " AND T2.ID = '$wareHouse'";
-}
+}*/
 
 if (!empty($term)) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
-		case "FOLIO":
-			$query.= " AND T1.code LIKE '%".$term."%'";
+		case "ID":
+			$query.= " WHERE t1.ID_PROYECTO LIKE '%".$term."%'";
 			break;
-		case "FECHA":
-			$query.= " AND DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') LIKE '%".$term."%'";
+		case "PRESTAMO": /*AND DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') LIKE '%".$term."%'*/
+			$query.= " WHERE t1.ID_PRESTAMO LIKE '%".$term."%'";
 			break;
 		case "EMPLEADO":
-			$query.= " AND CONCAT(T3.first, ' ', T3.last) LIKE '%".$term."%'";
+			$query.= " WHERE t2.ID_EMPLEADO LIKE '%".$term."%'";
 			break;
 	}
 
-	$result = $db->prepare($query);
-    $result->execute;
-	$totalFiltered = $result->fetchColumns(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+	$result = $db->query($query);
+	$totalFiltered = $result->fetch(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";
@@ -61,10 +59,11 @@ $data = array();
 while($row = $result->fetch()) {
 	$nestedData = array();
 
-	$nestedData[] = utf8_encode($row["code"]);
-	$nestedData[] = utf8_encode($row["store"]);
+
+	$nestedData[] = utf8_encode($row["ID_PROYECTO"]);
+	$nestedData[] = utf8_encode($row["ID"]);
 	$nestedData[] = utf8_encode($row["created"]);
-	$nestedData[] = utf8_encode($row["emp"]);
+	$nestedData[] = utf8_encode($row["name"]);
 	$nestedData[] = "<a href='inflowDetail.php?infID=".$row["ID"]."'><i class='fa fa-eye' aria-hidden='true'></i></a>";
 	$data[] = $nestedData;	
 }

@@ -2,20 +2,31 @@
 
 $infID = $_REQUEST["infID"];
 
-$myQuery = $db->query("SELECT T1.ID, T1.code, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created, T1.remarks FROM INFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$infID'");
+$myQuery = $db->query("SELECT t1.ID_PRESTAMO prestamo, t4.proyectname proyect, t2.NOMBRE emp, t1.ID_HERRAMIENTA, t3.name store, t1.CREATED_AT created, t1.REMARKS remarks, t1.STATUS FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN stores t3 ON t1.ID_STORE = t3.ID INNER JOIN proyects t4 ON t1.ID_PROYECTO = t4.ID WHERE t1.ID_PRESTAMO = '$infID'");
 $row = $myQuery->fetch();
 $remarks = $row["remarks"];
-$folio = $row["code"];
+$folio = $row["created"]."  ID= ".$row["prestamo"];
 
-$queryNext = "SELECT MIN(ID) nextID FROM INFLOWS WHERE ID > '$infID' AND storeID <> 0";
+$queryNext = "SELECT MIN(ID_PRESTAMO) nextID FROM prestamos WHERE ID_PRESTAMO > '$infID' AND ID_STORE <> 0";
 $resultNext = $db->query($queryNext);
 $rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
-$queryPrev = "SELECT MAX(ID) prevID FROM INFLOWS WHERE ID < '$infID' AND storeID <> 0";
+$queryPrev = "SELECT MAX(ID_PRESTAMO) prevID FROM prestamos WHERE ID_PRESTAMO < '$infID' AND ID_STORE <> 0";
 $resultPrev = $db->query($queryPrev);
 $rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
+/*-------------PARA actualizar registros de inflows
+$queryprueba = "SELECT MAX(ID) max FROM INFLOWS";
+$RESULTADO = $db->query($queryprueba);
+$rowprueba = $RESULTADO->fetch();
+
+for ($i = 0; $i<$rowprueba["max"];$i++)
+{
+  $queryprueba = "UPDATE INFLOWS SET employee = '6c87e7f9-96f7-4cf2-a08d-331c026d406d' WHERE ID = '$i' ";
+  $RESULTADO = $db->query($queryprueba);
+}
+*/
 ?>
 
 <div class="sectionTitle">
@@ -32,13 +43,20 @@ $prevID = $rowPrev["prevID"];
       <td width="50%">Almacén<br>
       	<div style="margin-top:10px"><input type="text" value="<?php echo $row['store']; ?>" disabled class='inputText'></div>
       </td>
+    </tr>
+    <tr>
+      <td width="50%">Proyecto<br>
+        <div style="margin-top:10px"><input type="text" value="<?php echo $row['proyect']; ?>" disabled class='inputText'></div>
+        </td>
       <td width="50%">Empleado<br>
         <div style="margin-top:10px"><input type="text" value="<?php echo $row['emp']; ?>" disabled class='inputText'></div>
         </td>
     </tr>
     <tr>
     	<td>Fecha de creación<br><div style="margin-top:10px"><input type="text" value="<?php echo $row['created']; ?>" disabled class='inputText'></div></td>
-        <td></td>
+        <td>Empleado a quien se prestó<br>
+          <div style="margin-top:10px"><input type="text" value="<?php echo $row['emp']; ?>" disabled class='inputText'></div>
+        </td>
     </tr>
     <tr>
       <td colspan="2">Partidas<br>
@@ -53,7 +71,7 @@ $prevID = $rowPrev["prevID"];
 				</table>
 			</div>
         	<?php
-        	$myQuery = $db->query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM INLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.infID = '$infID'");
+        	$myQuery = $db->query("SELECT t1.qty qty,t2.code prodCode, t2.name name FROM prestamos t1 INNER JOIN product t2 on T1.ID_HERRAMIENTA = t2.code WHERE t1.ID_PRESTAMO = '$infID'");
 			
 			while($row = $myQuery->fetch()){			
 				echo "
@@ -63,6 +81,7 @@ $prevID = $rowPrev["prevID"];
 								<td width='76px'><input type='text' value='".$row["qty"]."' disabled class='inputText' style='width:70px !important'></td>
 								<td width='250px'><input type='text' value='".$row["prodCode"]."' disabled class='inputText'></td>
 								<td><input type='text' value='".$row["name"]."' disabled class='inputText'></td>
+                <td width='30px'><i class='fa fa-trash-o remove' aria-hidden='true'></i></td>\
 							</tr>
 						</table>
 					</div>
