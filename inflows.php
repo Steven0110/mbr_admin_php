@@ -2,31 +2,28 @@
 include 'head.php';
 
 $storeIDs = array();
-$storeCodes = array();
 $storeNames = array();
-$storeDate  =array();
-//"SELECT ID, code, name FROM STORES ";
-$storesQuery = "SELECT t1.ID_PRESTAMO ID, t3.proyectname ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN proyects t3 ON t1.ID_PROYECTO = t3.ID WHERE t1.STATUS = 'A' GROUP BY t1.ID_PRESTAMO ";
-/*
+
+$storesQuery = "SELECT ID, code, name FROM STORES ";
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
-}*/
+}
+$storesQuery.= "ORDER BY ID ASC";
 $storesResult = $db->query($storesQuery);
 while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];
-	$storeCodes[] = $storesRow["ID_PROYECTO"];
-	$storeDate[] = $storesRow["created"];
+	$storeCodes[] = $storesRow["code"];
 	$storeNames[] = $storesRow["name"];
 }
 ?>
 
 <script type="text/javascript" charset="utf8" src="js/dt/js/jquery.dataTables.min.js"></script>
 
-<div class="sectionTitle">PRESTAMOS ACTIVOS</div>
-<div class="sButtons"><a href="newPrestamo.php" class="sButton">REGISTRAR PRESTAMO</a></div>
+<div class="sectionTitle">ENTRADAS</div>
+<div class="sButtons"><a href="newInflow.php" class="sButton">REGISTRAR ENTRADA</a></div>
 
 <div class="searchDiv">
-Mostrar registros del empleado: <select id="selectW" class="" name="">
+Mostrar entradas del almac&eacute;n <select id="selectW" class="" name="">
     <?php
 	echo "<option value='0'>Todos</option>";
 	foreach ($storeIDs as $i => $storeID) {
@@ -35,8 +32,8 @@ Mostrar registros del empleado: <select id="selectW" class="" name="">
 	?>
 </select><br>
 Busqueda por
-<input type="radio" name="searchBy[]" class="searchBy" value="PROYECTO" checked> Proyecto
-<input type="radio" name="searchBy[]" class="searchBy" value="PRESTAMO"> Prestamo
+<input type="radio" name="searchBy[]" class="searchBy" value="FOLIO" checked> Folio
+<input type="radio" name="searchBy[]" class="searchBy" value="FECHA"> Fecha
 <input type="radio" name="searchBy[]" class="searchBy" value="EMPLEADO"> Empleado
 
 </div>
@@ -44,16 +41,16 @@ Busqueda por
 <table id="inflowList" class="display" cellspacing="0" cellpadding="0" width="100%">
     <thead>
         <tr>
-            <th>Proyecto</th>
-            <th>Prestamo</th>
-            <th>Fecha creacion</th>
-            <th>Empleado</th>
+            <th>Almacén</th>
+            <th>Folio</th>
+            <th>Fecha</th>
+            <th>Realiz&oacute;</th>
             <th width="25px">Ver</th>
         </tr>
     </thead>
 </table>
 
-<div class="sButtons"><a href="newPrestamo.php" class="sButton">REGISTRAR PRESTAMO</a></div>
+<div class="sButtons"><a href="newInflow.php" class="sButton">REGISTRAR ENTRADA</a></div>
 
 <script>
 $(document).ready(function() {
@@ -67,7 +64,7 @@ $(document).ready(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax": {
-			url: "includes/prestamosList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val(),
+			url: "includes/inflowList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val(),
 			type: "post"
 		},
 		"order": [[2, 'desc']]//,
@@ -92,7 +89,7 @@ $(document).ready(function() {
 	
 	var sendValues = function() {
 		$("#searchParam").prop("placeholder", $(".searchBy:checked").val());
-		table.ajax.url("includes/prestamosList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val()).load();
+		table.ajax.url("includes/inflowList.php?wh="+$("#selectW").val()+"&by="+$(".searchBy:checked").val()).load();
 		
 	};
 	
