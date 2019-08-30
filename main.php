@@ -91,10 +91,10 @@ var js_outflows = JSON.parse('<?php echo JSON_encode($outflows);?>');
 js_outflows = js_outflows.map(Number);
 
 // Top products
-var js_topProducts = JSON.parse('<?php echo JSON_encode($topProducts);?>');
-var js_tpSales = JSON.parse('<?php echo JSON_encode($tpSales);?>');
+/*var js_topProducts = JSON.parse('<?php /*echo JSON_encode($topProducts);*/?>');*/
+/*var js_tpSales = JSON.parse('<?php echo JSON_encode($tpSales);?>');
 
-js_tpSales = js_tpSales.map(Number);
+js_tpSales = js_tpSales.map(Number);*/
 
 $(function () {
 	// Store Sales Rank
@@ -138,7 +138,7 @@ $(function () {
         series: [{
 			name: 'Outflows',
             data: js_outflows,
-			color: '#c54695',
+			color: '#3073c9',
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',
@@ -152,7 +152,7 @@ $(function () {
         }]
     });
 	// Top 10 Products
-	$('#topProducts').highcharts({
+	/*$('#topProducts').highcharts({
         chart: {
             type: 'bar',
 			backgroundColor: '#000000',
@@ -204,7 +204,7 @@ $(function () {
                 }
             }
         }]
-    });
+    });*/
 });
 </script>
 <!--
