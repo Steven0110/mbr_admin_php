@@ -1,6 +1,6 @@
 ﻿<?php
 session_start();
-if($_SESSION['authenticated_user']) {
+if(isset($_SESSION['authenticated_user'])) {
 	header("Location: main.php");
 	die();
 }
