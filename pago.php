@@ -5,7 +5,7 @@ require('fpdf/mc_pago.php');
 
 $pmnID = $_REQUEST["pmnID"];
 
-$queryPmnt = "SELECT T1.ID, T1.code, T1.created_at, T1.storeID, T3.name storeName, CONCAT(T2.first, ' ', T2.last) emp, T1.active, T1.fromDate, T1.toDate FROM PAYMENT T1 JOIN CREW T2 ON T1.empID = T2.ID JOIN STORES T3 ON T1.storeID = T3.ID WHERE T1.ID = $pmnID";
+$queryPmnt = "SELECT T1.ID, T1.code, T1.created_at, T1.storeID, T3.name storeName, CONCAT(T2.first, ' ', T2.last) emp, T1.active, T1.fromDate, T1.toDate FROM payment T1 JOIN crew T2 ON T1.empID = T2.ID JOIN stores T3 ON T1.storeID = T3.ID WHERE T1.ID = $pmnID";
 $resultPmnt = $db->query($queryPmnt);
 $rowPmnt = $resultPmnt->fetch();
 
@@ -31,7 +31,7 @@ $pdf->SetFont('Arial','',8, 'C');
 	
 	
 // Entregas
-$queryTransfers = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM TRLN T3 JOIN PRODUCT T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM TRANSFERS T1 JOIN CREW T2 ON T1.empID = T2.ID WHERE T1.orStore = 100 AND T1.dsStore = $store AND T1.account = 'Y' AND pmntCode = '$code' ORDER BY T1.created_at ASC";
+$queryTransfers = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM trln T3 JOIN product T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM transfers T1 JOIN crew T2 ON T1.empID = T2.ID WHERE T1.orStore = 100 AND T1.dsStore = $store AND T1.account = 'Y' AND pmntCode = '$code' ORDER BY T1.created_at ASC";
 $resultTransfers = $db->query($queryTransfers);
 $pdf->SetDrawColor(255,255,255);
 $tranTotal = 0;
@@ -58,7 +58,7 @@ $pdf->SetFont('Arial','',8, 'C');
 	
 	
 // Devoluciones
-$queryDevs = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM TRLN T3 JOIN PRODUCT T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM TRANSFERS T1 JOIN CREW T2 ON T1.empID = T2.ID WHERE T1.orStore = $store AND T1.dsStore = 100 AND T1.account = 'Y' AND pmntCode = '$code' ORDER BY T1.created_at ASC";
+$queryDevs = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM trln T3 JOIN product T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM transfers T1 JOIN crew T2 ON T1.empID = T2.ID WHERE T1.orStore = $store AND T1.dsStore = 100 AND T1.account = 'Y' AND pmntCode = '$code' ORDER BY T1.created_at ASC";
 $resultDevs = $db->query($queryDevs);
 $pdf->SetDrawColor(255,255,255);
 $devTotal = 0;

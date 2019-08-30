@@ -25,11 +25,11 @@ if(isset($_POST["sales"])) {
 }
 
 if($ID == "") {
-	$query = "INSERT INTO CREW (ID, first, last, email, storeID, username, password, role, active, salesPrson) VALUES (NULL, '$first', '$last', '$email', $storeID, '$username', '$password', '$role', '$active', '$sales')";
+	$query = "INSERT INTO crew (ID, first, last, email, storeID, username, password, role, active, salesPrson) VALUES (NULL, '$first', '$last', '$email', $storeID, '$username', '$password', '$role', '$active', '$sales')";
 } else {
-	$query = "UPDATE CREW SET first = '$first', last = '$last', email = '$email', storeID = $storeID, username = '$username', password = '$password', role = '$role', active = '$active', salesPrson = '$sales' WHERE ID = '$ID'";
+	$query = "UPDATE crew SET first = '$first', last = '$last', email = '$email', storeID = $storeID, username = '$username', password = '$password', role = '$role', active = '$active', salesPrson = '$sales' WHERE ID = '$ID'";
 }
-$result = mysql_query($query);
+$result = $db->query($query);
 
 if(!$result) {
 	die('Could not enter data USER: ' . mysql_error());

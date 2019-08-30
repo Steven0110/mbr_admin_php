@@ -208,7 +208,7 @@ function Header()
     require('includes/mysqlconn.php');
 	$tranID = $_REQUEST["tranID"];
 	
-	$query = "SELECT T1.ID, T1.code, T1.orStore orStoreID, T1.dsStore dsStoreID, T2.name orStore, T3.name dsStore, T1.created_at, T1.empID, T1.remarks FROM TRANSFERS T1 JOIN STORES T2 ON T1.orStore = T2.ID JOIN STORES T3 ON T1.dsStore = T3.ID WHERE T1.ID = '$tranID'";
+	$query = "SELECT T1.ID, T1.code, T1.orStore orStoreID, T1.dsStore dsStoreID, T2.name orStore, T3.name dsStore, T1.created_at, T1.empID, T1.remarks FROM transfers T1 JOIN stores T2 ON T1.orStore = T2.ID JOIN stores T3 ON T1.dsStore = T3.ID WHERE T1.ID = '$tranID'";
 	$result = $db->query($query);
 	$row = $result->fetch();
 	
@@ -221,7 +221,7 @@ function Header()
 	//$TotalDoc = $row["Total_Doc"];
 	$remarks = $row["remarks"];
 	
-	$queryFrom = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$orStoreID' LIMIT 1";
+	$queryFrom = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$orStoreID' LIMIT 1";
 	$resultFrom = $db->query($queryFrom);
 	$rowFrom = $resultFrom->fetch();
 	$nameFrom = $rowFrom["first"]." ".$rowFrom["last"];
@@ -229,7 +229,7 @@ function Header()
 	$phoneFrom = $rowFrom["phone"];
 	$addressFrom = $rowFrom["address"];
 	
-	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
+	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
 	$resultTo = $db->query($queryTo);
 	$rowTo = $resultTo->fetch();
 	$nameTo = $rowTo["first"]." ".$rowTo["last"];
@@ -238,7 +238,7 @@ function Header()
 	$addressTo = $rowTo["address"];
 	
     // Logo
-    $this->Image("images/logo.png",10,5,70);
+    $this->Image("images/mbrlogo.png",10,5,70);
     // Arial bold 20
     $this->SetFont('Arial','B',18);
     // Move to the right

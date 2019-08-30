@@ -208,7 +208,7 @@ function Header()
     require('includes/mysqlconn.php');
 	$pmnID = $_REQUEST["pmnID"];
 
-	$queryPmnt = "SELECT T1.ID, T1.code, T1.created_at, T1.storeID, T3.name storeName, CONCAT(T2.first, ' ', T2.last) emp, T1.active, T1.fromDate, T1.toDate FROM PAYMENT T1 JOIN CREW T2 ON T1.empID = T2.ID JOIN STORES T3 ON T1.storeID = T3.ID WHERE T1.ID = $pmnID";
+	$queryPmnt = "SELECT T1.ID, T1.code, T1.created_at, T1.storeID, T3.name storeName, CONCAT(T2.first, ' ', T2.last) emp, T1.active, T1.fromDate, T1.toDate FROM payment T1 JOIN crew T2 ON T1.empID = T2.ID JOIN stores T3 ON T1.storeID = T3.ID WHERE T1.ID = $pmnID";
 	$resultPmnt = $db->query($queryPmnt);
 	$rowPmnt = $resultPmnt->fetch();
 	
@@ -221,7 +221,7 @@ function Header()
 	/*$fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_POST["fromDate"])));
 	$toDateQ = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $_POST["toDate"])));
 	*/
-	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$store' LIMIT 1";
+	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$store' LIMIT 1";
 	$resultTo = $db->query($queryTo);
 	$rowTo = $resultTo->fetch();
 	$nameTo = $rowTo["first"]." ".$rowTo["last"];
@@ -230,7 +230,7 @@ function Header()
 	$addressTo = $rowTo["address"];
 	
     // Logo
-    $this->Image("images/logo.png",10,5,65);
+    $this->Image("images/mbrlogo.png",10,5,65);
     // Arial bold 20
     $this->SetFont('Arial','B',18);
     // Move to the right

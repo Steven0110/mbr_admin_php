@@ -3,17 +3,17 @@ include 'head.php';
 
 $outID = $_REQUEST["outID"];
 
-$myQuery = $db->query("SELECT T1.ID, T1.code, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created, T1.remarks FROM OUTFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$outID'");
+$myQuery = $db->query("SELECT T1.ID, T1.code, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created, T1.remarks FROM outflows T1 INNER JOIN stores T2 ON T1.storeID = T2.ID INNER JOIN crew T3 ON T1.empID = T3.ID WHERE T1.ID = '$outID'");
 $row = $myQuery->fetch();
 $remarks = $row["remarks"];
 $code = $row["code"];
 
-$queryNext = "SELECT MIN(ID) nextID FROM OUTFLOWS WHERE storeID = '".$_SESSION["store"]."' AND ID > '$outID'";
+$queryNext = "SELECT MIN(ID) nextID FROM outflows WHERE storeID = '".$_SESSION["store"]."' AND ID > '$outID'";
 $resultNext = $db->query($queryNext);
 $rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
-$queryPrev = "SELECT MAX(ID) prevID FROM OUTFLOWS WHERE storeID = '".$_SESSION["store"]."' AND ID < '$outID'";
+$queryPrev = "SELECT MAX(ID) prevID FROM outflows WHERE storeID = '".$_SESSION["store"]."' AND ID < '$outID'";
 $resultPrev = $db->query($queryPrev);
 $rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
@@ -54,7 +54,7 @@ $prevID = $rowPrev["prevID"];
 				</table>
 			</div>
         	<?php
-        	$myQuery = $db->query("SELECT T2.ID, T2.code, T2.name, T1.qty FROM OUTLN T1 JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.outID = '$outID'");
+        	$myQuery = $db->query("SELECT T2.ID, T2.code, T2.name, T1.qty FROM outln T1 JOIN product T2 ON T1.prodCode = T2.code WHERE T1.outID = '$outID'");
 			
 			while($row = $myQuery->fetch()){			
 				echo "

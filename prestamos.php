@@ -6,7 +6,7 @@ $storeCodes = array();
 $storeNames = array();
 $storeDate  =array();
 //"SELECT ID, code, name FROM STORES ";
-$storesQuery = "SELECT t1.ID_PRESTAMO ID, t1.ID_PROYECTO ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO GROUP BY t1.ID_PRESTAMO";
+$storesQuery = "SELECT t1.ID_PRESTAMO ID, t3.proyectname ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN proyects t3 ON t1.ID_PROYECTO = t3.ID WHERE t1.STATUS = 'A' GROUP BY t1.ID_PRESTAMO ";
 /*
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
@@ -35,8 +35,8 @@ Mostrar registros del empleado: <select id="selectW" class="" name="">
 	?>
 </select><br>
 Busqueda por
-<input type="radio" name="searchBy[]" class="searchBy" value="ID" checked> Prestamo
-<input type="radio" name="searchBy[]" class="searchBy" value="PRESTAMO"> Proyecto
+<input type="radio" name="searchBy[]" class="searchBy" value="PROYECTO" checked> Proyecto
+<input type="radio" name="searchBy[]" class="searchBy" value="PRESTAMO"> Prestamo
 <input type="radio" name="searchBy[]" class="searchBy" value="EMPLEADO"> Empleado
 
 </div>
@@ -44,8 +44,8 @@ Busqueda por
 <table id="inflowList" class="display" cellspacing="0" cellpadding="0" width="100%">
     <thead>
         <tr>
-            <th>Prestamo</th>
             <th>Proyecto</th>
+            <th>Prestamo</th>
             <th>Fecha creacion</th>
             <th>Empleado</th>
             <th width="25px">Ver</th>

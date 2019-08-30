@@ -207,7 +207,7 @@ function Header()
     require('includes/mysqlconn.php');
 	$salID = $_REQUEST["salID"];
 	
-	$query = "SELECT T1.ID, T1.code, T2.ID storeID, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM SALES T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID INNER JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.ID = '$salID'";
+	$query = "SELECT T1.ID, T1.code, T2.ID storeID, T2.name store, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM sales T1 INNER JOIN stores T2 ON T1.storeID = T2.ID INNER JOIN crew T3 ON T1.empID = T3.ID WHERE T1.ID = '$salID'";
 	$result = $db->query($query);
 	$row = $result->fetch();
 	
@@ -217,7 +217,7 @@ function Header()
 	$created_at = $row["created_at"];
 	$remarks = $row["remarks"];
 		
-	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$storeID' LIMIT 1";
+	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$storeID' LIMIT 1";
 	$resultTo = $db->query($queryTo);
 	$rowTo = $resultTo->fetch();
 	$_SESSION['nameTo'] = $rowTo["first"]." ".$rowTo["last"];
@@ -226,7 +226,7 @@ function Header()
 	$addressTo = $rowTo["address"];
 	
     // Logo
-    $this->Image("images/logo.png",10,5,65);
+    $this->Image("images/mbrlogo.png",10,5,65);
     // Arial bold 20
     $this->SetFont('Arial','B',18);
     // Move to the right

@@ -7,7 +7,7 @@ if (isset($_POST["username"], $_POST["password"]) && $_POST["username"] != "" &&
     $username = $_POST["username"];
     $password = $_POST["password"];
 	
-	$query = "SELECT ID, storeID, role, first, last, username, email, password, active, salesPrson FROM CREW WHERE username = '$username'";
+	$query = "SELECT ID, storeID, role, first, last, username, email, password, active, salesPrson FROM crew WHERE username = '$username'";
 	$result = $db->query($query);
 	
 	if ($row = $result->fetch()) {

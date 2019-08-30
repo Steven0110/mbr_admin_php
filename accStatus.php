@@ -7,7 +7,7 @@ $toDate = $_GET["toDate"];
 $fromDateQ = date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $_GET["fromDate"])));
 $toDateQ = date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $_GET["toDate"])));
 
-$queryStore = "SELECT name FROM STORES WHERE ID = $store";
+$queryStore = "SELECT name FROM stores WHERE ID = $store";
 $resultStore = $db->query($queryStore);
 $rowStore = $resultStore->fetch();
 $storeName = $rowStore["name"];
@@ -47,7 +47,7 @@ $storeName = $rowStore["name"];
             </table>
             <table class='itemTable' id='trnTable' width='100%' cellpadding='0' cellspacing='10px'>
             	<?php
-				$queryTransfers = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM TRLN T3 JOIN PRODUCT T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM TRANSFERS T1 JOIN CREW T2 ON T1.empID = T2.ID WHERE T1.orStore = 100 AND T1.dsStore = $store AND T1.created_at >= '$fromDateQ' AND T1.created_at <= '$toDateQ' AND T1.account = 'N' ORDER BY T1.created_at ASC";
+				$queryTransfers = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM trln T3 JOIN product T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM transfers T1 JOIN crew T2 ON T1.empID = T2.ID WHERE T1.orStore = 100 AND T1.dsStore = $store AND T1.created_at >= '$fromDateQ' AND T1.created_at <= '$toDateQ' AND T1.account = 'N' ORDER BY T1.created_at ASC";
 				$resultTransfers = $db->query($queryTransfers);
 				while ($rowTransfers = $resultTransfers->fetch()) {
 					echo "<tr class='item'>
@@ -95,7 +95,7 @@ $storeName = $rowStore["name"];
             </table>
             <table class='itemTable' id='devTable' width='100%' cellpadding='0' cellspacing='10px'>
             	<?php
-				$queryDevs = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM TRLN T3 JOIN PRODUCT T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM TRANSFERS T1 JOIN CREW T2 ON T1.empID = T2.ID WHERE T1.orStore = $store AND T1.dsStore = 100 AND T1.created_at >= '$fromDateQ' AND T1.created_at <= '$toDateQ' AND T1.account = 'N' ORDER BY T1.created_at ASC";
+				$queryDevs = "SELECT T1.ID, T1.code, CONCAT(T2.first, ' ', T2.last) emp, T1.created_at, (SELECT SUM((T3.qty * T4.price)) FROM trln T3 JOIN product T4 ON T3.prodCode = T4.code WHERE T3.tranID = T1.ID) value FROM transfers T1 JOIN crew T2 ON T1.empID = T2.ID WHERE T1.orStore = $store AND T1.dsStore = 100 AND T1.created_at >= '$fromDateQ' AND T1.created_at <= '$toDateQ' AND T1.account = 'N' ORDER BY T1.created_at ASC";
 				$resultDevs = $db->query($queryDevs);
 				while ($rowDevs = $resultDevs->fetch()) {
 					echo "<tr class='item'>

@@ -25,7 +25,7 @@ $selectedVendors = $_POST["vendors"];
 $storeIDs = array();
 $storeNames = array();
 
-$storesQuery = "SELECT ID, code FROM STORES WHERE active = 'Y' ";
+$storesQuery = "SELECT ID, code FROM stores WHERE active = 'Y' ";
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "AND ID = '".$_SESSION["store"]."' ";
 }
@@ -63,7 +63,7 @@ $total = 0;
 // (SELECT SUM(maxq - qty) FROM PRDL T4 WHERE T4.prodCode = T1.code) > 0
 
 
-$query = "SELECT T1.code, T1.name product, T2.name, T1.price FROM PRODUCT T1 JOIN VENDOR T2 ON T1.vendorID = T2.ID WHERE T1.active = 'Y' AND (";
+$query = "SELECT T1.code, T1.name product, T2.name, T1.price FROM product T1 JOIN vendor T2 ON T1.vendorID = T2.ID WHERE T1.active = 'Y' AND (";
 
 foreach ($selectedVendors as $v => $selectedVendor) {
 	$query.= " T2.ID = ".$selectedVendor." OR ";
@@ -76,7 +76,7 @@ while($row = $result->fetch()){
 	$total = 0;
 	$price = $row["price"];
 	foreach ($storeIDs as $i => $storeID) {
-		$byStore = "SELECT (maxq - qty) qty FROM PRDL WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."' ORDER BY storeID ASC";
+		$byStore = "SELECT (maxq - qty) qty FROM prdl WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."' ORDER BY storeID ASC";
 		$resByStore = $db->query($byStore);
 		while($rowByStore = $resByStore->fetch()) {
 			if ($rowByStore["qty"] < 0) {

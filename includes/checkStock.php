@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 $data = json_decode(file_get_contents('php://input'), true);
 /**
  *
@@ -22,7 +22,7 @@ $prodID = "";
 $stock = 0;
 $i = 0;
 foreach($products as $product){
-	$sql = "SELECT qty FROM PRDL WHERE prodCode = '".$product."' AND storeID = '".$store."'";
+	$sql = "SELECT qty FROM prdl WHERE prodCode = '".$product."' AND storeID = '".$store."'";
 	$resultSet = $db->query($sql);
 	if(!$resultSet)
 		die("{\"code\":-1, \"msg\":\"" . mysql_error() . "\"}");

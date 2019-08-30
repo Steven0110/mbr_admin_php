@@ -215,7 +215,7 @@ function Header()
 	if($_SESSION["role"] == 'Y') {
 		$title = "Faltante por Proveedor";
 	} else {
-		$queryStore = "SELECT name FROM STORES WHERE ID = '".$_SESSION["store"]."'";
+		$queryStore = "SELECT name FROM stores WHERE ID = '".$_SESSION["store"]."'";
 		$resultStore = $db->query($queryStore);
 		$rowStore = $resultStore->fetch();
 		$title = "Inventario ".$rowStore["name"];
@@ -249,7 +249,7 @@ function Header()
 	$storeIDs = array();
 	$storeNames = array();
 	
-	$storesQuery = "SELECT ID, code FROM STORES WHERE active = 'Y' ";
+	$storesQuery = "SELECT ID, code FROM stores WHERE active = 'Y' ";
 	if ($_SESSION["role"] != 'Y') {
 		$storesQuery.= "AND ID = '".$_SESSION["store"]."' ";
 	}

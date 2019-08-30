@@ -1,17 +1,17 @@
 <?php
 session_start();
-require("mysqlconn.php");
+include_once ("mysqlconn.php");
 $by = $_REQUEST["by"];
 $param =  utf8_decode($_GET["param"]);
 $storeID = $_REQUEST["storeID"];
 
-$queryProd = "SELECT code, name, price FROM PRODUCT WHERE $by = '$param'";
+$queryProd = "SELECT code, name, price FROM product WHERE $by = '$param'";
 $resultProd = $db->query($queryProd);
 $rowProd = $resultProd->fetch();
 $code = $rowProd["code"];
 
 
-$queryQuant = "SELECT qty FROM PRDL WHERE prodCode = '$code' AND storeID = $storeID";
+$queryQuant = "SELECT qty FROM prdl WHERE prodCode = '$code' AND storeID = $storeID";
 $resultQuant = $db->query($queryQuant);
 $rowQuant = $resultQuant->fetch();
 

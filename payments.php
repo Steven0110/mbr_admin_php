@@ -4,7 +4,7 @@ include 'head.php';
 $storeIDs = array();
 $storeNames = array();
 
-$storesQuery = "SELECT ID, code, name FROM STORES WHERE ID <> 100 ORDER BY name ASC";
+$storesQuery = "SELECT ID, code, name FROM stores WHERE ID <> 100 ORDER BY name ASC";
 $storesResult = $db->query($storesQuery);
 while ($storesRow = $storesResult->fetch()) {
 	$storeIDs[] = $storesRow["ID"];

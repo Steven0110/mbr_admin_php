@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 if($_SESSION['authenticated_user']) {
 	header("Location: main.php");
@@ -12,7 +12,7 @@ if($_SESSION['authenticated_user']) {
 
 <meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-<title>U&ntilde;as Sal&oacute;n y M&aacute;s - Intranet</title>
+<title>ARQUITECTURA - Intranet</title>
 <link href="resource/1353549783000/fav_ico" rel="icon" type="image/x-icon" />
 <link href="resource/1353549783000/fav_ico" rel="shortcut icon" type="image/x-icon" />
 <style>
@@ -130,7 +130,7 @@ input {
     
 <div id="footer">
     <div style="position:absolute; left:10px;">
-        Uñas Salón y Más &copy; 2016
+        ARQUITECTURA 2019
     </div>
     <div style="position:absolute; right:10px;">
         <a href="http://idited.com">idited.com</a>

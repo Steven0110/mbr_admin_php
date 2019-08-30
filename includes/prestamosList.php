@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "mysqlconn.php";
+include_once "mysqlconn.php";
 // storing  request (ie, get/post) global array to a variable  
 $requestData = $_REQUEST;
 $term = utf8_decode($requestData['search']['value']);
@@ -8,14 +8,14 @@ $wareHouse = $_REQUEST["wh"];
 $by = $_REQUEST["by"];
 $columns = array( 
 // datatable column index  => database column name
-	0 => 'NOMBRE',
-	1 => 'CREATED_AT',
-	2 => 'ID_PROYECTO',
-	3 => 'ID_PRESTAMO'
+	0 => 'ID_PROYECTO',
+	1 => 'ID_PRESTAMO',
+	2 => 'CREATED_AT',
+	3 => 'ID_EMPLEADO'
 );
 
 // getting total number records without any search
-$queryTotal = "SELECT COUNT(*) quant FROM prestamos GROUP BY ID_PRESTAMO";
+$queryTotal = "SELECT ID_PRESTAMO quant FROM prestamos WHERE STATUS = 'A' ORDER BY ID_PRESTAMO DESC";
 /*if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$queryTotal.= "";
 } else {
@@ -26,7 +26,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT t1.ID_PRESTAMO ID, t1.ID_PROYECTO ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO WHERE t1.STATUS = 'A'";
+$query = "SELECT t1.ID_PRESTAMO ID, t3.proyectname ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN proyects t3 ON t1.ID_PROYECTO = t3.ID WHERE t1.STATUS = 'A'";
 /*
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";
@@ -36,24 +36,25 @@ if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 
 if (!empty($term)) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
-		case "ID":
-			$query.= " AND t1.ID_PROYECTO LIKE '%".$term."%' GROUP BY t1.ID_PRESTAMO";
+		case "PROYECTO":
+			$query.= " AND t1.ID_PROYECTO LIKE '%".$term."%'";
 			break;
 		case "PRESTAMO": /*AND DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') LIKE '%".$term."%'*/
-			$query.= " AND t1.ID_PRESTAMO LIKE '%".$term."%' GROUP BY t1.ID_PRESTAMO";
+			$query.= " AND t1.ID_PRESTAMO LIKE '%".$term."%'";
 			break;
 		case "EMPLEADO":
-			$query.= " AND t2.ID_EMPLEADO LIKE '%".$term."%' GROUP BY t1.ID_PRESTAMO";
+			$query.= " AND t1.ID_EMPLEADO LIKE '%".$term."%'";
 			break;
 	}
 
-	$result = $db->query($query);
-	$totalFiltered = $result->fetch(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+	$result = $db->prepare($query);
+    $result->execute();
+	$totalFiltered = $result->fetchColumn(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";
-$query.= " ORDER BY ".$columns[$requestData['order'][0]['column']]." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start'].", ".$requestData['length']."";
-/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
+$query.= " GROUP BY t1.ID_PRESTAMO ORDER BY t1.".$columns[$requestData['order'][0]['column']]." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start'].", ".$requestData['length']." ";
+/* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc*/ 
 $result = $db->query($query);
 $data = array();
 while($row = $result->fetch()) {

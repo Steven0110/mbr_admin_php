@@ -4,7 +4,7 @@ include 'head.php';
 $vendorIDs = array();
 $vendorNames = array();
 
-$vendorQuery = "SELECT ID, name FROM VENDOR ORDER BY name ASC";
+$vendorQuery = "SELECT ID, name FROM vendor ORDER BY name ASC";
 $vendorResult = $db->query($vendorQuery);
 while ($vendorRow = $vendorResult->fetch()) {
 	$vendorIDs[] = $vendorRow["ID"];
@@ -14,7 +14,7 @@ while ($vendorRow = $vendorResult->fetch()) {
 $storeIDs = array();
 $storeNames = array();
 
-$storesQuery = "SELECT ID, code, name FROM STORES ";
+$storesQuery = "SELECT ID, code, name FROM stores ";
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }

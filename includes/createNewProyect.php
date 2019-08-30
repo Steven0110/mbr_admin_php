@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 $proyectname = $_POST["proyectname"];
 $fchinicio = $_POST["fchinicio"];

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 $baseOrd = "";
 $orStore = $_POST["orStore"];

@@ -8,10 +8,11 @@
 	if ($_SESSION["role"] == 'Y') {
         echo ("<li><a href='proyects.php'>PROYECTOS</a></li>");
         echo ("<li><a href='prestamos.php'>HERRAMIENTAS</a></li>");
+        echo ("<li><a href='inflows.php'>ENTRADAS</a></li>");
+        echo ("<li><a href='outflows.php'>SALIDAS</a></li>");
 	}
 	?>
-    <!--<li><a href="outflows.php">SALIDAS</a></li>-->
-    <li><a href="products2.php">INVENTARIO</a></li>
+    <!--<li><a href="products2.php">INVENTARIO</a></li>-->
     <?php
 	if ($_SESSION["sales"] == 'Y') {
         echo ("<li><a href='transfers.php'>TRANSFERENCIAS</a></li>");

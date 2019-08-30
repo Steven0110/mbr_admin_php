@@ -14,7 +14,7 @@
       	<div style="margin-top:10px">
         	<?php
 			if ($_SESSION["role"] == 'Y') {
-				$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES");
+				$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM stores");
 				echo "<select id='store' name='store' style='margin-top:10px;' required>";
 				echo "<option value='' selected disabled>Selecciona...</option>";
 				while($row = $myQuery->fetch()){
@@ -22,7 +22,7 @@
 				};
 				echo "</select>";
 			} else {
-				$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES WHERE ID = '".$_SESSION["store"]."'");
+				$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM stores WHERE ID = '".$_SESSION["store"]."'");
 				$row = $myQuery->fetch();
 				echo "<input type='text' class='inputText' required readonly id='storeName' name='storeName' value='".$row["name"]."'/><input type='hidden' id='store' name='store' value='".$row["ID"]."'>";
 			}

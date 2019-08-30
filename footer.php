@@ -1,5 +1,5 @@
 <div id="footer">
-    &copy; U&ntilde;as Sal&oacute;n y M&aacute;s 2016
+    ARQUITECTURA 2019
 </div>
 
     </div>

@@ -27,7 +27,7 @@
       	<div style="margin-top:10px"><select id="cat" name="cat" style="margin-top:10px;" required>
         	<option value="" disabled selected>Selecciona...</option>
         	<?php
-			$myQuery = $db->query("SELECT ID, CONCAT(catName, ' (', ID, ')') catName FROM CAT ORDER BY catName");
+			$myQuery = $db->query("SELECT ID, CONCAT(catName, ' (', ID, ')') catName FROM cat ORDER BY catName");
 			while($row = $myQuery->fetch()){			
 				echo "<option value='".$row["ID"]."'>".$row["catName"]."</option>";
 			};
@@ -38,7 +38,7 @@
         <div style="margin-top:10px"><select id="vendor" name="vendor" required>
         	<option value="" disabled selected>Selecciona...</option>
         	<?php
-			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM VENDOR ORDER BY name");
+			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM vendor ORDER BY name");
 			while($row = $myQuery->fetch()){			
 				echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
 			};
@@ -71,7 +71,7 @@
 				</table>
 			</div>
         	<?php
-        	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM STORES ORDER BY name");
+        	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID,')') store FROM stores ORDER BY name");
 			
 			while($row = $myQuery->fetch()){			
 				echo "

@@ -9,7 +9,7 @@ $address = "";
 $active = "";
 
 if(isset($ID)) {
-	$queryStore = "SELECT * FROM STORES WHERE ID = '$ID'";
+	$queryStore = "SELECT * FROM stores WHERE ID = '$ID'";
 	$resultStore = $db->query($queryStore);
 	$rowStore = $resultStore->fetch();
 	
@@ -35,7 +35,7 @@ if(isset($ID)) {
   </thead>
   <tbody>
     <?php
-		$myQuery = $db->query("SELECT * FROM STORES ORDER BY ID ASC");
+		$myQuery = $db->query("SELECT * FROM stores ORDER BY ID ASC");
 		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>

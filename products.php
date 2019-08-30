@@ -4,7 +4,7 @@ include 'head.php';
 $storeIDs = array();
 $storeNames = array();
 
-$storesQuery = "SELECT ID, code FROM STORES ";
+$storesQuery = "SELECT ID, code FROM stores ";
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }
@@ -52,7 +52,7 @@ echo "<a class='sButton' href='inventariocosto.php' target='_blank'>CREAR XLS</a
   </thead>
   <tbody>
     <?php
-		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, (SELECT SUM(qty) FROM PRDL T4 WHERE T4.prodCode = T1.code) qty FROM PRODUCT T1 INNER JOIN CAT T2 ON T1.catID = T2.ID INNER JOIN VENDOR T3 ON T1.vendorID = T3.ID ORDER BY T1.name ASC");
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, (SELECT SUM(qty) FROM prdl T4 WHERE T4.prodCode = T1.code) qty FROM product T1 INNER JOIN cat T2 ON T1.catID = T2.ID INNER JOIN vendor T3 ON T1.vendorID = T3.ID ORDER BY T1.name ASC");
 		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>
@@ -64,7 +64,7 @@ echo "<a class='sButton' href='inventariocosto.php' target='_blank'>CREAR XLS</a
 						<td>".$row["qty"]."</td>";
 			}
 			foreach ($storeIDs as $i => $storeID) {
-				$byStore = "SELECT qty FROM PRDL WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."'";
+				$byStore = "SELECT qty FROM prdl WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."'";
 				$resByStore = $db->query($byStore);
 				$rowByStore = $resByStore->fetch();
 				echo "<td>".$rowByStore["qty"]."</td>";

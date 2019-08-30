@@ -4,18 +4,18 @@ include "head.php";
 
 $orderID = $_REQUEST["ordID"];
 
-$queryOrder = "SELECT T1.ID, T1.code, T1.created_at, T1.closed_at, T1.storeID, T3.name store, T1.empID, CONCAT(T2.first, ' ', T2.last) emp, T1.remarks, T1.active FROM ORDERS T1 JOIN CREW T2 ON T1.empID = T2.ID JOIN STORES T3 ON T1.storeID = T3.ID WHERE T1.ID = $orderID";
+$queryOrder = "SELECT T1.ID, T1.code, T1.created_at, T1.closed_at, T1.storeID, T3.name store, T1.empID, CONCAT(T2.first, ' ', T2.last) emp, T1.remarks, T1.active FROM orders T1 JOIN crew T2 ON T1.empID = T2.ID JOIN stores T3 ON T1.storeID = T3.ID WHERE T1.ID = $orderID";
 $resultOrder = $db->query($queryOrder);
 $rowOrder = $resultOrder->fetch();
 
 $folio = $rowOrder["code"];
 
-$queryNext = "SELECT MIN(ID) nextID FROM ORDERS WHERE ID > '$orderID' AND storeID <> 0";
+$queryNext = "SELECT MIN(ID) nextID FROM orders WHERE ID > '$orderID' AND storeID <> 0";
 $resultNext = $db->query($queryNext);
 $rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
-$queryPrev = "SELECT MAX(ID) prevID FROM ORDERS WHERE ID < '$orderID' AND storeID <> 0";
+$queryPrev = "SELECT MAX(ID) prevID FROM orders WHERE ID < '$orderID' AND storeID <> 0";
 $resultPrev = $db->query($queryPrev);
 $rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
@@ -36,12 +36,12 @@ switch ($rowOrder["active"]) {
 // Go to inflow
 if ($rowOrder["active"] == "N") {
 	if ($rowOrder["storeID"] == 100) {
-		$queryRelDoc = "SELECT ID FROM INFLOWS WHERE baseOrd = '$folio'";
+		$queryRelDoc = "SELECT ID FROM inflows WHERE baseOrd = '$folio'";
 		$resultRelDoc = $db->query($queryRelDoc);
 		$rowRelDoc = $resultRelDoc->fetch();
 		$relDoc = $rowRelDoc["ID"];
 	} else {
-		$queryRelDoc = "SELECT ID FROM TRANSFERS WHERE baseOrd = '$folio'";
+		$queryRelDoc = "SELECT ID FROM transfers WHERE baseOrd = '$folio'";
 		$resultRelDoc = $db->query($queryRelDoc);
 		$rowRelDoc = $resultRelDoc->fetch();
 		$relDoc = $rowRelDoc["ID"];
@@ -221,7 +221,7 @@ $("#cancelBT").closest("li").remove();
 <?php
 }
 
-$queryLines = "SELECT T1.prodCode, T2.name, T2.price, T1.qty FROM ORDL T1 JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.ordID = $orderID";
+$queryLines = "SELECT T1.prodCode, T2.name, T2.price, T1.qty FROM ordl T1 JOIN product T2 ON T1.prodCode = T2.code WHERE T1.ordID = $orderID";
 $resultLines = $db->query($queryLines);
 while ($rowLines = $resultLines->fetch()) {
 	$quants[] = utf8_encode($rowLines["qty"]);
