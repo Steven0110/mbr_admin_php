@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData = $_REQUEST;

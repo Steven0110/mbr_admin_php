@@ -4,14 +4,25 @@ include_once "includes/mysqlconn.php";
 require('fpdf/mc_table_lp.php');
 
 //$infID = $_GET["infID"];
+$query = $_SESSION['priceListQR'];
 $pdf = new PDF_MC_Table();
 $pdf->AddPage();
 $pdf->AliasNbPages();
 	
-	
-	
-// Lineas
-$query = "SELECT t1.ID id, t1.REFERENCE ref, t1.CODE code, t1.NAME product, t1.PRICESELL price,t1.MARCA vendor FROM products t1 ORDER BY t1.ID ASC";
+/*$list = $_POST['list'];
+
+switch ($list) {
+	case "0":
+		$query = "SELECT t1.ID id, t1.REFERENCE ref, t1.CODE code, t1.NAME product, t1.PRICESELL price,t1.MARCA vendor FROM products t1 ORDER BY t1.ID ASC";
+		break;
+	case "1":
+		$query = "SELECT t1.ID id, t1.REFERENCE ref, t1.CODE code, t1.NAME product, t1.PRICESELL2 price,t1.MARCA vendor FROM products t1 ORDER BY t1.ID ASC";
+		break;
+	case "2":
+		$query = "SELECT t1.ID id, t1.REFERENCE ref, t1.CODE code, t1.NAME product, t1.PRICESELL3 price,t1.MARCA vendor FROM products t1 ORDER BY t1.ID ASC";
+		break;
+	}*/
+
 $result = $db->query($query);
 $pdf->SetDrawColor(255,255,255);
 while($row = $result->fetch()) {

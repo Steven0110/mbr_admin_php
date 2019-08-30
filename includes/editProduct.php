@@ -21,9 +21,9 @@ if(isset($_POST["active"])) {
 
 // Write to DB
 
-$sql = "UPDATE PRODUCT SET name = '$name', code = '$code', detail = '$detail', catID = $cat, vendorID = $vendor, cost = $cost, price = $price, active = '$active', remarks = '$remarks' WHERE ID = $prodID";
+$sql = "UPDATE product SET name = '$name', code = '$code', detail = '$detail', catID = $cat, vendorID = $vendor, cost = $cost, price = $price, active = '$active', remarks = '$remarks' WHERE ID = $prodID";
 
-$retval = mysql_query($sql);
+$retval = $db->query($sql);
 if(! $retval )
 {
   die('Could not modify data: ' . mysql_error());
@@ -33,9 +33,9 @@ if(! $retval )
 foreach ($_POST['storeID'] as $key => $value) {
 	$min = $_POST['min'][$key];
 	$max = $_POST['max'][$key];
-	$sql = "UPDATE PRDL SET minq = '$min', maxq = '$max' WHERE storeID = $value AND prodCode = '$code'";
+	$sql = "UPDATE prdl SET minq = '$min', maxq = '$max' WHERE storeID = $value AND prodCode = '$code'";
 	
-	$retval = mysql_query($sql);
+	$retval = $db->query($sql);
 	if(! $retval )
 	{
 	  die('Could not enter data: ' . mysql_error());

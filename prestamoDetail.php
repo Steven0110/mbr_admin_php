@@ -72,7 +72,7 @@ for ($i = 0; $i<$rowprueba["max"];$i++)
 				</table>
 			</div>
         	<?php
-        	$myQuery = $db->query("SELECT t1.qty qty,t2.code prodCode, t2.name name FROM prestamos t1 INNER JOIN product t2 on T1.ID_HERRAMIENTA = t2.code WHERE t1.ID_PRESTAMO = '$infID'");
+        	$myQuery = $db->query("SELECT t1.qty qty,t2.code prodCode, t2.name name FROM prestamos t1 INNER JOIN product t2 on t1.ID_HERRAMIENTA = t2.code WHERE t1.ID_PRESTAMO = '$infID'");
 			
 			while($row = $myQuery->fetch()){			
 				echo "
@@ -100,7 +100,7 @@ for ($i = 0; $i<$rowprueba["max"];$i++)
         	<ul id="buttonBar">
             	<li><button type='button' class='formButton blueB' onClick="getback();"><i class='fa fa-hand-o-left' aria-hidden='true'></i> Regresar</button></li>
               <li><a href="includes/toolRtn.php?infID=<?php echo $infID; ?>&storeID=<?php echo $storeID; ?>" class="formButton blueB"><i class='fa ' aria-hidden='true'></i> Cerrar Prestamo</a></li>
-                <li><a class="formButton blueB" href="entrada.php?infID=<?php echo $infID; ?>" target="_blank"><i class='fa fa-file-pdf-o' aria-hidden='true'></i> PDF</a></li>
+                <li><a class="formButton blueB" href="prestamoPDF.php?infID=<?php echo $infID; ?>" target="_blank"><i class='fa fa-file-pdf-o' aria-hidden='true'></i> PDF</a></li>
     		  </ul>
       </td>
     </tr>

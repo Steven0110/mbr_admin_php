@@ -1895,3 +1895,175 @@ Stack trace:
 [11-Jun-2019 00:33:07 UTC] PHP Warning:  mysql_connect(): MySQL server has gone away in /hostingDataA4/unassalon/public_html/intranet/includes/mysqlconn.php on line 7
 [09-Jul-2019 18:39:46 UTC] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, boolean given in /hostingDataA4/unassalon/public_html/intranet/includes/prodDetails.php on line 18
 [09-Jul-2019 18:39:46 UTC] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, boolean given in /hostingDataA4/unassalon/public_html/intranet/includes/prodDetails.php on line 18
+[26-Aug-2019 16:43:10 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO)' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'root', '')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 16:47:02 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'root', 'wDm%H8S(!o=8')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 16:47:49 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'cpses_soj94xsh5n@localhost'@'localhost' (using password: YES)' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'cpses_soj94xsh5...', 'wDm%H8S(!o=8')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 16:48:44 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 16:53:29 UTC] PHP Fatal error:  Call to a member function query() on null in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 11
+[26-Aug-2019 16:53:42 UTC] PHP Fatal error:  Call to a member function query() on null in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 11
+[26-Aug-2019 16:55:16 UTC] PHP Fatal error:  Call to a member function query() on null in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 11
+[26-Aug-2019 16:57:53 UTC] PHP Warning:  PDO::__construct() expects parameter 4 to be array, string given in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 8
+[26-Aug-2019 16:58:59 UTC] PHP Warning:  PDO::__construct() expects parameter 4 to be array, string given in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 8
+[26-Aug-2019 16:59:51 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:8
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(8): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 8
+[26-Aug-2019 17:04:14 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:9
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(9): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*', Array)
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 9
+[26-Aug-2019 17:04:41 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:8
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(8): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*', Array)
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 8
+[26-Aug-2019 17:05:49 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:5
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(5): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include_once('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 5
+[26-Aug-2019 17:11:00 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:5
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(5): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 5
+[26-Aug-2019 17:20:33 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:5
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(5): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 5
+[26-Aug-2019 17:25:02 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'bb8.idited.com' to database 'solucion_unassalo'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:5
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(5): PDO->__construct('mysql:host=10.0...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 5
+[26-Aug-2019 17:36:00 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'unassalo_intranet'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 17:40:42 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'solucion_admin'@'localhost' (using password: YES)' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 17:40:48 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'solucion_admin'@'localhost' (using password: YES)' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 17:41:31 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'unassalo_intranet'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 17:49:54 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'unassalo_intranet'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 17:50:17 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1044] Access denied for user 'solucion_admin'@'localhost' to database 'unassalo_intranet'' in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:7
+Stack trace:
+#0 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php(7): PDO->__construct('mysql:host=loca...', 'solucion_admin', 'C3MCYIE#gEP*')
+#1 /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php(2): include('/hostingDataA4/...')
+#2 {main}
+  thrown in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 7
+[26-Aug-2019 17:51:22 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 17:51:28 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 17:52:47 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 17:52:52 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 17:54:02 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 12
+[26-Aug-2019 17:56:51 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 17:58:01 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 17:58:06 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 17:59:37 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:01:47 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 12
+[26-Aug-2019 18:05:25 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:16:12 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:16:15 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:16:16 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:16:21 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:16:35 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:18:12 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:22:08 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:22:24 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 13
+[26-Aug-2019 18:31:39 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:35:35 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:38:11 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:40:07 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:40:30 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:41:38 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:41:46 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:41:47 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:41:49 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:41:51 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:42:48 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:42:49 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:42:49 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:45:19 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:45:20 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:47:03 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:47:04 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:47:05 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:48:22 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:49:10 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 18:53:09 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 12
+[26-Aug-2019 19:03:47 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php on line 15
+[26-Aug-2019 19:08:04 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 4
+[26-Aug-2019 19:08:04 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 32
+[26-Aug-2019 19:08:28 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 4
+[26-Aug-2019 19:08:28 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 32
+[26-Aug-2019 19:08:40 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 4
+[26-Aug-2019 19:08:40 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 4
+[26-Aug-2019 19:08:40 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 32
+[26-Aug-2019 19:08:56 UTC] PHP Warning:  session_start(): Cannot send session cookie - headers already sent by (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 4
+[26-Aug-2019 19:08:56 UTC] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 4
+[26-Aug-2019 19:08:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/mysqlconn.php:17) in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/process_login.php on line 32
+[27-Aug-2019 17:30:56 UTC] PHP Warning:  PDO::query(): MySQL server has gone away in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/productList.php on line 80
+[27-Aug-2019 17:30:56 UTC] PHP Warning:  PDO::query(): Error reading result set's header in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/productList.php on line 80
+[27-Aug-2019 17:30:56 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/productList.php on line 83
+[28-Aug-2019 16:29:29 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/prestamosList.php on line 25
+[28-Aug-2019 16:29:41 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/prestamosList.php on line 25
+[28-Aug-2019 17:53:52 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/productList.php on line 47
+[28-Aug-2019 17:54:15 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/productList.php on line 47
+[29-Aug-2019 18:50:11 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/priceLists.php on line 62
+[30-Aug-2019 14:28:40 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/priceLists.php on line 66
+[30-Aug-2019 14:29:00 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/priceLists.php on line 66
+[30-Aug-2019 14:29:39 UTC] PHP Fatal error:  Call to a member function fetch() on boolean in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/priceLists.php on line 66
+[30-Aug-2019 17:00:13 UTC] PHP Fatal error:  Call to undefined method PDOStatement::fetchColumns() in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/proyectList.php on line 52
+[30-Aug-2019 17:21:56 UTC] PHP Fatal error:  Call to undefined method PDOStatement::fetchColumns() in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/inflowList.php on line 53
+[30-Aug-2019 17:22:17 UTC] PHP Fatal error:  Call to undefined method PDOStatement::fetchColumns() in /hostingDataA4/solucionmkt/public_html/mbr_admin_php/includes/inflowList.php on line 53

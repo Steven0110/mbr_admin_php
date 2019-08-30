@@ -1,5 +1,5 @@
 <?php
-include "includes/mysqlconn.php";
+include_once "includes/mysqlconn.php";
 
 $ID = $_REQUEST["userID"];
 $first = "";
@@ -13,7 +13,7 @@ $active = "";
 $sales = "";
 
 if(isset($ID)) {
-	$queryUser = "SELECT * FROM CREW WHERE ID = '$ID'";
+	$queryUser = "SELECT * FROM crew WHERE ID = '$ID'";
 	$resultUser = $db->query($queryUser);
 	$rowUser = $resultUser->fetch();
 	
@@ -45,7 +45,7 @@ if(isset($ID)) {
   </thead>
   <tbody>
     <?php
-		$myQuery = $db->query("SELECT T1.ID, T1.first, T1.last, T1.email, T2.name store, T1.username FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID ORDER BY T1.first ASC, T1.last ASC");
+		$myQuery = $db->query("SELECT T1.ID, T1.first, T1.last, T1.email, T2.name store, T1.username FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID ORDER BY T1.first ASC, T1.last ASC");
 		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>
@@ -86,7 +86,7 @@ if(isset($ID)) {
         <div style="margin-top:10px"><select id="store" name="store" style="margin-top:10px;">
         	<option value="" disabled selected>Selecciona...</option>
         	<?php
-			$queryStore = "SELECT ID, code, name FROM STORES ORDER BY name ASC";
+			$queryStore = "SELECT ID, code, name FROM stores ORDER BY name ASC";
 			$resultStore = $db->query($queryStore);
 			while($rowStore = $resultStore->fetch()){
 				$selOpt = "";

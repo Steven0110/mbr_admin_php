@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 $store = $_POST["storeID"];
 $employee = $_SESSION["empID"];
@@ -8,7 +8,7 @@ $fromDate = $_POST["fromDate"];
 $toDate = $_POST["toDate"];
 
 // Discover next ID
-$numQuery = "SELECT ID FROM PAYMENT ORDER BY ID DESC LIMIT 1";
+$numQuery = "SELECT ID FROM payment ORDER BY ID DESC LIMIT 1";
 $resultID = $db->query($numQuery);
 if (!$resultID)
 {
@@ -19,7 +19,7 @@ if (!$resultID)
 }
 
 // Discover next code
-$codeQuery = "SELECT code FROM PAYMENT WHERE storeID = $store ORDER BY code DESC LIMIT 1";
+$codeQuery = "SELECT code FROM payment WHERE storeID = $store ORDER BY code DESC LIMIT 1";
 $resultCode = $db->query($codeQuery);
 if (!$resultCode)
 {
@@ -27,7 +27,7 @@ if (!$resultCode)
 } else {
 	$rowCode = $resultCode->fetch();
 	if ($rowCode["code"] == "" || $rowCode["code"] == NULL) {
-		$queryStore = $db->query("SELECT code FROM STORES WHERE ID = $store");
+		$queryStore = $db->query("SELECT code FROM stores WHERE ID = $store");
 		$rowStore = $queryStore->fetch();
 		$code = $rowStore["code"]."-PGO-100001";
 	} else {
@@ -37,7 +37,7 @@ if (!$resultCode)
 }
 
 // Enter Payment to DB
-$sql = "INSERT INTO PAYMENT (ID, code, created_at, storeID, empID, active, fromDate, toDate) VALUES ('$ID', '$code', CURRENT_TIMESTAMP, $store, $employee, 'Y', '$fromDate', '$toDate')";
+$sql = "INSERT INTO payment (ID, code, created_at, storeID, empID, active, fromDate, toDate) VALUES ('$ID', '$code', CURRENT_TIMESTAMP, $store, $employee, 'Y', '$fromDate', '$toDate')";
 $retval = $db->query($sql);
 if(! $retval )
 {
@@ -46,7 +46,7 @@ if(! $retval )
 
 // Modify Transfer Lines
 foreach ($_POST["tranCode"] as $key => $value) {
-	$sql = "UPDATE TRANSFERS SET account = 'Y', pmntCode = '$code' WHERE code = '$value'";
+	$sql = "UPDATE transfers SET account = 'Y', pmntCode = '$code' WHERE code = '$value'";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{

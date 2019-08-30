@@ -4,7 +4,7 @@ include 'head.php';
 $storeIDs = array();
 $storeNames = array();
 
-$storesQuery = "SELECT ID, code, name FROM STORES ";
+$storesQuery = "SELECT ID, code, name FROM stores ";
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }
@@ -103,7 +103,7 @@ $(document).ready(function() {
 		"processing": true,
 		"serverSide": true,
 		"ajax": {
-			url: "includes/productList.php?by=CODIGO&wh="+$("#selectW").val(),
+			url: "includes/productList.php?wh="+$("#selectW").val()+"&by=CODIGO",
 			type: "post",
 			beforeSend: function(xhr, settings){
 				if($("#searchParam").val().length <= 4 && $("#searchParam").val().length > 0)

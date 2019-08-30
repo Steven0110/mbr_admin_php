@@ -18,7 +18,7 @@ $columns = array(
 );
 
 // getting total number records without any search
-$queryTotal = "SELECT COUNT(*) quant FROM TRANSFERS";
+$queryTotal = "SELECT COUNT(*) quant FROM transfers";
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$queryTotal.= "";
 } else {
@@ -29,7 +29,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT T2.name orStore, T4.name dsStore, T1.code, DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') created, CONCAT(T3.first, ' ', T3.last) emp, T1.ID FROM TRANSFERS T1 JOIN STORES T2 ON T1.orStore = T2.ID JOIN STORES T4 ON T1.dsStore = T4.ID JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.orStore <> 0 AND T1.dsStore <> 0";
+$query = "SELECT T2.name orStore, T4.name dsStore, T1.code, DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') created, CONCAT(T3.first, ' ', T3.last) emp, T1.ID FROM transfers T1 JOIN stores T2 ON T1.orStore = T2.ID JOIN stores T4 ON T1.dsStore = T4.ID JOIN crew T3 ON T1.empID = T3.ID WHERE T1.orStore <> 0 AND T1.dsStore <> 0";
 
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";

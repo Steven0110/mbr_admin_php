@@ -9,9 +9,9 @@ $wareHouse = $_REQUEST["wh"];
 $by = $_REQUEST["by"];
 $columns = array( 
 // datatable column index  => database column name
-	0 => 'client', 
-	1 => 'proyect_namee',
-	2 => 'ID'
+	0 => 'ID',
+	1 => 'proyectname',
+	2 => 'client' 
 );
 
 // getting total number records without any search
@@ -26,7 +26,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT ID,proyectname,client FROM proyects";
+$query = "SELECT t1.ID, t1.proyectname, t1.client FROM proyects t1";
 /*
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";
@@ -37,23 +37,23 @@ if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 if (!empty($term)) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
 		case "FOLIO":
-			$query.= " WHERE ID LIKE '%".$term."%'";
+			$query.= " WHERE t1.ID LIKE '%".$term."%'";
 			break;
 		case "PROYECTO":
-			$query.= " WHERE proyectname LIKE '%".$term."%'";
+			$query.= " WHERE t1.proyectname LIKE '%".$term."%'";
 			break;
 		case "CLIENTE":
-			$query.= " WHERE client LIKE '%".$term."%'";
+			$query.= " WHERE t1.client LIKE '%".$term."%'";
 			break;
 	}
 
 	$result = $db->prepare($query);
-    $result->execute;
-	$totalFiltered = $result->fetchColumns(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+    $result->execute();
+	$totalFiltered = $result->fetchColumn(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";
-/*$query.= " ORDER BY ".$columns[$requestData['order'][0]['column']]." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start'].", ".$requestData['length']."";
+$query.= " ORDER BY ".$columns[$requestData['order'][0]['column']]." ".$requestData['order'][0]['dir']." LIMIT ".$requestData['start'].", ".$requestData['length']."";
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */
 $result = $db->query($query);
 $data = array();

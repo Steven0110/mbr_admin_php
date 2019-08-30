@@ -23,15 +23,15 @@ while ($proyectRow = $proyectResult->fetch()) {
 <div class="sectionTitle">PROYECTOS</div>
 <div class="sButtons"><a href="newProyect.php" class="sButton">NUEVO PROYECTO</a></div>
 
-<div class="searchDiv">
+<div class="searchDiv"><!--
 Mostrar proyectos <select id="selectW" class="" name="">
     <?php
-	echo "<option value='0'>Todos</option>";
+	/*echo "<option value='0'>Todos</option>";
 	foreach ($proyectIDs as $i => $proyectID) {
 		echo "<option value='".$proyectID."'>".$proyectNames[$i]."</option>";
-	}
+	}*/
 	?>
-</select><br>
+</select><br>-->
 Busqueda por
 <input type="radio" name="searchBy[]" class="searchBy" value="FOLIO" checked> Folio
 <input type="radio" name="searchBy[]" class="searchBy" value="PROYECTO"> Proyecto
@@ -85,7 +85,7 @@ $(document).ready(function() {
         //}
 	});
 	
-	$("#searchParam").prop("placeholder", $(".searchBy:checked").val());
+	$("#searchParam").prop("placeholder", "CODIGO");
 	
 	var sendValues = function() {
 		$("#searchParam").prop("placeholder", $(".searchBy:checked").val());

@@ -1,13 +1,13 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 $store = $_POST["store"];
 $employee = $_SESSION["empID"];
 $remarks = $_POST['remarks'];
 
 // Discover next ID
-$numQuery = "SELECT ID FROM OUTFLOWS ORDER BY ID DESC LIMIT 1";
+$numQuery = "SELECT ID FROM outflows ORDER BY ID DESC LIMIT 1";
 $resultID = $db->query($numQuery);
 if (!$resultID)
 {
@@ -18,7 +18,7 @@ if (!$resultID)
 }
 
 // Discover next code
-$codeQuery = "SELECT code FROM OUTFLOWS WHERE storeID = $store ORDER BY code DESC LIMIT 1";
+$codeQuery = "SELECT code FROM outflows WHERE storeID = $store ORDER BY code DESC LIMIT 1";
 $resultCode = $db->query($codeQuery);
 if (!$resultCode)
 {
@@ -26,7 +26,7 @@ if (!$resultCode)
 } else {
 	$rowCode = $resultCode->fetch();
 	if ($rowCode["code"] == "" || $rowCode["code"] == NULL) {
-		$queryStore = $db->query("SELECT code FROM STORES WHERE ID = $store");
+		$queryStore = $db->query("SELECT code FROM stores WHERE ID = $store");
 		$rowStore = $queryStore->fetch();
 		$code = $rowStore["code"]."-SAL-100001";
 	} else {
@@ -37,7 +37,7 @@ if (!$resultCode)
 
 
 // Enter Outflow to DB
-$sql = "INSERT INTO OUTFLOWS (ID, code, storeID, empID, created_at, remarks) VALUES ('$ID', '$code', '$store', '$employee', CURRENT_TIMESTAMP, '$remarks')";
+$sql = "INSERT INTO outflows (ID, code, storeID, empID, created_at, remarks) VALUES ('$ID', '$code', '$store', '$employee', CURRENT_TIMESTAMP, '$remarks')";
 $retval = $db->query($sql);
 if(! $retval )
 {
@@ -47,7 +47,7 @@ if(! $retval )
 // Enter Outflow Lines
 foreach ($_POST['prodCode'] as $key => $value) {
 	$quant = $_POST['quant'][$key];
-	$sql = "INSERT INTO OUTLN (ID, outID, prodCode, qty) VALUES (NULL, '$ID', '$value', '$quant')";
+	$sql = "INSERT INTO outln (ID, outID, prodCode, qty) VALUES (NULL, '$ID', '$value', '$quant')";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{
@@ -56,13 +56,13 @@ foreach ($_POST['prodCode'] as $key => $value) {
 	
 	// Modify inventory
 	// Current QTY
-	$myQuery = $db->query("SELECT qty FROM PRDL WHERE prodCode = '$value' AND storeID = '$store'");
+	$myQuery = $db->query("SELECT qty FROM prdl WHERE prodCode = '$value' AND storeID = '$store'");
 	$row = $myQuery->fetch();
 	$curQty = $row['qty'];
 	
 	$newQty = $curQty - $quant;
 	
-	$sql = "UPDATE PRDL SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'";
+	$sql = "UPDATE prdl SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{

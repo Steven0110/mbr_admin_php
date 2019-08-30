@@ -5,7 +5,7 @@
 	// Top products
 		$topProducts = array();
 		$tpSales = array();
-		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name, IFNULL(SUM(T2.qty), 0) sales FROM PRODUCT T1 LEFT JOIN OUTLN T2 ON T1.code = T2.prodCode INNER JOIN OUTFLOWS T3 ON T2.outID = T3.ID INNER JOIN STORES T4 ON T3.storeID = T4.ID WHERE T1.active = 'Y' AND T4.code = '$storeCode[$i]' GROUP BY T1.code ORDER BY sales DESC LIMIT 10");
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name, IFNULL(SUM(T2.qty), 0) sales FROM product T1 LEFT JOIN outln T2 ON T1.code = T2.prodCode INNER JOIN outflows T3 ON T2.outID = T3.ID INNER JOIN stores T4 ON T3.storeID = T4.ID WHERE T1.active = 'Y' AND T4.code = '$storeCode[$i]' GROUP BY T1.code ORDER BY sales DESC LIMIT 10");
 		while($row = $myQuery->fetch()){			
 			$topProducts[] = utf8_encode($row['name']);
 			$tpSales[] = $row['sales'];
@@ -104,7 +104,7 @@
 	// Get Inflows
 	$dayInflows = array();
 	$dayInflowsArray = array();
-	$myQuery = $db->query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM INFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
+	$myQuery = $db->query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM inflows T1 INNER JOIN stores T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
 	while($row = $myQuery->fetch()){			
 		$dayInflows[$row['day']] = $row['quant'];
 	};
@@ -112,7 +112,7 @@
 	// Get Outflows
 	$dayOutflows = array();
 	$dayOutflowsArray = array();
-	$myQuery = $db->query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM OUTFLOWS T1 INNER JOIN STORES T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
+	$myQuery = $db->query("SELECT COUNT(*) quant, T1.created_at, SUBSTRING_INDEX(SUBSTRING_INDEX(T1.created_at, ' ', 1), ' ', -1) as day, T1.storeID, T2.name FROM outflows T1 INNER JOIN stores T2 ON T1.storeID = T2.ID WHERE created_at >= '2016-01-25 00:00:00' AND T2.code = '$storeCode[$i]' GROUP BY day");
 	while($row = $myQuery->fetch()){			
 		$dayOutflows[$row['day']] = $row['quant'];
 	};

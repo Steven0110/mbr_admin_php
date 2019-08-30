@@ -3,7 +3,7 @@ include 'head.php';
 
 $prodID = $_REQUEST["prodID"];
 
-$queryProd = "SELECT ID, code, name, detail, catID, vendorID, cost, price, active, remarks FROM PRODUCT WHERE ID = '$prodID'";
+$queryProd = "SELECT ID, code, name, detail, catID, vendorID, cost, price, active, remarks FROM product WHERE ID = '$prodID'";
 $resultProd = $db->query($queryProd);
 $rowProd = $resultProd->fetch();
 
@@ -17,12 +17,12 @@ $price = $rowProd['price'];
 $active = $rowProd['active'];
 $remarks = $rowProd['remarks'];
 
-$queryNext = "SELECT MIN(ID) nextID FROM PRODUCT WHERE ID > '$prodID'";
+$queryNext = "SELECT MIN(ID) nextID FROM product WHERE ID > '$prodID'";
 $resultNext = $db->query($queryNext);
 $rowNext = $resultNext->fetch();
 $nextID = $rowNext["nextID"];
 
-$queryPrev = "SELECT MAX(ID) prevID FROM PRODUCT WHERE ID < '$prodID'";
+$queryPrev = "SELECT MAX(ID) prevID FROM product WHERE ID < '$prodID'";
 $resultPrev = $db->query($queryPrev);
 $rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["prevID"];
@@ -63,7 +63,7 @@ $prevID = $rowPrev["prevID"];
       <td>Categoría<br>
       	<div style="margin-top:10px"><select id="cat" name="cat" style="margin-top:10px;">
         	<?php
-			$myQuery = $db->query("SELECT ID, CONCAT(catName, ' (', ID, ')') catName FROM CAT ORDER BY catName");
+			$myQuery = $db->query("SELECT ID, CONCAT(catName, ' (', ID, ')') catName FROM cat ORDER BY catName");
 			while($row = $myQuery->fetch()){
 				if ($catID == $row["ID"])
 					{
@@ -81,7 +81,7 @@ $prevID = $rowPrev["prevID"];
       <td>Proveedor<br>
         <div style="margin-top:10px"><select id="vendor" name="vendor">
         	<?php
-			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM VENDOR ORDER BY name");
+			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM vendor ORDER BY name");
 			while($row = $myQuery->fetch()){			
 				if ($vendorID == $row["ID"])
 					{
@@ -125,7 +125,7 @@ $prevID = $rowPrev["prevID"];
 				</table>
 			</div>
         	<?php
-        	$myQuery = $db->query("SELECT T1.ID, T1.prodCode, T2.ID storeID, CONCAT(T2.name, ' (', T2.ID, ')') store, T1.qty, T1.OnOrder, T1.minq, T1.maxq FROM PRDL T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T1.prodCode = '$code' ORDER BY T2.name");
+        	$myQuery = $db->query("SELECT T1.ID, T1.prodCode, T2.ID storeID, CONCAT(T2.name, ' (', T2.ID, ')') store, T1.qty, T1.OnOrder, T1.minq, T1.maxq FROM prdl T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T1.prodCode = '$code' ORDER BY T2.name");
 						
 			while($row = $myQuery->fetch()){
 				$storeID = $row["storeID"];

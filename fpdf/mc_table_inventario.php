@@ -202,9 +202,9 @@ var $aligns;
 
 function Header()
 {	
-	require("includes/mysqlconn.php");
+	include_once ("includes/mysqlconn.php");
     // Logo
-    $this->Image("images/logo.png",10,5,70);
+    $this->Image("images/mbrlogo.png",10,5,70);
     // Arial bold 20
     $this->SetFont('Arial','B',18);
     // Move to the right
@@ -215,7 +215,7 @@ function Header()
 	if($_SESSION["role"] == 'Y') {
 		$title = "Inventario General";
 	} else {
-		$queryStore = "SELECT name FROM STORES WHERE ID = '".$_SESSION["store"]."'";
+		$queryStore = "SELECT name FROM stores WHERE ID = '".$_SESSION["store"]."'";
 		$resultStore = $db->query($queryStore);
 		$rowStore = $resultStore->fetch();
 		$title = "Inventario ".$rowStore["name"];
@@ -249,7 +249,7 @@ function Header()
 	$storeIDs = array();
 	$storeNames = array();
 	
-	$storesQuery = "SELECT ID, code FROM STORES ";
+	$storesQuery = "SELECT ID, code FROM stores ";
 	if ($_SESSION["role"] != 'Y') {
 		$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 	}

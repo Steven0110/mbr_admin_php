@@ -18,7 +18,7 @@ $reg = $sql->fetch();
 		$currQuant = $quant["QTY"];
 		// Modify inventory
 		// Current QTY
-		$myQuery = $db->query("SELECT qty FROM PRDL WHERE prodCode = '$value' AND storeID = '$store'");
+		$myQuery = $db->query("SELECT qty FROM prdl WHERE prodCode = '$value' AND storeID = '$store'");
 		$row = $myQuery->fetch();
 		$curQty = $row['qty'];
 		
@@ -29,7 +29,7 @@ $reg = $sql->fetch();
 		{
 		  die('Could not enter data: ' . mysqli_error());
 		}
-		$sql = $db->query("UPDATE PRDL SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'");
+		$sql = $db->query("UPDATE prdl SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'");
 		if(! $sql )
 		{
 		  die('Could not enter data: ' . mysqli_error());

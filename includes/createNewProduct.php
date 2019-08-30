@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 $product = $_POST['product'];
 $code = $_POST['code'];
@@ -12,7 +12,7 @@ $price = $_POST['price'];
 $remarks = $_POST['remarks'];
 
 // Enter New Product to DB
-$sql = "INSERT INTO PRODUCT (ID, code, name, detail, vendorID, catID, cost, price, inventory, remarks) VALUES (NULL, '$code', '$product', '$detail', '$vendor', '$cat', '$cost', '$price', 0, '$remarks')";
+$sql = "INSERT INTO product (ID, code, name, detail, vendorID, catID, cost, price, inventory, remarks) VALUES (NULL, '$code', '$product', '$detail', '$vendor', '$cat', '$cost', '$price', 0, '$remarks')";
 $retval = $db->query($sql);
 if(!$retval)
 {
@@ -23,7 +23,7 @@ if(!$retval)
 foreach ($_POST['storeID'] as $key => $value) {
 	$min = $_POST['min'][$key];
 	$max = $_POST['max'][$key];
-	$sql = "INSERT INTO PRDL (ID, prodCode, storeID, qty, minq, maxq) VALUES (NULL, '$code', '$value', 0, '$min', '$max')";
+	$sql = "INSERT INTO prdl (ID, prodCode, storeID, qty, minq, maxq) VALUES (NULL, '$code', '$value', 0, '$min', '$max')";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{

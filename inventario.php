@@ -23,7 +23,7 @@ require('fpdf/mc_table_inventario.php');
 $storeIDs = array();
 $storeNames = array();
 
-$storesQuery = "SELECT ID, code FROM STORES ";
+$storesQuery = "SELECT ID, code FROM stores ";
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
 }
@@ -54,13 +54,13 @@ $pdf->SetWidths($colWidths);
 
 $query = "SELECT T1.code, T1.name product";
 if ($_SESSION["role"] == 'Y') {
-	$query.= ", (SELECT SUM(qty) FROM PRDL T4 WHERE T4.prodCode = T1.code) total";
+	$query.= ", (SELECT SUM(qty) FROM prdl T4 WHERE T4.prodCode = T1.code) total";
 }
-$query.= " FROM PRODUCT T1 INNER JOIN CAT T2 ON T1.catID = T2.ID WHERE T1.active != 'N' ORDER BY T1.name ASC";
+$query.= " FROM product T1 INNER JOIN cat T2 ON T1.catID = T2.ID WHERE T1.active != 'N' ORDER BY T1.name ASC";
 $result = $db->query($query);
 while($row = $result->fetch()){
 	foreach ($storeIDs as $i => $storeID) {
-		$byStore = "SELECT qty FROM PRDL WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."' ORDER BY storeID ASC";
+		$byStore = "SELECT qty FROM prdl WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."' ORDER BY storeID ASC";
 		$resByStore = $db->query($byStore);
 		while($rowByStore = $resByStore->fetch()) {
 			array_push($row, $rowByStore["qty"]);

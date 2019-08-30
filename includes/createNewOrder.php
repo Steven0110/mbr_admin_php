@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 $store = $_POST["storeID"];
 $employee = $_SESSION["empID"];

@@ -3,7 +3,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
 
-<div class="sectionTitle">REGISTRAR ENTRADA</div>
+<div class="sectionTitle">REGISTRAR PRESTAMO</div>
 
 <div class="format">
 <form method="post" action="includes/createNewPrestamo.php" id="inflowForm">
@@ -15,7 +15,7 @@
         	<select id="store" name="store" style="margin-top:10px;" required>
             <option value="" selected disabled>Selecciona...</option>
         	<?php
-			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES");
+			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM stores");
 			while($row = $myQuery->fetch()){
 				echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
 			};

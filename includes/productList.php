@@ -5,14 +5,20 @@ include "mysqlconn.php";
 // storing  request (ie, get/post) global array to a variable  
 $requestData = $_REQUEST;
 $term = utf8_decode($requestData['search']['value']);
-
-if ($_SESSION["role"] != "Y") {
+try{
+	
+	if ($_SESSION["role"] != "Y") {
 	$wareHouse = $_SESSION["store"];
-} else {
-	$wareHouse = $_REQUEST['wh'];
-}
+	}else {
+	$wareHouse = $_REQUEST["wh"];
+	}
+}catch(Exception $ex)
+{
 
+}
 $by = $_REQUEST["by"];
+
+ 
 
 if ($_SESSION["role"] == "Y") {
 	$columns = array( 
@@ -44,7 +50,7 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 
 $query = "SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, ";
 
-if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
+if (!isset($wareHouse)) {
 	$query.= "(SELECT SUM(qty) FROM prdl T4 WHERE T4.prodCode = T1.code) qty, (SELECT SUM(OnOrder) FROM prdl T4 WHERE T4.prodCode = T1.code) OnOrder ";
 } else {
 	$query.= "(SELECT qty FROM prdl T4 WHERE T4.prodCode = T1.code AND T4.storeID = '".$wareHouse."') qty, (SELECT OnOrder FROM prdl T4 WHERE T4.prodCode = T1.code AND T4.storeID = '".$wareHouse."') OnOrder ";
@@ -52,7 +58,7 @@ if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 
 $query.= "FROM product T1 JOIN cat T2 ON T1.catID = T2.ID JOIN vendor T3 ON T1.vendorID = T3.ID";
 
-if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+if (!empty($term)) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
 		case "CODIGO":
 			$query.= " AND code LIKE '%".$term."%'";
@@ -60,7 +66,7 @@ if (!empty($requestData['search']['value'])) {   // if there is a search paramet
 		case "NOMBRE":
 			$query.= " AND T1.name LIKE '%".$term."%'";
 			break;
-		case "catEGORIA":
+		case "CATEGORIA":
 			$query.= " AND T2.catName LIKE '%".$term."%'";
 			break;
 		case "PROVEEDOR":

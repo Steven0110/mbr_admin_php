@@ -109,8 +109,8 @@ $prevID = $rowPrev["prevID"];
 	  </td>
     </tr>-->
     <tr>
-      <td align="left"><button type="button" class="formButton redB" onClick="cancel();">Cancelar</button></td>
-      <td align="right"><button type="submit" class="formButton blueB" id="saveButton">Guardar</button></td>
+      <td align="left"><button type="button" class="formButton redB" onClick="cancel();">REGRESAR</button></td>
+      <!--<td align="right"><button type="submit" class="formButton blueB" id="saveButton">Guardar</button></td>-->
     </tr>
   </tbody>
 </table>

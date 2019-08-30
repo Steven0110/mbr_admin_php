@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "mysqlconn.php";
+include_once "mysqlconn.php";
 
 // storing  request (ie, get/post) global array to a variable  
 $requestData = $_REQUEST;
@@ -17,7 +17,7 @@ $columns = array(
 );
 
 // getting total number records without any search
-$queryTotal = "SELECT COUNT(*) quant FROM SALES";
+$queryTotal = "SELECT COUNT(*) quant FROM sales";
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$queryTotal.= "";
 } else {
@@ -28,7 +28,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT T2.name store, T1.code, DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') created, CONCAT(T3.first, ' ', T3.last) emp, T1.ID FROM SALES T1 JOIN STORES T2 ON T1.storeID = T2.ID JOIN CREW T3 ON T1.empID = T3.ID WHERE T1.storeID <> 0";
+$query = "SELECT T2.name store, T1.code, DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') created, CONCAT(T3.first, ' ', T3.last) emp, T1.ID FROM sales T1 JOIN stores T2 ON T1.storeID = T2.ID JOIN crew T3 ON T1.empID = T3.ID WHERE T1.storeID <> 0";
 
 if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$query.= "";

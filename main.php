@@ -1,4 +1,4 @@
-<?php include 'head.php'; require('includes/mysqlconn.php');?>
+<?php include 'head.php'; include_once ('includes/mysqlconn.php');?>
 
 <!--
 <div class="sectionTitle">VISIÓN GENERAL</div>-->
@@ -7,7 +7,7 @@
 <div id="genGraphs">
     <div>
     	<?php
-		$myQuery = $db->query("SELECT COUNT(*) quant FROM OUTFLOWS");
+		$myQuery = $db->query("SELECT COUNT(*) quant FROM outflows");
 		$row = $myQuery->fetch();
 		$totCount = $row["quant"];
 		$avgCount = $totCount / 8;
@@ -17,7 +17,7 @@
 		// Rank Stores
 		$stores = array();
 		$outflows = array();
-		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name, IFNULL(T2.quant, 0) sales FROM STORES T1 LEFT JOIN (SELECT storeID, COUNT(*) quant FROM OUTFLOWS GROUP BY storeID) T2 ON T1.ID = T2.storeID GROUP BY T1.ID ORDER BY sales DESC");
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name, IFNULL(T2.quant, 0) sales FROM stores T1 LEFT JOIN (SELECT storeID, COUNT(*) quant FROM outflows GROUP BY storeID) T2 ON T1.ID = T2.storeID GROUP BY T1.ID ORDER BY sales DESC");
 		while($row = $myQuery->fetch()){
 			$stores[] = utf8_encode($row['name']);
 			$outflows[] = $row['sales'];
@@ -43,7 +43,7 @@
         */
 		//print_r($topProducts);
 		//exit;
-		$tpSales = array_slice($pSales, 0, 10);
+		//$tpSales = array_slice($pSales, 0, 10);
 		?>
         <div class="genIcon"><img src="images/total-outflows.png"></div>
         <div class="genLabel">SALIDAS TOTALES</div>
@@ -91,11 +91,11 @@ var js_outflows = JSON.parse('<?php echo JSON_encode($outflows);?>');
 js_outflows = js_outflows.map(Number);
 
 // Top products
-/*var js_topProducts = JSON.parse('<?php /*echo JSON_encode($topProducts);*/?>');*/
-/*var js_tpSales = JSON.parse('<?php echo JSON_encode($tpSales);?>');
+/*var js_topProducts = JSON.parse('<?php echo JSON_encode($topProducts);?>');
+var js_tpSales = JSON.parse('<?php echo JSON_encode($tpSales);?>');
 
-js_tpSales = js_tpSales.map(Number);*/
-
+js_tpSales = js_tpSales.map(Number);
+*/
 $(function () {
 	// Store Sales Rank
     $('#storesTotal').highcharts({
@@ -152,7 +152,12 @@ $(function () {
         }]
     });
 	// Top 10 Products
+<<<<<<< HEAD
 	/*$('#topProducts').highcharts({
+=======
+	/*
+	$('#topProducts').highcharts({
+>>>>>>> fac23f1ca158dc4909edaa74a6dc44cd5311e4a8
         chart: {
             type: 'bar',
 			backgroundColor: '#000000',
@@ -218,9 +223,9 @@ $storeName = array();
 $storeCode = array();
 
 if ($_SESSION["role"] == 'Y') {
-	$myQuery = $db->query("SELECT ID, code, name FROM STORES ORDER BY name ASC");
+	$myQuery = $db->query("SELECT ID, code, name FROM stores ORDER BY name ASC");
 } else {
-	$myQuery = $db->query("SELECT ID, code, name FROM STORES WHERE ID = '".$_SESSION["store"]."' ORDER BY code ASC");
+	$myQuery = $db->query("SELECT ID, code, name FROM stores WHERE ID = '".$_SESSION["store"]."' ORDER BY code ASC");
 }
 while($row = $myQuery->fetch()){
 	$storeName[] = $row['name'];

@@ -16,7 +16,7 @@ $pdf->SetFont('Arial','',8, 'C');
 
 
 //Datos entrega
-$query1 = "SELECT T1.ID, T1.code, T1.orStore orStoreID, T1.dsStore dsStoreID, T2.name orStore, T3.name dsStore, T1.created_at, T1.empID, T1.remarks FROM TRANSFERS T1 JOIN STORES T2 ON T1.orStore = T2.ID JOIN STORES T3 ON T1.dsStore = T3.ID WHERE T1.ID = '$tranID'";
+$query1 = "SELECT T1.ID, T1.code, T1.orStore orStoreID, T1.dsStore dsStoreID, T2.name orStore, T3.name dsStore, T1.created_at, T1.empID, T1.remarks FROM transfers T1 JOIN stores T2 ON T1.orStore = T2.ID JOIN stores T3 ON T1.dsStore = T3.ID WHERE T1.ID = '$tranID'";
 $result1 = $db->query($query1);
 $row1 = $result1->fetch();
 
@@ -27,7 +27,7 @@ $remarks= $row1["remarks"];
 	
 	
 // Lineas de cotización
-$queryTran = "SELECT T2.ID, T1.prodCode, T2.name, T2.price, T1.qty FROM TRLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.tranID = '$tranID'";
+$queryTran = "SELECT T2.ID, T1.prodCode, T2.name, T2.price, T1.qty FROM trln T1 INNER JOIN product T2 ON T1.prodCode = T2.code WHERE T1.tranID = '$tranID'";
 $resultTran = $db->query($queryTran);
 $pdf->SetDrawColor(255,255,255);
 while($rowTran = $resultTran->fetch()) {
@@ -41,17 +41,17 @@ $pdf->SetDrawColor(0,0,0);
 
 ////////////////////////////////////////////////////////////////////
 
-$queryFrom = "SELECT T1.first, T1.last FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$orStoreID' LIMIT 1";
+$queryFrom = "SELECT T1.first, T1.last FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$orStoreID' LIMIT 1";
 $resultFrom = $db->query($queryFrom);
 $rowFrom = $resultFrom->fetch();
 $nameFrom = $rowFrom["first"]." ".$rowFrom["last"];
 
-$queryTo = "SELECT T1.first, T1.last FROM CREW T1 JOIN STORES T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
+$queryTo = "SELECT T1.first, T1.last FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
 $resultTo = $db->query($queryTo);
 $rowTo = $resultTo->fetch();
 $nameTo = $rowTo["first"]." ".$rowTo["last"];
 
-$queryTotal = "SELECT SUM(T2.price * T1.qty) total FROM TRLN T1 INNER JOIN PRODUCT T2 ON T1.prodCode = T2.code WHERE T1.tranID = '$tranID'";
+$queryTotal = "SELECT SUM(T2.price * T1.qty) total FROM trln T1 INNER JOIN product T2 ON T1.prodCode = T2.code WHERE T1.tranID = '$tranID'";
 $resultTotal = $db->query($queryTotal);
 $rowTotal = $resultTotal->fetch();
 $total = $rowTotal["total"];
