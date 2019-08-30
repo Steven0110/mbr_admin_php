@@ -1,5 +1,5 @@
 html {
-	height:100%;
+	min-height:100%;
 }
 
 body {
@@ -9,6 +9,7 @@ body {
 	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size:12px;
 	color:#000000;
+	background-image: url("images/bg-blue.jpg");
 	/*background-image:url(../images/damask-back.png);
 	background-size:200px;
 	background-attachment:fixed;
