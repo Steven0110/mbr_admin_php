@@ -22,8 +22,8 @@ include_once "includes/mysqlconn.php";
 <!doctype html>
 <html>
 <head>
-<meta charset="ISO-8859-1" http-equiv="content-type" content="text/html">
-<title>U&ntilde;as Sal&oacute;n y M&aacute;s</title>
+<meta charset="utf-8" http-equiv="content-type" content="text/html">
+<title>Arquitectura Bekman | Intranet</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>

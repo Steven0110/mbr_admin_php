@@ -12,7 +12,7 @@ if(isset($_SESSION['authenticated_user'])) {
 
 <meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-<title>U&ntilde;as Sal&oacute;n y M&aacute;s - Intranet</title>
+<title>Arquitectura Bekman - Intranet</title>
 <link href="resource/1353549783000/fav_ico" rel="icon" type="image/x-icon" />
 <link href="resource/1353549783000/fav_ico" rel="shortcut icon" type="image/x-icon" />
 <style>
@@ -163,6 +163,14 @@ input {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.loginError {
+	background-color: #f7b0b0;
+	padding: 10px;
+	color: #f26161;
+	font-family: Lato-Black;
+	opacity: 0;
+	transition: 0.2s linear all;
+}
 </style>
     </head>
     <body>
@@ -189,7 +197,10 @@ input {
             Contraseña</label><br><input type="password" name="password" id="password" />
         </div>
         
-        
+        <div class="loginError" id="loginError">
+        	Datos de usuario incorrectos	
+        </div>
+
         <div>
             <button type="submit" class="login_button">ENTRAR</button>
         </div>
@@ -210,4 +221,12 @@ input {
 </div>
         
 </body>
+<script>
+	let url = location.href
+	console.log( url )
+	if( url.match(/error\=nosuchuser/g) )
+		setTimeout(() => {
+			document.getElementById("loginError").style.opacity = "1"
+		}, 200	)
+</script>
 </html>
