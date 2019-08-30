@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['authenticated_user']) {
+if(isset($_SESSION['authenticated_user'])) {
 	header("Location: main.php");
 	die();
 }
@@ -12,10 +12,42 @@ if($_SESSION['authenticated_user']) {
 
 <meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<<<<<<< HEAD
 <title>ARQUITECTURA - Intranet</title>
+=======
+<title>Arquitectura Bekman - Intranet</title>
+>>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
 <link href="resource/1353549783000/fav_ico" rel="icon" type="image/x-icon" />
 <link href="resource/1353549783000/fav_ico" rel="shortcut icon" type="image/x-icon" />
 <style>
+@font-face{
+	font-family: "Lato-Thin";
+	src: url("css/fonts/lato/Lato-Thin.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Regular";
+	src: url("css/fonts/lato/Lato-Regular.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Light";
+	src: url("css/fonts/lato/Lato-Light.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Bold";
+	src: url("css/fonts/lato/Lato-Bold.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Black";
+	src: url("css/fonts/lato/Lato-Black.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Heavy";
+	src: url("css/fonts/lato/Lato-Heavy.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Medium";
+	src: url("css/fonts/lato/Lato-Medium.ttf") format("truetype");
+}
 html {
 	height:100%;
 }
@@ -25,6 +57,9 @@ body {
 	padding:0;
 	font-size:14px;
 	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-image: url("images/bg-blue.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 a {
 	color:#FFF;
@@ -36,11 +71,29 @@ a {
 	max-width:90%;
 }
 .login_message {
-	margin-bottom:20px;
+	position: relative;
+	margin-bottom: 40px;
 	font-size:40px;
+	font-family: Lato-Bold;
+	letter-spacing: 2px;
+	margin-top: 20px;
+}
+.login_message:before {
+	position: absolute;
+	content: '';
+	height: 2px;
+	width: 40px;
+	display: inline-block;
+	bottom: -15px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	background-color: white;
 }
 .login_button {
-	background-color:#000;
+	background-color: #13407a;
+	border-radius: 7px;
 	color:#FFF;
 	padding:10px;
 	width:100%;
@@ -48,16 +101,28 @@ a {
 	border:1px solid black;
 	font-size:24px;
 	margin-top:20px;
-	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Lato-Medium;
+	letter-spacing: 2px;
 	cursor:pointer;
+	transition: 0.2s linear all;
+}
+.login_button:hover{
+	transition: 0.2s linear all;
+	filter: brightness(120%);
+}
+label {
+	float: left;
+	margin-top: 15px;
+	font-family: Lato-Bold;
 }
 input {
 	width: 100%;
 	margin: 10px auto;
-	font-size: 30px;
+	font-size: 25px;
 	border:none;
 	background-color: rgba(255,255,255,.85);
-	font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Lato-Regular;
+	border-radius: 5px;
 }
 #header {
 	margin-top:0;
@@ -68,14 +133,15 @@ input {
 	background-color:#000000;
 }
 #content {
+	border-radius: 10px;
 	border: 1px solid #000;
-	margin: 60px auto;
+	margin: 100px auto;
 	display: table;
 	padding: 25px;
-	background: gray;
+	background: rgba(0, 0, 0, 0.5);
 	background-size:15%;
 	text-align:center;
-	font-size:20px
+	font-size:20px;
 }
 #form {
 	margin-top:10px;
@@ -89,17 +155,35 @@ input {
 	bottom:0;
 	width:100%;
 }
+.logo-container{
+	background-color: white;
+	border-radius: 10px 10px 0 0;
+	margin-left: -25px;
+	margin-right: -25px;
+	margin-top: -25px;
+}
+.login-logo{
+	max-width: 80%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.loginError {
+	background-color: #f7b0b0;
+	padding: 10px;
+	color: #f26161;
+	font-family: Lato-Black;
+	opacity: 0;
+	transition: 0.2s linear all;
+}
 </style>
     </head>
     <body>
-<div id="header">
-    <div align="center">
-        <!--<img src="images/logo.png" class="loginLogo" />-->
-    </div>
-</div>
     
 <div id="content">
     <div class="grid_4" id="article" style="display:block; float:none; margin:0px auto; width:400px;">
+    	<div class="logo-container">
+    		<img src="images/logo.png" class="login-logo" alt="">
+    	</div>
         <div class="login_message">BIENVENIDO</div>
             
     <div id="form">
@@ -117,7 +201,10 @@ input {
             Contraseña</label><br><input type="password" name="password" id="password" />
         </div>
         
-        
+        <div class="loginError" id="loginError">
+        	Datos de usuario incorrectos	
+        </div>
+
         <div>
             <button type="submit" class="login_button">ENTRAR</button>
         </div>
@@ -130,7 +217,11 @@ input {
     
 <div id="footer">
     <div style="position:absolute; left:10px;">
+<<<<<<< HEAD
         ARQUITECTURA 2019
+=======
+        Arquitectura Bekman &copy; 2019
+>>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
     </div>
     <div style="position:absolute; right:10px;">
         <a href="http://idited.com">idited.com</a>
@@ -138,4 +229,12 @@ input {
 </div>
         
 </body>
+<script>
+	let url = location.href
+	console.log( url )
+	if( url.match(/error\=nosuchuser/g) )
+		setTimeout(() => {
+			document.getElementById("loginError").style.opacity = "1"
+		}, 200	)
+</script>
 </html>

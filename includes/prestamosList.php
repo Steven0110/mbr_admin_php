@@ -1,6 +1,10 @@
 <?php
 session_start();
+<<<<<<< HEAD
 include_once "mysqlconn.php";
+=======
+include "mysqlconn.php";
+>>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
 // storing  request (ie, get/post) global array to a variable  
 $requestData = $_REQUEST;
 $term = utf8_decode($requestData['search']['value']);
@@ -15,7 +19,11 @@ $columns = array(
 );
 
 // getting total number records without any search
+<<<<<<< HEAD
 $queryTotal = "SELECT ID_PRESTAMO quant FROM prestamos WHERE STATUS = 'A' ORDER BY ID_PRESTAMO DESC";
+=======
+$queryTotal = "SELECT ID_PRESTAMO quant FROM prestamos ORDER BY ID_PRESTAMO DESC";
+>>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
 /*if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 	$queryTotal.= "";
 } else {

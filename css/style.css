@@ -1,18 +1,70 @@
+
+@font-face{
+	font-family: "Lato-Thin";
+	src: url("fonts/lato/Lato-Thin.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Regular";
+	src: url("fonts/lato/Lato-Regular.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Light";
+	src: url("fonts/lato/Lato-Light.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Bold";
+	src: url("fonts/lato/Lato-Bold.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Black";
+	src: url("fonts/lato/Lato-Black.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Heavy";
+	src: url("fonts/lato/Lato-Heavy.ttf") format("truetype");
+}
+@font-face{
+	font-family: "Lato-Medium";
+	src: url("onts/lato/Lato-Medium.ttf") format("truetype");
+}
 html {
-	height:100%;
+	min-height:100%;
 }
 
 body {
 	min-height:100%;
 	margin:0;
 	padding:0;
-	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Lato-Regular;
 	font-size:12px;
 	color:#000000;
+	background-image: url("images/bg-blue.jpg");
 	/*background-image:url(../images/damask-back.png);
 	background-size:200px;
 	background-attachment:fixed;
 	overflow-x:hidden;*/
+}
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #3073c9; 
+  background: black;
+  border-radius: 0px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3073c9; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #215496; 
 }
 
 a {
@@ -21,7 +73,7 @@ a {
 }
 
 button {
-	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Lato-Bold;
 }
 
 button[disabled=disabled], button:disabled {
@@ -37,7 +89,7 @@ button[disabled=disabled], button:disabled {
 }
 select {
 	font-size: 12px;
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Lato-Bold;
     background-color: #FFF;
     border: 1px solid #aaa;
     border-radius: 4px;
@@ -106,16 +158,16 @@ input:disabled, input .disabled, textarea:disabled, textarea .disabled, input:re
 	margin-bottom: 20px;
 }
 .mainNav li a {
-	color: #000;
+	color: white;
     text-decoration: none;
     display: block;
     padding: 12px 0;
     border-radius: 50px;
     text-align: center;
     font-size: 18px;
-	background: -moz-linear-gradient(top,  #aaaaaa 0%, #dddddd 100%);
-	background: -webkit-linear-gradient(top,  #aaaaaa 0%,#dddddd 100%);
-	background: linear-gradient(to bottom,  #aaaaaa 0%,#dddddd 100%);
+	background: -moz-linear-gradient(top,  #13407a 0%, #32609c 100%);
+	background: -webkit-linear-gradient(top,  #13407a 0%,#32609c 100%);
+	background: linear-gradient(to bottom,  #13407a 0%,#32609c 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aaaaaa', endColorstr='#dddddd',GradientType=0 );
 	transition: 0.15s linear all;
 }
@@ -231,7 +283,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 }
 
 .button {
-	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Lato-Bold;
     font-size: 16px;
     border: none;
     color: #FFF;
@@ -273,7 +325,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 
 .ups {
 	color:#39a6ff;
-	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: Lato-Bold;
 	font-size:120px;
 }
 
@@ -286,6 +338,9 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 	box-sizing:border-box;
 	display:block;
 	padding:0 20px;
+	background-image: url("../images/bg-blue.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 /*===== General Overview =====*/
@@ -353,7 +408,9 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 	padding:10px;
 	margin:30px auto 20px;
 	color:#FFFFFF;
-	font-size:18px;
+	font-size:22px;
+	font-family: Lato-Regular;
+	letter-spacing: 2px;
 }
 .prev {
 	float:left;

@@ -1,5 +1,9 @@
 <div id="footer">
+<<<<<<< HEAD
     ARQUITECTURA 2019
+=======
+    Arquitectura Bekman &copy; 2019
+>>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
 </div>
 
     </div>
