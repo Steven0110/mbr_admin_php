@@ -60,7 +60,7 @@
 				series: [{
 					name: '<?php echo $storeCode[$i]; ?>Outflows',
 					data: js_<?php echo $storeCode[$i]; ?>tpSales,
-					color: '#c54695',
+					color: '#3073c9',
 					dataLabels: {
 						enabled: true,
 						color: '#FFFFFF',
@@ -187,7 +187,7 @@
 			{
 				name: 'Salidas',
 				data: js_<?php echo $storeCode[$i]; ?>outflows,
-				color: '#c54695',
+				color: '#3073c9',
 				dataLabels: {
 					enabled: true,
 					color: '#FFFFFF',

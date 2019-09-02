@@ -138,7 +138,7 @@ $(function () {
         series: [{
 			name: 'Outflows',
             data: js_outflows,
-			color: '#c54695',
+			color: '#3073c9',
             dataLabels: {
                 enabled: true,
                 color: '#FFFFFF',
@@ -152,8 +152,12 @@ $(function () {
         }]
     });
 	// Top 10 Products
+<<<<<<< HEAD
+	/*$('#topProducts').highcharts({
+=======
 	/*
 	$('#topProducts').highcharts({
+>>>>>>> fac23f1ca158dc4909edaa74a6dc44cd5311e4a8
         chart: {
             type: 'bar',
 			backgroundColor: '#000000',
