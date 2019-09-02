@@ -202,9 +202,9 @@ var $aligns;
 
 function Header()
 {	
-	include_once ("includes/mysqlconn.php");
+	include ("includes/mysqlconn.php");
     // Logo
-    $this->Image("images/mbrlogo.png",10,5,70);
+    $this->Image("images/logo.png",10,5,70);
     // Arial bold 20
     $this->SetFont('Arial','B',18);
     // Move to the right

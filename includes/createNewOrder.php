@@ -7,7 +7,7 @@ $employee = $_SESSION["empID"];
 $remarks = $_POST['remarks'];
 
 // Discover next ID
-$numQuery = "SELECT ID FROM ORDERS ORDER BY ID DESC LIMIT 1";
+$numQuery = "SELECT ID FROM orders ORDER BY ID DESC LIMIT 1";
 $resultID = $db->query($numQuery);
 if (!$resultID)
 {
@@ -18,7 +18,7 @@ if (!$resultID)
 }
 
 // Discover next code
-$codeQuery = "SELECT code FROM ORDERS WHERE storeID = $store ORDER BY code DESC LIMIT 1";
+$codeQuery = "SELECT code FROM orders WHERE storeID = $store ORDER BY code DESC LIMIT 1";
 $resultCode = $db->query($codeQuery);
 if (!$resultCode)
 {
@@ -36,7 +36,7 @@ if (!$resultCode)
 }
 
 // Enter Inflow to DB
-$sql = "INSERT INTO ORDERS (ID, code, storeID, empID, created_at, remarks) VALUES ('$ID', '$code', $store, '$employee', CURRENT_TIMESTAMP, '$remarks')";
+$sql = "INSERT INTO orders (ID, code, storeID, empID, created_at, remarks) VALUES ('$ID', '$code', $store, '$employee', CURRENT_TIMESTAMP, '$remarks')";
 $retval = $db->query($sql);
 if(! $retval )
 {
@@ -46,7 +46,7 @@ if(! $retval )
 // Enter Inflow Lines
 foreach ($_POST['prodCode'] as $key => $value) {
 	$quant = $_POST['quant'][$key];
-	$sql = "INSERT INTO ORDL (ID, ordID, prodCode, qty) VALUES (NULL, '$ID', '$value', '$quant')";
+	$sql = "INSERT INTO ordl (ID, ordID, prodCode, qty) VALUES (NULL, '$ID', '$value', '$quant')";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{
@@ -55,13 +55,13 @@ foreach ($_POST['prodCode'] as $key => $value) {
 	
 	// Modify inventory
 	// Current QTY onOrder
-	$myQuery = $db->query("SELECT OnOrder FROM PRDL WHERE prodCode = '$value' AND storeID = '$store'");
+	$myQuery = $db->query("SELECT OnOrder FROM prdl WHERE prodCode = '$value' AND storeID = '$store'");
 	$row = $myQuery->fetch();
 	$curQty = $row["OnOrder"];
 	
 	$newQty = $curQty + $quant;
 	
-	$sql = "UPDATE PRDL SET OnOrder = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'";
+	$sql = "UPDATE prdl SET OnOrder = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{

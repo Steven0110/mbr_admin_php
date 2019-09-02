@@ -16,9 +16,9 @@ $term = $_REQUEST["term"];
     <tr>
       <td width="50%">Sal&oacute;n<br>
       	<?php
-		$queryStore = "SELECT ID, name FROM STORES WHERE ID = $storeID";
-		$resultStore = mysql_query($queryStore);
-		$rowStore = mysql_fetch_assoc($resultStore);
+		$queryStore = "SELECT ID, name FROM stores WHERE ID = $storeID";
+		$resultStore = $db->query($queryStore);
+		$rowStore = $resultStore->fetch();
 		?>
       	<div style="margin-top:10px"><input type="text" value="<?php echo $rowStore['name']; ?>" readonly class='inputText'><input id="storeID" name="storeID" type="hidden" value="<?php echo $rowStore['ID']; ?>"></div>
       </td>
@@ -253,7 +253,7 @@ $(document).ready(function() {
 });
 
 <?php
-$queryOrder = "SELECT T1.code, T1.name, T3.name vendor, T1.price, (T2.maxq - T2.qty) orderq FROM PRODUCT T1 JOIN PRDL T2 ON T1.code = T2.prodCode JOIN VENDOR T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = $storeID";
+$queryOrder = "SELECT T1.code, T1.name, T3.name vendor, T1.price, (T2.maxq - T2.qty) orderq FROM product T1 JOIN prdl T2 ON T1.code = T2.prodCode JOIN vendor T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = $storeID";
 
 if ($term != "" && $term != NULL) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
@@ -269,8 +269,8 @@ if ($term != "" && $term != NULL) {   // if there is a search parameter, $reques
 	}
 }
 
-$resultOrder = mysql_query($queryOrder);
-while ($rowOrder = mysql_fetch_assoc($resultOrder)) {
+$resultOrder = $db->query($queryOrder);
+while ($rowOrder = $resultOrder->fetch()) {
 	$quants[] = utf8_encode($rowOrder["orderq"]);
 	$codes[] = utf8_encode($rowOrder["code"]);
 	$products[] = utf8_encode($rowOrder["name"]);

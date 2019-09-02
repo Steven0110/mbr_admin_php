@@ -25,17 +25,17 @@ $columns = array(
 );
 
 // getting total number records without any search
-$resultTotal = $db->query("SELECT COUNT(*) quant FROM PRODUCT T1 JOIN PRDL T2 ON T1.code = T2.prodCode WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = '$wareHouse'");
+$resultTotal = $db->query("SELECT COUNT(*) quant FROM product T1 JOIN prdl T2 ON T1.code = T2.prodCode WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = '$wareHouse'");
 $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 // getting total cost
-$totalCostQuery = $db->query("SELECT SUM(T1.price * (T2.maxq - T2.qty)) totalCost FROM PRODUCT T1 JOIN PRDL T2 ON T1.code = T2.prodCode WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = '$wareHouse'");
+$totalCostQuery = $db->query("SELECT SUM(T1.price * (T2.maxq - T2.qty)) totalCost FROM product T1 JOIN prdl T2 ON T1.code = T2.prodCode WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = '$wareHouse'");
 $rowTotalCost = $totalCostQuery->fetch();
 $totalCost = $rowTotalCost["totalCost"];
 
-$query = "SELECT T1.code, T1.name, T3.name vendor, T1.price, T2.minq, T2.maxq, T2.qty, (T2.maxq - T2.qty) orderq, T2.OnOrder, (T1.price * (T2.maxq - T2.qty)) totCost FROM PRODUCT T1 JOIN PRDL T2 ON T1.code = T2.prodCode JOIN VENDOR T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = '$wareHouse'";
+$query = "SELECT T1.code, T1.name, T3.name vendor, T1.price, T2.minq, T2.maxq, T2.qty, (T2.maxq - T2.qty) orderq, T2.OnOrder, (T1.price * (T2.maxq - T2.qty)) totCost FROM product T1 JOIN prdl T2 ON T1.code = T2.prodCode JOIN vendor T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = '$wareHouse'";
 
 if (!empty($requestData['search']['value'])) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
