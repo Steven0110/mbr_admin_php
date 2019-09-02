@@ -23,13 +23,13 @@ foreach ($_POST['prodCode'] as $key => $value) {
 	
 	// Modify inventory
 	// Current QTY
-	$myQuery = $db->query("SELECT qty FROM PRDL WHERE prodCode = '$value' AND storeID = '$store'");
+	$myQuery = $db->query("SELECT qty FROM prdl WHERE prodCode = '$value' AND storeID = '$store'");
 	$row = $myQuery->fetch();
 	$curQty = $row['qty'];
 	
 	$newQty = $curQty - $quant;
 	
-	$sql = "UPDATE PRDL SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'";
+	$sql = "UPDATE prdl SET qty = '$newQty' WHERE prodCode = '$value' AND storeID = '$store'";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{

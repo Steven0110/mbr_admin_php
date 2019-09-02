@@ -40,13 +40,13 @@ if ($wareHouse == "" || $wareHouse == NULL || $wareHouse == 0) {
 if (!empty($term)) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
 		case "PROYECTO":
-			$query.= " AND t1.ID_PROYECTO LIKE '%".$term."%'";
+			$query.= " AND t3.proyectname LIKE '%".$term."%'";
 			break;
 		case "PRESTAMO": /*AND DATE_FORMAT(T1.created_at, '%Y-%m-%d %H:%i') LIKE '%".$term."%'*/
 			$query.= " AND t1.ID_PRESTAMO LIKE '%".$term."%'";
 			break;
 		case "EMPLEADO":
-			$query.= " AND t1.ID_EMPLEADO LIKE '%".$term."%'";
+			$query.= " AND t2.NOMBRE LIKE '%".$term."%'";
 			break;
 	}
 
