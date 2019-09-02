@@ -12,7 +12,7 @@ $nuevoID = (int)$oldID + 1;
 $sql = $db->query("SELECT t1.ID_HERRAMIENTA ID FROM prestamos t1 WHERE t1.ID_PRESTAMO = '$infID' LIMIT 1");
 $reg = $sql->fetch();
 	// Enter tool rtn lines
-	foreach ($reg as $key => $value) {
+	foreach ($reg['ID'] as $key => $value) {
 		$sql1 = $db->query("SELECT QTY FROM prestamos WHERE ID_HERRAMIENTA = '$value' AND ID_PRESTAMO = '$infID'");
 		$quant = $sql1->fetch();
 		$currQuant = $quant["QTY"];

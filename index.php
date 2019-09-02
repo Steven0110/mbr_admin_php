@@ -12,11 +12,8 @@ if(isset($_SESSION['authenticated_user'])) {
 
 <meta HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE" />
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
-<<<<<<< HEAD
-<title>ARQUITECTURA - Intranet</title>
-=======
+
 <title>Arquitectura Bekman - Intranet</title>
->>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
 <link href="resource/1353549783000/fav_ico" rel="icon" type="image/x-icon" />
 <link href="resource/1353549783000/fav_ico" rel="shortcut icon" type="image/x-icon" />
 <style>
@@ -217,11 +214,8 @@ input {
     
 <div id="footer">
     <div style="position:absolute; left:10px;">
-<<<<<<< HEAD
-        ARQUITECTURA 2019
-=======
+
         Arquitectura Bekman &copy; 2019
->>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
     </div>
     <div style="position:absolute; right:10px;">
         <a href="http://idited.com">idited.com</a>
