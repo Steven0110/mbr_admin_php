@@ -3,7 +3,7 @@ include 'head.php';
 
 $prodID = $_REQUEST["prodID"];
 
-$queryProd = "SELECT ID, code, name, detail, catID, vendorID, cost, price, active, remarks FROM product WHERE ID = '$prodID'";
+$queryProd = "SELECT ID, code, name, detail, catID, vendorID, cost, price, active, remarks, image FROM product WHERE ID = '$prodID'";
 $resultProd = $db->query($queryProd);
 $rowProd = $resultProd->fetch();
 
@@ -16,7 +16,7 @@ $cost = $rowProd['cost'];
 $price = $rowProd['price'];
 $active = $rowProd['active'];
 $remarks = $rowProd['remarks'];
-
+$image = $rowProd['image'];
 $queryNext = "SELECT MIN(ID) nextID FROM product WHERE ID > '$prodID'";
 $resultNext = $db->query($queryNext);
 $rowNext = $resultNext->fetch();
@@ -39,7 +39,7 @@ $prevID = $rowPrev["prevID"];
 </div>
 
 <div class="format">
-<form method="post" action="includes/editProduct.php">
+<form method="post" action="includes/editProduct.php" enctype="multipart/form-data">
 <input type="hidden" id="prodID" name="prodID" value="<?php echo $prodID; ?>">
 <table width="100%" border="0" cellspacing="20px" cellpadding="0">
   <tbody>
@@ -47,6 +47,20 @@ $prevID = $rowPrev["prevID"];
       <td width="50%">Nombre<br>
       	<div style="margin-top:10px"><input type="text" id="name" name="name" class="inputText" value="<?php echo $name; ?>" required></div>
       </td>
+      <td>
+      	<?php
+      	if($rowProd['image'] =='sinimagen.jpg')
+      	{
+      		echo '<input id="imagen" name="imagen" size="30" type="file" accept="image/x-png,image/gif,image/jpeg">';
+      	}
+      	else
+      	{
+      		echo ('<img src="images/toolimages/uploads/'.$image.'">');
+      	}
+      	?>
+      </td>
+  	</tr>
+  	<tr>
       <td width="50%">Código<br>
         <div style="margin-top:10px"><input type="text" readonly id="code" name="code" class="inputText" value="<?php echo $code; ?>"></div>
         </td>
