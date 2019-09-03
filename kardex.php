@@ -5,22 +5,22 @@ $prodCode = $_REQUEST["prodCode"];
 $storeID = $_REQUEST["storeID"];
 $prodID = $_REQUEST["prodID"];
 
-$queryInv = "SELECT T1.qty, T2.code, T2.name, T3.name store FROM PRDL T1 JOIN PRODUCT T2 ON T1.prodCode = T2.code JOIN STORES T3 ON T1.storeID = T3.ID WHERE T1.prodCode = '$prodCode' AND T1.storeID = $storeID";
-$resultInv = mysql_query($queryInv);
-$rowInv = mysql_fetch_assoc($resultInv);
+$queryInv = "SELECT T1.qty, T2.code, T2.name, T3.name store FROM prdl T1 JOIN product T2 ON T1.prodCode = T2.code JOIN stores T3 ON T1.storeID = T3.ID WHERE T1.prodCode = '$prodCode' AND T1.storeID = $storeID";
+$resultInv = $db->query($queryInv);
+$rowInv = $resultInv->fetch();
 $quantInv = $rowInv["qty"];
 $store = $rowInv["store"];
 $product = $rowInv["name"];
 
-$queryNext = "SELECT ID, code FROM PRODUCT WHERE ID = (SELECT MIN(ID) FROM PRODUCT WHERE ID > '$prodID')";
-$resultNext = mysql_query($queryNext);
-$rowNext = mysql_fetch_assoc($resultNext);
+$queryNext = "SELECT ID, code FROM product WHERE ID = (SELECT MIN(ID) FROM product WHERE ID > '$prodID')";
+$resultNext = $db->query($queryNext);
+$rowNext = $resultNext->fetch();
 $nextID = $rowNext["ID"];
 $nextCode = $rowNext["code"];
 
-$queryPrev = "SELECT ID, code FROM PRODUCT WHERE ID = (SELECT MAX(ID) FROM PRODUCT WHERE ID < '$prodID')";
-$resultPrev = mysql_query($queryPrev);
-$rowPrev = mysql_fetch_assoc($resultPrev);
+$queryPrev = "SELECT ID, code FROM product WHERE ID = (SELECT MAX(ID) FROM product WHERE ID < '$prodID')";
+$resultPrev = $db->query($queryPrev);
+$rowPrev = $resultPrev->fetch();
 $prevID = $rowPrev["ID"];
 $prevCode = $rowPrev["code"];
 
@@ -51,8 +51,8 @@ $prevCode = $rowPrev["code"];
         <td width="350px"><select id="store" name="store" style="margin-top:10px;" required>
             <option value="" selected disabled>Selecciona...</option>
         	<?php
-			$myQuery = mysql_query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES");
-			while($row = mysql_fetch_array($myQuery)){
+			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM stores");
+			while($row = $myQuery->fetch()){
 				echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
 			};
 			?>
@@ -89,14 +89,13 @@ $prevCode = $rowPrev["code"];
 			  <td></td>
 			</tr>
 		";
-		$myQuery = "SELECT TT1.created_at, TT1.type, TT1.code, TT1.ID, TT1.name, TT1.qtyIn, TT1.qtyOut FROM (
-SELECT T2.created_at, 'ENTRADA' type, T2.code, T2.ID, CONCAT(T3.first, ' ', T3.last) name, T1.qty qtyIn, 0 qtyOut  FROM INLN T1 JOIN INFLOWS T2 ON T1.infID = T2.ID JOIN CREW T3 ON T2.empID = T3.ID WHERE T1.prodCode = '".$prodCode."' AND T2.storeID = ".$storeID." UNION ALL
-SELECT T5.created_at, 'SALIDA' type, T5.code, T5.ID, CONCAT(T6.first, ' ', T6.last) name, 0 qtyIn, T4.qty qtyOut  FROM OUTLN T4 JOIN OUTFLOWS T5 ON T4.outID = T5.ID JOIN CREW T6 ON T5.empID = T6.ID WHERE T4.prodCode = '".$prodCode."' AND T5.storeID = ".$storeID." UNION ALL
-SELECT T8.created_at, 'TRANSFERENCIA' type, T8.code, T8.ID, CONCAT(T9.first, ' ', T9.last) name, 0 qtyIn, T7.qty qtyOut  FROM TRLN T7 JOIN TRANSFERS T8 ON T7.tranID = T8.ID JOIN CREW T9 ON T8.empID = T9.ID WHERE T7.prodCode = '".$prodCode."' AND T8.orStore = ".$storeID." UNION ALL
-SELECT T11.created_at, 'TRANSFERENCIA' type, T11.code, T11.ID, CONCAT(T12.first, ' ', T12.last) name, T10.qty qtyIn, 0 qtyOut  FROM TRLN T10 JOIN TRANSFERS T11 ON T10.tranID = T11.ID JOIN CREW T12 ON T11.empID = T12.ID WHERE T10.prodCode = '".$prodCode."' AND T11.dsStore = ".$storeID." UNION ALL
-SELECT T14.created_at, 'VENTA' type, T14.code, T14.ID, CONCAT(T15.first, ' ', T15.last) name, 0 qtyIn, T13.qty qtyOut  FROM SALLN T13 JOIN SALES T14 ON T13.salID = T14.ID JOIN CREW T15 ON T14.empID = T15.ID WHERE T13.prodCode = '".$prodCode."' AND T14.storeID = ".$storeID.") TT1 ORDER BY TT1.created_at ASC";
-		$myresult = mysql_query($myQuery);
-		while($row = mysql_fetch_assoc($myresult)){
+		$myQuery = "SELECT TT1.created_at, TT1.type, TT1.code, TT1.ID, TT1.name, TT1.qtyIn, TT1.qtyOut FROM ( SELECT T2.created_at, 'ENTRADA' type, T2.code, T2.ID, CONCAT(T3.first, ' ', T3.last) name, T1.qty qtyIn, 0 qtyOut  FROM inln T1 JOIN inflows T2 ON T1.infID = T2.ID JOIN crew T3 ON T2.empID = T3.ID WHERE T1.prodCode = '".$prodCode."' AND T2.storeID = ".$storeID." UNION ALL
+SELECT T5.created_at, 'SALIDA' type, T5.code, T5.ID, CONCAT(T6.first, ' ', T6.last) name, 0 qtyIn, T4.qty qtyOut  FROM outln T4 JOIN outflows T5 ON T4.outID = T5.ID JOIN crew T6 ON T5.empID = T6.ID WHERE T4.prodCode = '".$prodCode."' AND T5.storeID = ".$storeID." UNION ALL
+SELECT T8.created_at, 'TRANSFERENCIA' type, T8.code, T8.ID, CONCAT(T9.first, ' ', T9.last) name, 0 qtyIn, T7.qty qtyOut  FROM trln T7 JOIN transfers T8 ON T7.tranID = T8.ID JOIN crew T9 ON T8.empID = T9.ID WHERE T7.prodCode = '".$prodCode."' AND T8.orStore = ".$storeID." UNION ALL
+SELECT T11.created_at, 'TRANSFERENCIA' type, T11.code, T11.ID, CONCAT(T12.first, ' ', T12.last) name, T10.qty qtyIn, 0 qtyOut  FROM trln T10 JOIN transfers T11 ON T10.tranID = T11.ID JOIN crew T12 ON T11.empID = T12.ID WHERE T10.prodCode = '".$prodCode."' AND T11.dsStore = ".$storeID." UNION ALL
+SELECT T14.created_at, 'VENTA' type, T14.code, T14.ID, CONCAT(T15.first, ' ', T15.last) name, 0 qtyIn, T13.qty qtyOut  FROM salln T13 JOIN sales T14 ON T13.salID = T14.ID JOIN crew T15 ON T14.empID = T15.ID WHERE T13.prodCode = '".$prodCode."' AND T14.storeID = ".$storeID.") TT1 ORDER BY TT1.created_at ASC";
+		$myresult = $db->query($myQuery);
+		while($row = $myresult->fetch()){
 			$quant = $quant + $row["qtyIn"] - $row["qtyOut"];	
 			$link = "";
 			switch ($row["type"]) {
@@ -141,7 +140,7 @@ SELECT T14.created_at, 'VENTA' type, T14.code, T14.ID, CONCAT(T15.first, ' ', T1
     	<td style="font-size:30px"><?php echo $quant; ?></td>
         <?php
 		$upQuery = "UPDATE PRDL SET qty = $quant WHERE prodCode = '$prodCode' AND storeID = $storeID";
-		$upresult = mysql_query($upQuery);
+		$upresult = $db->query($upQuery);
         ?>
         <td style="font-size:30px"><?php echo $quantInv; ?></td>
         <td style="font-size:30px"><?php echo $quantInv - $quant; ?></td>

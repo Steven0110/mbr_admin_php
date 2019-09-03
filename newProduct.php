@@ -6,7 +6,7 @@
 <div class="sectionTitle">REGISTRAR PRODUCTO</div>
 
 <div class="format">
-<form method="post" action="includes/createNewProduct.php">
+<form method="post" action="includes/createNewProduct.php" enctype="multipart/form-data">
 <table width="100%" border="0" cellspacing="20px" cellpadding="0">
   <tbody>
     <tr>
@@ -53,6 +53,11 @@
       <td width="50%">Precio de venta ($)<br>
         <div style="margin-top:10px"><input type="number" id="price" name="price" class="inputText" min="0" step="any" required></div>
         </td>
+    </tr>
+    <tr>
+      <td>Subir una imagen: 
+        <input id="imagen" name="imagen" size="30" type="file" accept="image/x-png,image/gif,image/jpeg">
+      </td>
     </tr>
     <tr>
       <td colspan="2">Comentarios<br><textarea id="remarks" name="remarks" maxlength="256"></textarea></td>

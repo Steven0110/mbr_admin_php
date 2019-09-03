@@ -45,7 +45,7 @@ if ($registros > 0) {
         ->setCategory("Confidencial");    
 
    $e = 2;   
-  while($row = mysql_fetch_object($result)){
+  while($row = $result->fetch()){
    
        
       $objPHPExcel->setActiveSheetIndex(0)

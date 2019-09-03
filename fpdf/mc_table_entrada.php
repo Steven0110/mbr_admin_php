@@ -228,7 +228,7 @@ function Header()
 
 	
     // Logo
-    $this->Image("images/mbrlogo.png",10,5,65);
+    $this->Image("images/logo.png",10,5,65);
     // Arial bold 20
     $this->SetFont('Arial','B',18);
     // Move to the right

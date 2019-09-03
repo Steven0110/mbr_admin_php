@@ -50,6 +50,32 @@ echo "<a class='sButton' href='inventariocosto.php' target='_blank'>CREAR XLS</a
         ?>
     </tr>
   </thead>
+  <tbody>
+    <?php
+		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, (SELECT SUM(qty) FROM prdl T4 WHERE T4.prodCode = T1.code) qty FROM product T1 INNER JOIN cat T2 ON T1.catID = T2.ID INNER JOIN vendor T3 ON T1.vendorID = T3.ID ORDER BY T1.name ASC");
+		while($row = $myQuery->fetch()){			
+			echo "
+				<tr>
+				  <td width='200px'>".$row["code"]."</td>
+				  <td>".$row["product"]."</td>
+				  <td>".$row["cat"]."</td>";
+			if($_SESSION["role"] == 'Y') {
+				echo "<td>".$row["vendor"]."</td>
+						<td>".$row["qty"]."</td>";
+			}
+			foreach ($storeIDs as $i => $storeID) {
+				$byStore = "SELECT qty FROM prdl WHERE prodCode = '".$row["code"]."' AND storeID = '".$storeID."'";
+				$resByStore = $db->query($byStore);
+				$rowByStore = $resByStore->fetch();
+				echo "<td>".$rowByStore["qty"]."</td>";
+			}
+			if($_SESSION["role"] == 'Y') {
+				echo "<td><a href='prodDetail.php?prodID=".$row["ID"]."'><img src='images/view-icon.png' width='40'></a></td>
+				</tr>";
+			}
+		};
+	?>
+  </tbody>
 </table>
 
 <div class='sButtons'>
@@ -57,35 +83,8 @@ echo "<a class='sButton' href='inventariocosto.php' target='_blank'>CREAR XLS</a
 </div>
 
 <script>
-/*$('#prodList').filterTable({
+$('#prodList').filterTable({
 	inputSelector: '#searchInput'
-});*/
-$(document).ready(function() {
-	var table = $('#priceList').DataTable({
-		"aoColumnDefs": [
-			{'bSortable': false, 'aTargets': [4] },
-			{'className': 'dt-center', 'aTargets': [4] }//,
-			//{'visible': false, 'aTargets': [0] }
-		],
-		"scrollX": true,
-		"processing": true,
-		"serverSide": true,
-		"ajax": {
-			url: "includes/priceLists.php?ls="+$("#selectW").val()+"&by="+$(".searchBy:checked").val(),
-			type: "post"
-		},
-		"order": [[2, 'desc']]//,
-	});
-	$("#searchParam").prop("placeholder", $(".searchBy:checked").val());
-	
-	var sendValues = function() {
-		$("#searchParam").prop("placeholder", "NOMBRE");
-		table.ajax.url("includes/priceLists.php?ls="+$("#selectW").val()+"&by=NOMBRE").load();
-		
-	};
-	
-	$("#selectW").on("change", sendValues);
-	$(".searchBy").on("change", sendValues);
 });
 </script>
     
