@@ -255,7 +255,7 @@ function Header()
 	//Table with 20 rows and 4 columns
 	$this->SetDrawColor(0,0,0);
 	$this->SetWidths(array(30,86,30,35,15));
-	$this->Row(array(utf8_decode("Referencia"),utf8_decode("Nombre"),utf8_decode("Código"),"Marca","Precio"));
+	$this->Row(array(utf8_decode("Referencia"),utf8_decode("Nombre"),utf8_decode("Código"),"Precio Compra","Precio Venta"));
 	$this->SetFont('Arial','',8);
 	$this->SetDrawColor(255,255,255);
 }
@@ -265,7 +265,7 @@ function Footer() {
 	// Position from bottom
     $this->SetY(-5);
 	$this->SetX(-215.9);
-	$this->SetFillColor(197,70,149);
+	$this->SetFillColor(17,52,171);
 	$this->SetTextColor(255,255,255);
     $this->Cell(215.9,5,'www.unassalonymas.com',0,0,'C',1);
 } 

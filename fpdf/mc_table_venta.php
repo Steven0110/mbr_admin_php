@@ -226,7 +226,7 @@ function Header()
 	$addressTo = $rowTo["address"];
 	
     // Logo
-    $this->Image("images/mbrlogo.png",10,5,65);
+    $this->Image("images/logo.png",10,5,65);
     // Arial bold 20
     $this->SetFont('Arial','B',18);
     // Move to the right
@@ -272,7 +272,7 @@ function Footer() {
 	// Position from bottom
     $this->SetY(-5);
 	$this->SetX(-215.9);
-	$this->SetFillColor(197,70,149);
+	$this->SetFillColor(17,52,171);
 	$this->SetTextColor(255,255,255);
 	$this->SetFont('Arial','',8);
     $this->Cell(215.9,5,'www.unassalonymas.com',0,0,'C',1);

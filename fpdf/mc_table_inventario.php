@@ -290,7 +290,7 @@ function Footer() {
 	// Position from bottom
     $this->SetY(-5);
 	$this->SetX(-279.4);
-	$this->SetFillColor(197,70,149);
+	$this->SetFillColor(17,52,171);
 	$this->SetTextColor(255,255,255);
     $this->Cell(279.4,5,'www.unassalonymas.com',0,0,'C',1);
 } 

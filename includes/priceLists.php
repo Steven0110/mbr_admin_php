@@ -13,8 +13,8 @@ $columns = array(
 	0 => 'ref',
 	1 => 'product',
 	2 => 'code',
-	3 => 'price',
-	4 => 'vendor' 
+	3 => 'pricebuy',
+	4 => 'pricesell' 
 );
    
 // getting total number records without any search
@@ -32,7 +32,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT t1.ID id, t1.REFERENCE ref, t1.CODE code, t1.NAME product, t1.MARCA vendor, ";
+$query = "SELECT t1.ID id, t1.REFERENCE ref, t1.CODE code, t1.NAME product, t1.PRICEBUY pricebuy, ";
 /*switch ($list) {
 		case "0":
 			$query.= "t1.PRICESELL price FROM products t1";
@@ -79,8 +79,8 @@ while($row = $result->fetch()) {
 	$nestedData[] = utf8_encode($row["ref"]);
 	$nestedData[] = utf8_encode($row["product"]);
 	$nestedData[] = utf8_encode($row["code"]);
+	$nestedData[] = utf8_encode("$".$row["pricebuy"]);
 	$nestedData[] = utf8_encode("$".$row["price"]);
-	$nestedData[] = utf8_encode($row["vendor"]);
 	$data[] = $nestedData;	
 }
 

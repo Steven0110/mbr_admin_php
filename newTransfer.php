@@ -276,14 +276,14 @@ var stores = "<?php
 	};
 	?>";
 //console.log(stores);
-//$(document).on('change', '#orStore', function() {
-//	orStore = $(this).val();
-	//if (orStore == 100) {
+$(document).on('change', '#orStore', function() {
+	orStore = $(this).val();
+	if (orStore == 100) {
 		$("#dsStore").empty().append(stores);
-	//} else {
-	//	$("#dsStore").empty().append("<option value='100' selected>Principal (100)</option>");
-	//}
-//});
+	} else {
+		$("#dsStore").empty().append("<option value='100' selected>Principal (100)</option>");
+	}
+});
 
 $(document).ready(function() {
 	$(document).on('change', '.quant', function(e){

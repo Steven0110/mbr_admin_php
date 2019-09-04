@@ -17,8 +17,8 @@
 	      <td width="200px">C&oacute;digo</td>
 	      <td>Nombre</td>
 	      <td>Codigo</td>
-	      <td>Precio</td>
-	      <td>Referencia</td>
+	      <td>Precio Compra</td>
+	      <td>Precio Venta</td>
 	    </tr>
 	  </thead>
 	</table>

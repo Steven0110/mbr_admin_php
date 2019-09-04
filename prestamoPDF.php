@@ -1,7 +1,7 @@
 <?php
 include_once "includes/mysqlconn.php";
 
-require('fpdf/mc_table_entrada.php');
+require('fpdf/mc_table_prestamo.php');
 
 $infID = $_GET["infID"];
 $pdf = new PDF_MC_Table();

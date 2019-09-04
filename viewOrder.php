@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "head.php";
 
 $orderID = $_REQUEST["ordID"];

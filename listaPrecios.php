@@ -27,9 +27,9 @@ $result = $db->query($query);
 $pdf->SetDrawColor(255,255,255);
 while($row = $result->fetch()) {
 	$pdf->SetWidths(array(30,86,30,35,15));
-	$pdf->SetAligns(array('','','','','R'));
+	$pdf->SetAligns(array('','','','R','R'));
 	$pdf->SetDrawColor(210,210,210);
-	$pdf->Row(array($row["ref"],utf8_decode($row["product"]),$row["code"],$row["vendor"],$row["price"]));
+	$pdf->Row(array($row["ref"],utf8_decode($row["product"]),$row["code"],"$".$row["pricebuy"],"$".$row["price"]));
 }
 $pdf->SetDrawColor(0,0,0);
 
