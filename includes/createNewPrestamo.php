@@ -15,7 +15,7 @@ $nuevoID = $oldID["ID_PRESTAMO"] + 1;
 // Enter Inflow Lines
 foreach ($_POST['prodCode'] as $key => $value) {
 	$quant = $_POST['quant'][$key];
-	$sql = "INSERT INTO prestamos (ID_PRESTAMO,ID_PROYECTO, ID_EMPLEADO, ID_STORE, ID_HERRAMIENTA,CREATED_AT,CLOSED_AT,REMARKS,STATUS,qty) VALUES ('$nuevoID','$proyect', '$empEnc','$store', '$value', CURRENT_TIMESTAMP,$fchterm,'$remarks','A','$quant')";
+	$sql = "INSERT INTO prestamos (ID_PRESTAMO,ID_PROYECTO, ID_EMPLEADO, ID_STORE, ID_HERRAMIENTA,CREATED_AT,CLOSED_AT,REMARKS,STATUS,qty) VALUES ('$nuevoID','$proyect', '$empEnc','$store', '$value', CURRENT_TIMESTAMP,'$fchterm','$remarks','A','$quant')";
 	$retval = $db->query($sql);
 	if(! $retval )
 	{
