@@ -1,4 +1,6 @@
-<?php include 'head.php'; ?>
+<?php include 'head.php'; 
+$fecha =  date('Y-m-d');;
+?>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
@@ -10,7 +12,7 @@
 <table width="100%" border="0" cellspacing="20px" cellpadding="0">
   <tbody>
     <tr>
-      <td width="50%">Almacén<br>
+      <td width="50%">AlmacÃ©n<br>
       	<div style="margin-top:10px">
         	<select id="store" name="store" style="margin-top:10px;" required>
             <option value="" selected disabled>Selecciona...</option>
@@ -50,13 +52,22 @@
         </td>
     </tr>
     <tr>
+        <td width="50%">Fecha de inicio<br>
+            <div style="margin-top:10px"><input type="date" disabled id="fchinicio" name="fchinicio" class="inputText" 
+            	value="<?php echo $fecha; ?>" required></div>
+        </td>
+        <td width="50%">Fecha de termino<br>
+            <div style="margin-top:10px"><input type="date" id="fchterm" name="fchterm" class="inputText" required></div>
+        </td>
+      </tr>
+    <tr>
       <td colspan="2">Partidas<br>
         <div id="itemContainer">
         	<table class="itemListHead" cellpadding="0" cellspacing="10px" width="100%">
             	<thead>
                 	<tr>
                     	<td width="76px">Cantidad</td>
-                    	<td width="250px">Código</td>
+                    	<td width="250px">CÃ³digo</td>
                         <td>Producto</td>
                         <td width="30px"></td>
                     </tr>
@@ -80,6 +91,7 @@
 </div>
 
 <script type="text/javascript">
+	
 /*
 $("#inflowForm").submit(function(e){
 	e.preventDefault()
@@ -235,10 +247,12 @@ $(document).on("input", ".itemProduct", function() {
 		close: function() {
 			getCodeFromProd(ind);
 		}
+
     });
 	if ($(".prodCode:eq("+ind+")").val().length >= 3) {
 		getCodeFromProd(ind);
 	}
+
 });
 
 $(document).on('click', '.remove', function() {
@@ -259,6 +273,8 @@ $(document).ready(function() {
 	<?php
 	if ($_SESSION["role"] == 'Y') {
 		echo "$('#store').select2();";
+		echo "$('#proyect').select2();";
+		echo "$('#emp').select2();";
 	}
 	?>
 });
@@ -267,8 +283,9 @@ $(document).ready(function() {
 $("#addItemBT").on('click', addItem);
 		
 function cancel() {
-	window.location.href = 'inflows.php';
+	window.location.href = 'prestamos.php';
 }
+
 </script>
     
 <?php include 'footer.php'; ?>

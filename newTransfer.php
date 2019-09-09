@@ -270,7 +270,7 @@ $(document).on('keypress', function(e) {
 
 var stores = "<?php
 	//echo "<option value=''>Selecciona...</option>";
-	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES WHERE ID = 100");
+	$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM stores WHERE ID = 100");
 	while($row = $myQuery->fetch()){
 		echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
 	};

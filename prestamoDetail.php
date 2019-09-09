@@ -2,7 +2,7 @@
 
 $infID = $_REQUEST["infID"];
 
-$myQuery = $db->query("SELECT t1.ID_PRESTAMO prestamo, t4.proyectname proyect, t2.NOMBRE emp, t1.ID_HERRAMIENTA, t3.name store, t1.ID_STORE storeID, t1.CREATED_AT created, t1.REMARKS remarks, t1.STATUS FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN stores t3 ON t1.ID_STORE = t3.ID INNER JOIN proyects t4 ON t1.ID_PROYECTO = t4.ID WHERE t1.ID_PRESTAMO = '$infID'");
+$myQuery = $db->query("SELECT t1.ID_PRESTAMO prestamo, t4.proyectname proyect, t2.NOMBRE emp, t1.ID_HERRAMIENTA, t3.name store, t1.ID_STORE storeID, t1.CREATED_AT created,t1.CLOSED_AT closed, t1.REMARKS remarks, t1.STATUS FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN stores t3 ON t1.ID_STORE = t3.ID INNER JOIN proyects t4 ON t1.ID_PROYECTO = t4.ID WHERE t1.ID_PRESTAMO = '$infID'");
 $row = $myQuery->fetch();
 $remarks = $row["remarks"];
 $folio = $row["created"]."  ID= ".$row["prestamo"];
@@ -54,10 +54,15 @@ for ($i = 0; $i<$rowprueba["max"];$i++)
         </td>
     </tr>
     <tr>
-    	<td>Fecha de creación<br><div style="margin-top:10px"><input type="text" value="<?php echo $row['created']; ?>" disabled class='inputText'></div></td>
+    	<td>Fecha de creación<br><div style="margin-top:10px"><input type="date" value="<?php echo $row['created']; ?>" disabled class='inputText'></div></td>
         <td>Empleado a quien se prestó<br>
           <div style="margin-top:10px"><input type="text" value="<?php echo $row['emp']; ?>" disabled class='inputText'></div>
         </td>
+    </tr>
+    <tr>
+      <td width="50%">Fecha de termino<br>
+            <div style="margin-top:10px"><input type="date" value="<?php echo $row['closed']; ?>" disabled class="inputText" required></div>
+      </td>
     </tr>
     <tr>
       <td colspan="2">Partidas<br>

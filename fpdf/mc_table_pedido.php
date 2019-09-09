@@ -241,7 +241,7 @@ function Header()
 	$this->Cell(196,5,'',0,1,'L');
 	$this->SetFont('Arial','B',8);
 	$this->Cell(49,5,'Fecha de documento',0,0,'L');
-	$this->Cell(49,5,utf8_decode('Salón de pedido'),0,0,'L');
+	$this->Cell(49,5,utf8_decode('Almacén de pedido'),0,0,'L');
 	$this->Cell(49,5,'Nombre',0,0,'L');
 	$this->Cell(49,5,'E-mail',0,1,'L');
 	$this->SetFont('Arial','',8);

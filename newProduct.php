@@ -2,6 +2,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <div class="sectionTitle">REGISTRAR PRODUCTO</div>
 
@@ -55,8 +56,9 @@
         </td>
     </tr>
     <tr>
-      <td>Subir una imagen: 
-        <input id="imagen" name="imagen" size="30" type="file" accept="image/x-png,image/gif,image/jpeg">
+      <td width="50">Subir una imagen: 
+        <img id="slctimg" src="#" alt="your image" width="150" height="200" />
+        <input id="imagen" name="imagen" size="30" type="file" accept="image/x-png,image/gif,image/jpeg" onchange="readURL(this);">
       </td>
     </tr>
     <tr>
@@ -106,17 +108,38 @@
 </div>
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
 		$("#saveButton").dblclick(function(e){
 			e.preventDefault();
 		});
 		$("#cat").select2();
-		$("#vendor").select2();
+    $("#vendor").select2();
 	});
-	
+	/*$(document).ready(function(){
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            alert('The file "' + fileName +  '" has been selected.');
+        });
+    });*/
 	function cancel() {
 		window.location.href = "products2.php";
 	}
+
+  function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#slctimg')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
     
 <?php include 'footer.php'; ?>

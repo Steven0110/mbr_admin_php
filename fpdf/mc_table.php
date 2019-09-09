@@ -261,9 +261,9 @@ function Header()
 	$this->Cell(32.66,5,'',0,0,'L');
 	$this->Cell(32.66,5,$this->PageNo()." de {nb}",0,1,'L');
 	$this->SetFont('Arial','B',8); //Titulos
-	$this->Cell(65.33,5,utf8_decode('Salón origen'),0,0,'L');
+	$this->Cell(65.33,5,utf8_decode('Almacén origen'),0,0,'L');
 	$this->Cell(32.67,5,utf8_decode('Teléfono'),0,0,'L');
-	$this->Cell(65.33,5,utf8_decode('Salón destino'),0,0,'L');
+	$this->Cell(65.33,5,utf8_decode('Almacén destino'),0,0,'L');
 	$this->Cell(32.67,5,utf8_decode('Teléfono'),0,1,'L');
 	$this->SetFont('Arial','',8);
 	$this->Cell(65.33,5,$orStore,0,0,'L');
