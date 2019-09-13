@@ -45,9 +45,7 @@ $prevID = $rowPrev["prevID"];
         <td width="50%">Costo del proyceto<br>
             <div style="margin-top:10px"><input type="text" value="<?php echo $row['proyectcst']; ?>" disabled class="inputText" required></div>
         </td>
-        <td width="50%">Ganancia<br>
-            <div style="margin-top:10px"><input value="<?php echo $row['ganancia']; ?>" disabled class="inputText" type="number" min="0" step="any" required></div>
-        </td>
+        
     </tr>
 <!------------------CLIENTE------------------>
     <tr>

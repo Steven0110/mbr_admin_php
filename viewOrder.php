@@ -235,7 +235,22 @@ while ($rowLines = $resultLines->fetch()) {
 	var jPrices = <?php echo json_encode($prices); ?>;
 <?php
 }
+
+if ($rowOrder["storeID"] == 100) {
 ?>
+$(".mov").html("entrada");
+$("#orderForm").attr("action", "includes/createNewInflow.php");
+var url = "inflowDetail.php?infID=<?php echo $relDoc; ?>";
+<?php
+} else {
+?>
+$(".mov").html("transferencia");
+$("#orderForm").attr("action", "includes/createNewTransfer.php");
+var url = "transferDetail.php?tranID=<?php echo $relDoc; ?>";
+<?php
+}
+?>
+
 $("#cancelBT").click(function () {
 	$(".overlay").fadeIn("fast");
 	$("#orderForm").attr("action", "includes/cancelOrder.php");
