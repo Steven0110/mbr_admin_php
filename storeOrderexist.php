@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "head.php";
 
 $storeID = $_REQUEST["storeID"];
@@ -113,7 +112,7 @@ var getProdFromCode = function(ind) {
 					$(".itemProduct:eq("+ind+")").val(prodName["name"]);
 					$(".priceDiv:eq("+ind+")").html(localeString(prodName["price"]));
 					var nPrice = 0;
-					nPrice = $(".priceDiv:eq("+ind+")").html() * $(".quant:eq("+ind+")").val();
+					nPrice = parseFloat($(".priceDiv:eq("+ind+")").html().replace(",","")) * $(".quant:eq("+ind+")").val();
 					$(".importDiv:eq("+ind+")").html(localeString(nPrice.toFixed(2)));
 					calcTotal();
 				}
@@ -211,7 +210,7 @@ $(document).on("input", ".itemProduct", function() {
 $(document).on("input", ".quant", function() {
 	var ind = $(".quant").index(this);
 	var nPrice = 0;
-	nPrice = $(".priceDiv:eq("+ind+")").html() * $(".quant:eq("+ind+")").val();
+	nPrice = parseFloat($(".priceDiv:eq("+ind+")").html().replace(",","")) * $(".quant:eq("+ind+")").val();
 	$(".importDiv:eq("+ind+")").html(localeString(nPrice.toFixed(2)));
 	calcTotal();
 });
@@ -241,7 +240,7 @@ var getLines = function() {
 		$(".itemProduct:eq("+i+")").val(jItemProducts[i]);
 		$(".priceDiv:eq("+i+")").html(localeString(jPrices[i]));
 		var nPrice = 0;
-		nPrice = $(".priceDiv:eq("+i+")").html() * $(".quant:eq("+i+")").val();
+		nPrice = parseFloat($(".priceDiv:eq("+i+")").html().replace(",","")) * $(".quant:eq("+i+")").val();
 		$(".importDiv:eq("+i+")").html(localeString(nPrice.toFixed(2)));
 	    
 	}
@@ -253,7 +252,7 @@ $(document).ready(function() {
 });
 
 <?php
-$queryOrder = "SELECT T1.code, T1.name, T3.name vendor, T1.price, (T2.maxq - T2.qty) orderq2, (select T5.qty from prdl T5 where T5.prodCode = T1.CODE and T5.storeID = 100) as existq, (select case 1 when (select T5.qty from prdl T5 where T5.prodCode = T1.CODE and T5.storeID = 100) > (T2.maxq - T2.qty) then (T2.maxq - T2.qty) else (select T5.qty from prdl T5 where T5.prodCode = T1.CODE and T5.storeID = 100) END) as orderq FROM product T1 JOIN prdl T2 ON T1.code = T2.prodCode JOIN vendor T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = $storeID";
+$queryOrder = "SELECT T1.code, T1.name, T3.name vendor, T1.cost, (T2.maxq - T2.qty) orderq2, (select T5.qty from prdl T5 where T5.prodCode = T1.CODE and T5.storeID = 100) as existq, (select case 1 when (select T5.qty from prdl T5 where T5.prodCode = T1.CODE and T5.storeID = 100) > (T2.maxq - T2.qty) then (T2.maxq - T2.qty) else (select T5.qty from prdl T5 where T5.prodCode = T1.CODE and T5.storeID = 100) END) as orderq FROM product T1 JOIN prdl T2 ON T1.code = T2.prodCode JOIN vendor T3 ON T1.vendorID = T3.ID WHERE T1.active = 'Y' AND (T2.maxq - T2.qty) > 0 AND T2.storeID = $storeID";
 
 if ($term != "" && $term != NULL) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	switch ($by) {
@@ -276,7 +275,7 @@ while ($rowOrder = $resultOrder->fetch()) {
 	$quants[] = utf8_encode($rowOrder["orderq"]);
 	$codes[] = utf8_encode($rowOrder["code"]);
 	$products[] = utf8_encode($rowOrder["name"]);
-	$prices[] = utf8_encode($rowOrder["price"]);
+	$prices[] = utf8_encode($rowOrder["cost"]);
 	?>
 	$("#itemContainer").append(itemLine);
 	var jQuants = <?php echo json_encode($quants); ?>;

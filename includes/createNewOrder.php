@@ -26,7 +26,7 @@ if (!$resultCode)
 } else {
 	$rowCode = $resultCode->fetch();
 	if ($rowCode["code"] == "" || $rowCode["code"] == NULL) {
-		$queryStore = $db->query("SELECT code FROM STORES WHERE ID = $store");
+		$queryStore = $db->query("SELECT code FROM stores WHERE ID = $store");
 		$rowStore = $queryStore->fetch();
 		$code = $rowStore["code"]."-PED-100001";
 	} else {

@@ -172,6 +172,7 @@ var getProdFromCode = function(ind) {
 var getCodeFromProd = function(ind) {
 	var name = $(".itemProduct:eq("+ind+")").val();
 	var storeID = $("#store").val();
+	//After 3 chars been written ajax start 
 	if (name.length >= 3) {
 		$.ajax({
 			type: "GET",

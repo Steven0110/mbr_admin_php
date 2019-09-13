@@ -33,58 +33,58 @@ $prevID = $rowPrev["prevID"];
   <tbody>
     <tr>
       <td width="50%">Almacén<br>
-      	<div style="margin-top:10px"><input type="text" value="<?php echo $row['store']; ?>" disabled class='inputText'></div>
+        <div style="margin-top:10px"><input type="text" value="<?php echo $row['store']; ?>" disabled class='inputText'></div>
       </td>
       <td width="50%">Empleado<br>
         <div style="margin-top:10px"><input type="text" value="<?php echo $row['emp']; ?>" disabled class='inputText'></div>
         </td>
     </tr>
     <tr>
-    	<td>Fecha de creación<br><div style="margin-top:10px"><input type="text" value="<?php echo $row['created']; ?>" disabled class='inputText'></div></td>
+      <td>Fecha de creación<br><div style="margin-top:10px"><input type="text" value="<?php echo $row['created']; ?>" disabled class='inputText'></div></td>
         <td></td>
     </tr>
     <tr>
       <td colspan="2">Partidas<br>
         <div id="itemContainer">
-        	<div class='itemListHead'>
-				<table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
-					<tr>
-                    	<td width="76px">Cantidad</td>
-                    	<td width="250px">Código</td>
-						<td>Producto</td>
-					</tr>
-				</table>
-			</div>
-        	<?php
-        	$myQuery = $db->query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM inln T1 INNER JOIN product T2 ON T1.prodCode = T2.code WHERE T1.infID = '$infID'");
+          <div class='itemListHead'>
+        <table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
+          <tr>
+                      <td width="76px">Cantidad</td>
+                      <td width="250px">Código</td>
+            <td>Producto</td>
+          </tr>
+        </table>
+      </div>
+          <?php
+          $myQuery = $db->query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM inln T1 INNER JOIN product T2 ON T1.prodCode = T2.code WHERE T1.infID = '$infID'");
 
-			
-			while($row = $myQuery->fetch()){			
-				echo "
-					<div class='item'>
-						<table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
-							<tr>
-								<td width='76px'><input type='text' value='".$row["qty"]."' disabled class='inputText' style='width:70px !important'></td>
-								<td width='250px'><input type='text' value='".$row["prodCode"]."' disabled class='inputText'></td>
-								<td><input type='text' value='".$row["name"]."' disabled class='inputText'></td>
-							</tr>
-						</table>
-					</div>
-				";
-			};
-			?>
+      
+      while($row = $myQuery->fetch()){      
+        echo "
+          <div class='item'>
+            <table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
+              <tr>
+                <td width='76px'><input type='text' value='".$row["qty"]."' disabled class='inputText' style='width:70px !important'></td>
+                <td width='250px'><input type='text' value='".$row["prodCode"]."' disabled class='inputText'></td>
+                <td><input type='text' value='".$row["name"]."' disabled class='inputText'></td>
+              </tr>
+            </table>
+          </div>
+        ";
+      };
+      ?>
         </div>
-	  </td>
+    </td>
     </tr>
     <tr>
       <td colspan="2">Comentarios<br><textarea disabled><?php echo $remarks; ?></textarea></td>
     </tr>
     <tr>
-    	<td colspan="2">
-        	<ul id="buttonBar">
-            	<li><button type='button' class='formButton blueB' onClick="getback();"><i class='fa fa-hand-o-left' aria-hidden='true'></i> Regresar</button></li>
+      <td colspan="2">
+          <ul id="buttonBar">
+              <li><button type='button' class='formButton blueB' onClick="getback();"><i class='fa fa-hand-o-left' aria-hidden='true'></i> Regresar</button></li>
                 <li><a class="formButton blueB" href="entrada.php?infID=<?php echo $infID; ?>" target="_blank"><i class='fa fa-file-pdf-o' aria-hidden='true'></i> PDF</a></li>
-    		</ul>
+        </ul>
         </td>
     </tr>
   </tbody>
@@ -93,7 +93,7 @@ $prevID = $rowPrev["prevID"];
 </div>
 <script>
 function getback() {
-	window.history.back();
+  window.history.back();
 }
 </script>
     

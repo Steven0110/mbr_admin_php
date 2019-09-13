@@ -16,7 +16,6 @@
 	    <tr>
 	      <td width="200px">C&oacute;digo</td>
 	      <td>Nombre</td>
-	      <td>Codigo</td>
 	      <td>Precio Compra</td>
 	      <td>Precio Venta</td>
 	    </tr>
@@ -28,8 +27,8 @@
 $(document).ready(function() {
 	var table = $('#priceList').DataTable({
 		"aoColumnDefs": [
-			{'bSortable': false, 'aTargets': [4] },
-			{'className': 'dt-center', 'aTargets': [4] }//,
+			{'bSortable': false, 'aTargets': [3] },
+			{'className': 'dt-center', 'aTargets': [3] }//,
 			//{'visible': false, 'aTargets': [0] }
 		],
 		"scrollX": true,

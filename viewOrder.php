@@ -220,13 +220,13 @@ $("#cancelBT").closest("li").remove();
 <?php
 }
 
-$queryLines = "SELECT T1.prodCode, T2.name, T2.price, T1.qty FROM ordl T1 JOIN product T2 ON T1.prodCode = T2.code WHERE T1.ordID = $orderID";
+$queryLines = "SELECT T1.prodCode, T2.name, T2.cost, T1.qty FROM ordl T1 JOIN product T2 ON T1.prodCode = T2.code WHERE T1.ordID = $orderID";
 $resultLines = $db->query($queryLines);
 while ($rowLines = $resultLines->fetch()) {
 	$quants[] = utf8_encode($rowLines["qty"]);
 	$codes[] = utf8_encode($rowLines["prodCode"]);
 	$products[] = utf8_encode($rowLines["name"]);
-	$prices[] = utf8_encode($rowLines["price"]);
+	$prices[] = utf8_encode($rowLines["cost"]);
 ?>
 	$("#itemContainer").append(itemLine);
 	var jQuants = <?php echo json_encode($quants); ?>;
@@ -235,22 +235,7 @@ while ($rowLines = $resultLines->fetch()) {
 	var jPrices = <?php echo json_encode($prices); ?>;
 <?php
 }
-
-if ($rowOrder["storeID"] == 100) {
 ?>
-$(".mov").html("entrada");
-$("#orderForm").attr("action", "includes/createNewInflow.php");
-var url = "inflowDetail.php?infID=<?php echo $relDoc; ?>";
-<?php
-} else {
-?>
-$(".mov").html("transferencia");
-$("#orderForm").attr("action", "includes/createNewTransfer.php");
-var url = "transferDetail.php?tranID=<?php echo $relDoc; ?>";
-<?php
-}
-?>
-
 $("#cancelBT").click(function () {
 	$(".overlay").fadeIn("fast");
 	$("#orderForm").attr("action", "includes/cancelOrder.php");

@@ -27,9 +27,9 @@
         <td width="50%">Costo del proyceto<br>
             <div style="margin-top:10px"><input type="text" id="proyectcst" name="proyectcst" class="inputText" required></div>
         </td>
-        <td width="50%">Ganancia<br>
+        <!--<td width="50%">Ganancia<br>
             <div style="margin-top:10px"><input id="ganancia" name="ganancia" class="inputText" type="number" min="0" step="any" required></div>
-        </td>
+        </td>-->
     </tr>
 <!------------------CLIENTE------------------>
     <tr>

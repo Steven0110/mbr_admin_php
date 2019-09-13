@@ -88,9 +88,6 @@ if($_SESSION["role"] == 'Y') {
 </div>
 
 <script>
-
-alert("Modulo en prueba");
-
 var aux_xhr;
 
 $(document).ready(function() {

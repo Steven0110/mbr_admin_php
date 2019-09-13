@@ -17,7 +17,7 @@ $coments = $_POST['remarks'];
 try 
 {
     $quant = $_POST['quant'][$key];
-    $sql = "INSERT INTO proyects (proyectname,fchinicio,fchterm,proyectcst,ganancia,client,cntct_prsn,client_num,correo,coments) VALUES ('$proyectname','$fchinicio','$fchterm',$proyectcst,$ganancia,'$client','$cntct_prsn','$client_num','$correo','$coments')";
+    $sql = "INSERT INTO proyects (proyectname,fchinicio,fchterm,proyectcst,client,cntct_prsn,client_num,correo,coments) VALUES ('$proyectname','$fchinicio','$fchterm',$proyectcst,'$client','$cntct_prsn','$client_num','$correo','$coments')";
     $db->query($sql);
 }	
 catch(PDOException $e)

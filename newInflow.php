@@ -15,11 +15,8 @@
         	<select id="store" name="store" style="margin-top:10px;" required>
             <option value="" selected disabled>Selecciona...</option>
         	<?php
-<<<<<<< HEAD
 			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM stores");
-=======
-			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM STORES");
->>>>>>> ea9b9e88c8d78990808217bcfda7ebd9e524f1a7
+
 			while($row = $myQuery->fetch()){
 				echo "<option value='".$row["ID"]."'>".$row["name"]."</option>";
 			};

@@ -52,7 +52,8 @@ echo "<a class='sButton' href='inventariocosto.php' target='_blank'>CREAR XLS</a
   </thead>
   <tbody>
     <?php
-		$myQuery = $db->query("SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, (SELECT SUM(qty) FROM prdl T4 WHERE T4.prodCode = T1.code) qty FROM product T1 INNER JOIN cat T2 ON T1.catID = T2.ID INNER JOIN vendor T3 ON T1.vendorID = T3.ID ORDER BY T1.name ASC");
+		$myQuery = $db->prepare("SELECT T1.ID, T1.code, T1.name product, T2.catName cat, T3.name vendor, (SELECT SUM(T4.qty) FROM prdl T4 WHERE T4.prodCode = T1.code) qty FROM product T1 INNER JOIN cat T2 ON T1.catID = T2.ID INNER JOIN vendor T3 ON T1.vendorID = T3.ID ORDER BY T1.name ASC");
+		$myQuery->execute();
 		while($row = $myQuery->fetch()){			
 			echo "
 				<tr>
