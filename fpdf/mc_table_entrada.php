@@ -207,7 +207,7 @@ function Header()
     require('includes/mysqlconn.php');
 	$infID = $_REQUEST["infID"];
 	
-	$query = "SELECT T1.ID, T1.code, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks,T4.NOMBRE empEnc FROM inflows T1 INNER JOIN stores T2 ON T1.storeID = T2.ID INNER JOIN crew T3 ON T1.empID = T3.ID INNER JOIN empleados T4 ON T1.employee = T4.ID_EMPLEADO WHERE T1.ID = '$infID'";
+	$query = "SELECT T1.ID, T1.code, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM inflows T1 INNER JOIN stores T2 ON T1.storeID = T2.ID INNER JOIN crew T3 ON T1.empID = T3.ID WHERE T1.ID = '$infID'";
 	$result = $db->query($query);
 	$row = $result->fetch();
 	
@@ -216,7 +216,6 @@ function Header()
 	$dsStore = $row["dsStore"];
 	$created_at = $row["created_at"];
 	$remarks = $row["remarks"];
-	$empleado = $row["empEnc"];
 
 	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
 	$resultTo = $db->query($queryTo);
@@ -243,7 +242,7 @@ function Header()
 	$this->Cell(196,5,'',0,1,'L');
 	$this->SetFont('Arial','B',8);
 	$this->Cell(49,5,'Fecha de documento',0,0,'L');
-	$this->Cell(49,5,utf8_decode('Almacén de entrada'),0,0,'L');
+	$this->Cell(49,5,utf8_decode('Salón de entrada'),0,0,'L');
 	$this->Cell(49,5,'Nombre',0,0,'L');
 	$this->Cell(49,5,'E-mail',0,1,'L');
 	$this->SetFont('Arial','',8);
@@ -253,11 +252,11 @@ function Header()
 	$this->Cell(49,5,$emailTo,0,1,'L');
 	$this->SetFont('Arial','B',8);
 	$this->Cell(49,5,utf8_decode('Teléfono'),0,0,'L');
-	$this->Cell(98,5,utf8_decode('Empleado'),0,0,'L');
+	$this->Cell(98,5,utf8_decode('Dirección'),0,0,'L');
 	$this->Cell(49,5,utf8_decode('Página'),0,1,'L');
 	$this->SetFont('Arial','',8);
 	$this->Cell(49,5,$phoneTo,0,0,'L');
-	$this->Cell(98,5,$empleado,0,0,'L');
+	$this->Cell(98,5,$addressTo,0,0,'L');
 	$this->Cell(49,5,$this->PageNo()." de {nb}",0,1,'L');
 	$this->Ln(3);
 }
