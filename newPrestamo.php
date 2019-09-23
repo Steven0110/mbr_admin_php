@@ -8,13 +8,13 @@ $fecha =  date('Y-m-d');;
 <div class="sectionTitle">REGISTRAR PRESTAMO</div>
 
 <div class="format">
-<form method="post" action="includes/createNewPrestamo.php" id="inflowForm">
+<form method="post" action="includes/createNewPrestamo.php" id="prestamoform">
 <table width="100%" border="0" cellspacing="20px" cellpadding="0">
   <tbody>
     <tr>
       <td width="50%">Almacén<br>
       	<div style="margin-top:10px">
-        	<select id="store" name="store" style="margin-top:10px;" required>
+        	<select id="store" name="store" style="margin-top:10px;" class="store" required>
             <option value="" selected disabled>Selecciona...</option>
         	<?php
 			$myQuery = $db->query("SELECT ID, CONCAT(name, ' (', ID, ')') name FROM stores");
@@ -66,10 +66,12 @@ $fecha =  date('Y-m-d');;
         	<table class="itemListHead" cellpadding="0" cellspacing="10px" width="100%">
             	<thead>
                 	<tr>
-                    	<td width="76px">Cantidad</td>
-                    	<td width="250px">Código</td>
-                        <td>Producto</td>
-                        <td width="30px"></td>
+                    	<td class="tdQuant">Cantidad</td>
+                    	<td class="tdCode">C&oacute;digo</td>
+                        <td class="tdProd">Producto</td>
+                        <td class="tdPrice">Precio</td>
+                        <td class="tdImport">Importe</td>
+                        <td class="tdTrash"></td>
                     </tr>
                 </thead>
             </table>
@@ -77,6 +79,20 @@ $fecha =  date('Y-m-d');;
         </div>
         <button type="button" id="addItemBT" class="formButton greenB">Agregar partida</button></div>
 	  </td>
+    </tr>
+    <tr>
+    	<td colspan="2">
+        	<div id="itemContainer" style="width:20%; float:right">
+                <table class="itemListHead" cellpadding="0" cellspacing="10px" width="100%">
+                    <thead>
+                        <tr>
+                            <td class="tdQuant">Total</td>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="total"><span style="float:left">$</span><div id="totalMount"></div></div>
+            </div>
+        </td>
     </tr>
     <tr>
       <td colspan="2">Comentarios<br><textarea id="remarks" name="remarks" maxlength="256"></textarea></td>
@@ -91,67 +107,36 @@ $fecha =  date('Y-m-d');;
 </div>
 
 <script type="text/javascript">
-	
-/*
-$("#inflowForm").submit(function(e){
-	e.preventDefault()
-	return true;
-	let form = $(e.target)
-	let store = form.serializeArray()[0].value
-	let body = {
-		"store": store,
-		"products": []
-	}
-
-	let formProducts = $(".itemTable tr .prodCode")
-	for( let i = 0 ; i < formProducts.length ; i++ ){
-		let line = $(formProducts[ i ])
-		body.products.push( line.val() )
-	}
-	console.log(body)
-	$.ajax({
-		"method": "POST",
-		"data": JSON.stringify(body),
-		"url": "includes/checkStock.php",
-		"contentType": "application/json",
-		"success": function(response){
-			console.log(response)
-			let json = JSON.parse(response)
-			if(json.code == 0){
-				alert("No puedes generar esta entrada. El producto " + json.prodID + " tiene stock = 0")
-			}else if(json.code == -1){
-				console.log(json)
-			}else{
-				form.off("submit")
-				form.submit()
-			}
-		}
-	})
-	return false;
-
-})
-*/
 
 var itemLine = "<div class='item'>\
 			<table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>\
 				<tr>\
-					<td width='76px'><input type='number' id='quant' name='quant[]' required class='inputText quant' style='width:70px !important' min='1' value='1'></td>\
-					<td width='250px'><input type='text' class='inputText prodCode' name='prodCode[]' id='prodCode' required></td>\
-					<td>\
+					<td class='tdQuant'><input type='number' id='quant' name='quant[]' required class='inputText quant' min='0' value='1'></td>\
+					<td class='tdCode'><input type='text' class='inputText prodCode' name='prodCode[]' id='prodCode' required></td>\
+					<td class='tdProd'>\
 						<input id='product' name='product[]' class='inputText itemProduct' required>\
 					</td>\
-					<td width='30px'><i class='fa fa-trash-o remove' aria-hidden='true'></i></td>\
+					<td class='tdPrice' align='right'><span style='float:left'>$</span><div class='priceDiv'>0.00</div></td>\
+					<td class='tdImport' align='right'><span style='float:left'>$</span><div class='importDiv'>0.00</div></td>\
+					<td class='tdExistq' <input type='number' id='existq' name='existq[]' required class='inputText existq' </td>\
 				</tr>\
 			</table>\
 		</div>";
-		
+
+var calcTotal = function () {
+	var total = 0;
+	$(".importDiv").each(function() {
+        total += parseFloat($(this).html().replace(",",""));
+    });
+	$("#totalMount").html(localeString(total.toFixed(2)));
+};
+
 // Get Product when Code is inserted
 
 var getProdFromCode = function(ind) {
-	var code = $(".prodCode:eq("+ind+")").val();
-	var storeID = $("#store").val();
-	//alert(storeID);
-	if (code.length >= 3) {
+	if ($(".prodCode:eq("+ind+")").val().length >= 3) {
+		var code = $(".prodCode:eq("+ind+")").val();
+		var storeID = $("#store").val();
 		$.ajax({
 			type: "GET",
 			url: "includes/prodDetails.php?by=code&param="+encodeURI(code)+"&storeID="+storeID,
@@ -160,20 +145,23 @@ var getProdFromCode = function(ind) {
 			success: function(prodName){
 				if (prodName["name"] != null && prodName["name"] != "") {
 					$(".itemProduct:eq("+ind+")").val(prodName["name"]);
+					$(".priceDiv:eq("+ind+")").html(localeString(prodName["price"]));
+					var nPrice = 0;
+					nPrice = parseFloat($(".priceDiv:eq("+ind+")").html().replace(",","")) * $(".quant:eq("+ind+")").val();
+					$(".importDiv:eq("+ind+")").html(localeString(nPrice.toFixed(2)));
+					calcTotal();
 				}
 			}
 		});
 	}
 };
 
-
 // Get Code when Product is selected
 
 var getCodeFromProd = function(ind) {
-	var name = $(".itemProduct:eq("+ind+")").val();
-	var storeID = $("#store").val();
-	//After 3 chars been written ajax start 
-	if (name.length >= 3) {
+	if ($(".itemProduct:eq("+ind+")").val().length >= 3) {
+		var name = $(".itemProduct:eq("+ind+")").val();
+		var storeID = $("#store").val();
 		$.ajax({
 			type: "GET",
 			url: "includes/prodDetails.php?by=name&param="+encodeURI(name)+"&storeID="+storeID,
@@ -181,7 +169,9 @@ var getCodeFromProd = function(ind) {
 			cache: false,
 			success: function(prodCode){
 				if (prodCode["code"] != null && prodCode["code"] != "") {
-					$(".prodCode:eq("+ind+")").val(prodCode["code"]);
+					$(".prodCode:eq("+ind+")").val(prodCode["code"]).after(function() {
+                        getProdFromCode(ind);
+                    });
 				}
 			}
 		});
@@ -193,7 +183,6 @@ var addItem = function() {
 	$(".prodCode:last-child").focus();
 	$("#saveButton").prop("disabled", false);
 };
-
 addItem();
 
 $(document).on("input", ".prodCode", function() {
@@ -256,6 +245,14 @@ $(document).on("input", ".itemProduct", function() {
 
 });
 
+$(document).on("input", ".quant", function() {
+	var ind = $(".quant").index(this);
+	var nPrice = 0;
+	nPrice = parseFloat($(".priceDiv:eq("+ind+")").html().replace(",","")) * $(".quant:eq("+ind+")").val();
+	$(".importDiv:eq("+ind+")").html(localeString(nPrice.toFixed(2)));
+	calcTotal();
+});
+
 $(document).on('click', '.remove', function() {
 	$(this).closest('.item').remove();
 	if($("#itemContainer").children(".item").length == 0) {
@@ -280,6 +277,30 @@ $(document).ready(function() {
 	?>
 });
 
+// Get order lines
+var getLines = function() {
+	var indexes = $("#itemContainer").children(".item").length;
+	for (i = 0; i < indexes; i++) {
+		$(".quant:eq("+i+")").val(jQuants[i]);
+		$(".prodCode:eq("+i+")").val(jProdCodes[i]);
+		$(".itemProduct:eq("+i+")").val(jItemProducts[i]);
+		$(".priceDiv:eq("+i+")").html(localeString(jPrices[i]));
+		var nPrice = 0;
+		nPrice = parseFloat($(".priceDiv:eq("+i+")").html().replace(",","")) * $(".quant:eq("+i+")").val();
+		$(".importDiv:eq("+i+")").html(localeString(nPrice.toFixed(2)));
+	    
+	}
+}
+
+
+
+$(document).ready(function() {
+	getLines();
+	calcTotal();
+});
+
+
+
 
 $("#addItemBT").on('click', addItem);
 		
@@ -287,6 +308,50 @@ function cancel() {
 	window.location.href = 'prestamos.php';
 }
 
+//check stock from specific store
+$("#prestamoform").submit(function(e){
+	e.preventDefault()
+	let form = $(e.target)
+	console.log( form.serializeArray() )
+	let store = form.serializeArray()[0].value
+	let body = {
+		"store": store,
+		"products": [],
+		"quantities": []
+	}
+
+	let formProducts = $(".itemTable tr .prodCode")
+	for( let i = 0 ; i < formProducts.length ; i++ ){
+		let line = $(formProducts[ i ])
+		body.products.push( line.val() )
+	}
+	let formQuantities = $(".itemTable tr .quant")
+	for( let i = 0 ; i < formQuantities.length ; i++ ){
+		let q = $(formQuantities[ i ])
+		body.quantities.push( q.val() )
+	}
+	console.log(body)
+	$.ajax({
+		"method": "POST",
+		"data": JSON.stringify(body),
+		"url": "includes/checkStock.php",
+		"contentType": "application/json",
+		"success": function(response){
+			console.log(response)
+			let json = JSON.parse(response)
+			if(json.code == 0){
+				alert("No puedes generar este prestamo. El producto " + json.prodID + " tiene stock = " + json.stock)
+			}else if(json.code == -1){
+				console.log(json)
+			}else{
+				form.off("submit")
+				form.submit()
+			}
+		}   
+	})
+	return false;
+
+})
 </script>
     
 <?php include 'footer.php'; ?>

@@ -3,8 +3,12 @@
 <script type="text/javascript" charset="utf8" src="js/dt/js/jquery.dataTables.min.js"></script>
 <div class="sectionTitle">LISTA DE PRECIOS</div>
 <form method="post" action="listaPrecios.php" target="_blank">
-	<div class="sButtons"><input type="submit" class="formButton blueB" target="_blank" value="CREAR PDF"></div>
-	<div class="searchDiv"><!--Buscar <input type="search" id="searchInput" class="inputText" style="width:300px">-->
+	<div class="sButtons"><input type="submit" class="formButton blueB" target="_blank" value="CREAR PDF">
+	</div>
+	
+	<div class="searchDiv">
+		Incluir en PDF:  Precio de Compra  <input type="checkbox" name="pcompra" id="pcompra">
+		Precio de Venta <input type="checkbox" name="pventa" id="pventa"><br><br><!--Buscar <input type="search" id="searchInput" class="inputText" style="width:300px">-->
 	Selecciona la lista<select id="selectW" class="" name="list">
 			<option value='0'>Lista 1</option>
 		    <option value='1'>Lista 2</option>
@@ -14,10 +18,11 @@
 	<table id="priceList" width="100%" border="0" cellspacing="0" cellpadding="0" class="dataTable">
 	  <thead>
 	    <tr>
-	      <td width="200px">C&oacute;digo</td>
+	      <td width="200px">Referencia</td>
 	      <td>Nombre</td>
-	      <td>Precio Compra</td>
-	      <td>Precio Venta</td>
+	      <td width="200px">C&oacute;digo</td>
+	      <td>Precio Compra </td>
+	      <td>Precio Venta </td>
 	    </tr>
 	  </thead>
 	</table>
@@ -27,8 +32,8 @@
 $(document).ready(function() {
 	var table = $('#priceList').DataTable({
 		"aoColumnDefs": [
-			{'bSortable': false, 'aTargets': [3] },
-			{'className': 'dt-center', 'aTargets': [3] }//,
+			{'bSortable': false, 'aTargets': [4] },
+			{'className': 'dt-center', 'aTargets': [4] }//,
 			//{'visible': false, 'aTargets': [0] }
 		],
 		"scrollX": true,

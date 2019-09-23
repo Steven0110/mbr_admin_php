@@ -63,7 +63,7 @@ if (!empty($term)) {   // if there is a search parameter, $requestData['search']
 
 	$result = $db->prepare($query);
     $result->execute();
-	$totalFiltered = $result->fetchColumn(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+	$totalFiltered = $result->frowCount(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";

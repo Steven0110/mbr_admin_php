@@ -7,6 +7,7 @@ $code = $_POST['code'];
 $detail = $_POST['detail'];
 $cat = $_POST['cat'];
 $vendor = $_POST['vendor'];
+$reference = $_POST['reference'];
 $cost = $_POST['cost'];
 $price = $_POST['price'];
 $remarks = $_POST['remarks'];
@@ -46,7 +47,7 @@ else
 
 // Enter New Product to DB insertamos el archive binario que hemos obtenido y lo guardamos en la base de datos Mysql
 
-$sql = "INSERT INTO product (ID, code, name, detail, vendorID, catID, cost, price, inventory, remarks, image) VALUES (NULL, '$code', '$product', '$detail', '$vendor', '$cat', '$cost', '$price', 0, '$remarks', '$nombre_img')";
+$sql = "INSERT INTO product (ID, code, name,reference, detail, vendorID, catID, cost, price, inventory, remarks, image) VALUES (NULL, '$code', '$product','$reference' , '$detail', '$vendor', '$cat', '$cost', '$price', 0, '$remarks', '$nombre_img')";
 $retval = $db->query($sql);	
 if(!$retval)
 {

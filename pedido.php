@@ -22,14 +22,14 @@ $remarks= $row1["remarks"];
 	
 	
 // Lineas
-$queryTran = "SELECT T2.ID, T1.prodCode, T2.name, T1.qty, T2.price, (T2.price * T1.qty) import FROM ordl T1 INNER JOIN product T2 ON T1.prodCode = T2.code WHERE T1.ordID = '$ordID'";
+$queryTran = "SELECT T2.ID, T1.prodCode, T2.name, T1.qty, T2.cost, (T2.cost * T1.qty) import FROM ordl T1 INNER JOIN product T2 ON T1.prodCode = T2.code WHERE T1.ordID = '$ordID'";
 $resultTran = $db->query($queryTran);
 $pdf->SetDrawColor(255,255,255);
 $total = 0;
 while($rowTran = $resultTran->fetch()) {
 	$pdf->SetWidths(array(16,40,90,25,25));
 	$pdf->SetAligns(array('','','','R','R'));
-	$pdf->Row(array($rowTran["qty"],$rowTran["prodCode"],$rowTran["name"],"$ ".$rowTran["price"],"$ ".$rowTran["import"]));
+	$pdf->Row(array($rowTran["qty"],$rowTran["prodCode"],$rowTran["name"],"$ ".$rowTran["cost"],"$ ".$rowTran["import"]));
 	$total += $rowTran["import"];
 }
 $pdf->SetDrawColor(0,0,0);

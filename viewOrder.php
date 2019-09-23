@@ -190,7 +190,7 @@ var getLines = function() {
 		$(".itemProduct:eq("+i+")").val(jItemProducts[i]);
 		$(".priceDiv:eq("+i+")").html(localeString(jPrices[i]));
 		var nPrice = 0;
-		nPrice = $(".priceDiv:eq("+i+")").html() * $(".quant:eq("+i+")").val();
+		nPrice = parseFloat($(".priceDiv:eq("+i+")").html().replace(",","")) * $(".quant:eq("+i+")").val();
 		$(".importDiv:eq("+i+")").html(localeString(nPrice.toFixed(2)));
 	}
 }

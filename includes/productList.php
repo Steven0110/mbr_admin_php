@@ -73,9 +73,9 @@ if (!empty($term)) {   // if there is a search parameter, $requestData['search']
 			$query.= " AND T3.name LIKE '%".$term."%'";
 			break;
 	}
-		
+
 	$result = $db->query($query);
-	$totalFiltered = $result->fetch(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
+	$totalFiltered = $result->rowCount(); // when there is a search parameter then we have to modify total number filtered rows as per search result.
 }
 
 //$query.= " ORDER BY ID ASC LIMIT 0, 10";

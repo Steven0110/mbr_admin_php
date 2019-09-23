@@ -19,6 +19,11 @@
         </td>
     </tr>
     <tr>
+      <td width="50%">Referencia<br>
+        <div style="margin-top:10px"><input type="text" id="reference" name="reference" class="inputText"></div>
+      </td>
+    </tr>
+    <tr>
       <td colspan="2">Descripción<br>
       	<div style="margin-top:10px"><input type="text" id="detail" name="detail" class="inputText"></div>
       </td>

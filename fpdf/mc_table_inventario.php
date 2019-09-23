@@ -292,7 +292,7 @@ function Footer() {
 	$this->SetX(-279.4);
 	$this->SetFillColor(17,52,171);
 	$this->SetTextColor(255,255,255);
-    $this->Cell(279.4,5,'www.unassalonymas.com',0,0,'C',1);
+    $this->Cell(279.4,5,'www.grupobek.com.mx',0,0,'C',1);
 } 
 function SetWidths($w)
 {

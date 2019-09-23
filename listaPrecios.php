@@ -1,9 +1,7 @@
 <?php
 include_once "includes/mysqlconn.php";
-
 require('fpdf/mc_table_lp.php');
 
-//$infID = $_GET["infID"];
 $query = $_SESSION['priceListQR'];
 $pdf = new PDF_MC_Table();
 $pdf->AddPage();
@@ -29,7 +27,21 @@ while($row = $result->fetch()) {
 	$pdf->SetWidths(array(30,86,30,35,15));
 	$pdf->SetAligns(array('','','','R','R'));
 	$pdf->SetDrawColor(210,210,210);
-	$pdf->Row(array($row["ref"],utf8_decode($row["product"]),$row["code"],"$".$row["pricebuy"],"$".$row["price"]));
+	if(isset($_POST['pcompra'])&&isset($_POST['pventa']))
+	{
+		$pdf->Row(array($row["ref"],utf8_decode($row["product"]),$row["code"],"$".$row["pricebuy"],"$".$row["price"]));	
+	}
+	else if(isset($_POST['pcompra']))
+	{
+		$pdf->Row(array($row["ref"],utf8_decode($row["product"]),$row["code"],"$".$row["pricebuy"]));	
+	}
+	else if(isset($_POST['pventa']))
+	{
+		$pdf->Row(array($row["ref"],utf8_decode($row["product"]),$row["code"],"$".$row["price"]));	
+	}
+	else{
+		$pdf->Row(array($row["ref"],utf8_decode($row["product"]),$row["code"]));		
+	}
 }
 $pdf->SetDrawColor(0,0,0);
 

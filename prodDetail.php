@@ -3,13 +3,14 @@ include 'head.php';
 
 $prodID = $_REQUEST["prodID"];
 
-$queryProd = "SELECT ID, code, name, detail, catID, vendorID, cost, price, active, remarks, image FROM product WHERE ID = '$prodID'";
+$queryProd = "SELECT ID, code, name, detail, catID, reference, vendorID, cost, price, active, remarks, image FROM product WHERE ID = '$prodID'";
 $resultProd = $db->query($queryProd);
 $rowProd = $resultProd->fetch();
 
 $code = $rowProd["code"];
 $name = $rowProd["name"];
 $detail = $rowProd["detail"];
+$reference = $rowProd["reference"];
 $catID = $rowProd['catID'];
 $vendorID = $rowProd['vendorID'];
 $cost = $rowProd['cost'];
@@ -64,6 +65,9 @@ $prevID = $rowPrev["prevID"];
       <td width="50%">Código<br>
         <div style="margin-top:10px"><input type="text" readonly id="code" name="code" class="inputText" value="<?php echo $code; ?>"></div>
         </td>
+      <td width="50%">Referencia<br>
+        <div style="margin-top:10px"><input type="text" readonly id="reference" name="reference" class="inputText" value="<?php echo $reference; ?>"></div>
+      </td>
     </tr>
     <tr>
       <td>Descripción<br>

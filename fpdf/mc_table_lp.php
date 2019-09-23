@@ -206,7 +206,6 @@ var $aligns;
 function Header()
 {
     require('includes/mysqlconn.php');
-	//$infID = $_REQUEST["infID"];
 	
 	$query = "SELECT T1.ID, T1.code, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks FROM inflows T1 INNER JOIN stores T2 ON T1.storeID = T2.ID INNER JOIN crew T3 ON T1.empID = T3.ID"/* WHERE T1.ID = '$infID'"*/;
 	$result = $db->query($query);
@@ -255,7 +254,21 @@ function Header()
 	//Table with 20 rows and 4 columns
 	$this->SetDrawColor(0,0,0);
 	$this->SetWidths(array(30,86,30,35,15));
-	$this->Row(array(utf8_decode("Referencia"),utf8_decode("Nombre"),utf8_decode("Código"),"Precio Compra","Precio Venta"));
+	if(isset($_REQUEST["pcompra"])&&isset($_REQUEST["pventa"]))
+	{
+		$this->Row(array(utf8_decode("Referencia"),utf8_decode("Nombre"),utf8_decode("Código"),"Precio Compra","Precio Venta"));
+	}
+	else if(isset($_REQUEST["pcompra"]))
+	{
+		$this->Row(array(utf8_decode("Referencia"),utf8_decode("Nombre"),utf8_decode("Código"),"Precio Compra"));	
+	}
+	else if(isset($_REQUEST["pventa"]))
+	{
+		$this->Row(array(utf8_decode("Referencia"),utf8_decode("Nombre"),utf8_decode("Código"),"Precio Venta"));
+	}
+	else{
+		$this->Row(array(utf8_decode("Referencia"),utf8_decode("Nombre"),utf8_decode("Código")));		
+	}
 	$this->SetFont('Arial','',8);
 	$this->SetDrawColor(255,255,255);
 }

@@ -10,14 +10,15 @@ $by = $_REQUEST["by"];
 //$by = $REQUEST["by"];
 $columns = array( 
 // datatable column index  => database column name
-	0 => 'code',
+	0 => 'ref',
 	1 => 'product',
-	2 => 'pricebuy',
-	3 => 'pricesell' 
+	2 => 'code',
+	3 => 'pricebuy',
+	4 => 'pricesell'
 );
    
 // getting total number records without any search
-$queryTotal = "SELECT COUNT(*) quant FROM product t1";
+$queryTotal = "SELECT COUNT(*) quant FROM products t1";
 if (!empty($term)) {
 		$queryTotal.=" WHERE t1.NAME LIKE '%".$term."%'";
 	}
@@ -31,7 +32,7 @@ $rowTotal = $resultTotal->fetch();
 $totalData = $rowTotal["quant"];
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
-$query = "SELECT t1.ID id, t1.code code, t1.name product, t1.cost pricebuy, ";
+$query = "SELECT t1.ID id, t1.REFERENCE ref, t1.CODE code, t1.NAME product, t1.PRICEBUY pricebuy, ";
 /*switch ($list) {
 		case "0":
 			$query.= "t1.PRICESELL price FROM products t1";
@@ -47,13 +48,13 @@ $query = "SELECT t1.ID id, t1.code code, t1.name product, t1.cost pricebuy, ";
 
 	switch ($list) {
 		case "0":
-			$query.= "t1.price price FROM product t1";
+			$query.= "t1.PRICESELL price FROM products t1";
 			break;
 		case "1":
-			$query.= "t1.price2 price FROM product t1";
+			$query.= "t1.PRICESELL2 price FROM products t1";
 			break;
 		case "2":
-			$query.= "t1.price3 price FROM product t1";
+			$query.= "t1.PRICESELL3 price FROM products t1";
 			break;
 	}
 	
@@ -75,8 +76,9 @@ $result = $db->query($query);
 $data = array();
 while($row = $result->fetch()) {
 	$nestedData = array();
-	$nestedData[] = utf8_encode($row["code"]);
+	$nestedData[] = utf8_encode($row["ref"]);
 	$nestedData[] = utf8_encode($row["product"]);
+	$nestedData[] = utf8_encode($row["code"]);
 	$nestedData[] = utf8_encode("$".$row["pricebuy"]);
 	$nestedData[] = utf8_encode("$".$row["price"]);
 	$data[] = $nestedData;	
