@@ -41,7 +41,7 @@ for($i = 0; $i<$codesresult["ID"]; $i++){
 		}
 	}
 
-	$sql = $db->query("UPDATE prestamos t1 SET t1.STATUS = 'C' WHERE t1.ID_PRESTAMO = '$infID' ");
+	$sql = $db->query("UPDATE prestamos t1 SET t1.STATUS = 'C', t1.CLOSED_AT = now() WHERE t1.ID_PRESTAMO = '$infID' ");
 		if(! $sql )
 		{
 		  die('Could not enter data: ' . mysqli_error());

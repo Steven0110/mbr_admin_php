@@ -47,14 +47,14 @@ $prevID = $rowPrev["prevID"];
       <td colspan="2">Partidas<br>
         <div id="itemContainer">
           <div class='itemListHead'>
-        <table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
-          <tr>
-                      <td width="76px">Cantidad</td>
-                      <td width="250px">Código</td>
-            <td>Producto</td>
-          </tr>
-        </table>
-      </div>
+              <table class='itemTable' width='100%' cellpadding='0' cellspacing='10px'>
+                <tr>
+                            <td width="76px">Cantidad</td>
+                            <td width="250px">Código</td>
+                  <td>Producto</td>
+                </tr>
+              </table>
+          </div>
           <?php
           $myQuery = $db->query("SELECT T2.ID, T1.prodCode, T2.name, T1.qty FROM inln T1 INNER JOIN product T2 ON T1.prodCode = T2.code WHERE T1.infID = '$infID'");
 

@@ -8,6 +8,10 @@
 
 <div id="storeDiv"></div>
 
+<div class="sectionTitle">ALMACENES</div>
+
+<div id="vendorDiv"></div>
+
 <script>
 $(document).ready(function() {
 	$.post("users.php", function(data) {
@@ -15,6 +19,9 @@ $(document).ready(function() {
 	});
 	$.post("stores.php", function(data) {
 		$("#storeDiv").html(data);
+	});
+	$.post("vendor.php", function(data) {
+		$("#vendorDiv").html(data);
 	});
 });
 

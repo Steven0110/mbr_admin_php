@@ -207,16 +207,17 @@ function Header()
     require('includes/mysqlconn.php');
 	$infID = $_REQUEST["infID"];
 	
-	$query = "SELECT T1.ID, T1.code, T2.ID dsStoreID, T2.name dsStore, CONCAT(T3.first, ' ', T3.last) emp, DATE_FORMAT(T1.created_at, '%d-%m-%Y %T') created_at, T1.remarks,T4.NOMBRE empEnc FROM inflows T1 INNER JOIN stores T2 ON T1.storeID = T2.ID INNER JOIN crew T3 ON T1.empID = T3.ID INNER JOIN empleados T4 ON T1.employee = T4.ID_EMPLEADO WHERE T1.ID = '$infID'";
+	$query = "SELECT t1.ID_PRESTAMO prestamo, t4.proyectname proyect, t2.NOMBRE emp, t1.ID_HERRAMIENTA, t3.name store, t1.ID_STORE dsStoreID, t1.CREATED_AT created_at,t1.END_DATE fin, t1.REMARKS remarks, t1.STATUS FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN stores t3 ON t1.ID_STORE = t3.ID INNER JOIN proyects t4 ON t1.ID_PROYECTO = t4.ID WHERE t1.ID_PRESTAMO = '$infID'";
 	$result = $db->query($query);
 	$row = $result->fetch();
 	
-	$folio = $row["code"];
+	$folio = "Trabajando...";
+	/*$folio = $row["code"];*/
 	$dsStoreID = $row["dsStoreID"];
-	$dsStore = $row["dsStore"];
+	$dsStore = $row["store"];
 	$created_at = $row["created_at"];
 	$remarks = $row["remarks"];
-	$empleado = $row["empEnc"];
+	$empleado = $row["emp"];
 
 	$queryTo = "SELECT T1.first, T1.last, T1.email, T2.phone, T2.address FROM crew T1 JOIN stores T2 ON T1.storeID = T2.ID WHERE T2.ID = '$dsStoreID' LIMIT 1";
 	$resultTo = $db->query($queryTo);

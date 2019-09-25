@@ -6,7 +6,7 @@ $storeCodes = array();
 $storeNames = array();
 $storeDate  =array();
 //"SELECT ID, code, name FROM STORES ";
-$storesQuery = "SELECT t1.ID_PRESTAMO ID, t3.proyectname ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN proyects t3 ON t1.ID_PROYECTO = t3.ID WHERE t1.STATUS = 'A' GROUP BY t1.ID_PRESTAMO ";
+$storesQuery = "SELECT t1.ID_PRESTAMO ID, t3.proyectname ID_PROYECTO,DATE_FORMAT(t1.CREATED_AT, '%Y-%m-%d %H:%i') created,t2.NOMBRE name FROM prestamos t1 INNER JOIN empleados t2 ON t1.ID_EMPLEADO = t2.ID_EMPLEADO INNER JOIN proyects t3 ON t1.ID_PROYECTO = t3.ID GROUP BY t1.ID_EMPLEADO ";
 /*
 if ($_SESSION["role"] != 'Y') {
 	$storesQuery.= "WHERE ID = '".$_SESSION["store"]."' ";
@@ -48,6 +48,7 @@ Busqueda por
             <th>Prestamo</th>
             <th>Fecha creacion</th>
             <th>Empleado</th>
+            <th>Status</th>
             <th width="25px">Ver</th>
         </tr>
     </thead>
@@ -59,8 +60,8 @@ Busqueda por
 $(document).ready(function() {
 	var table = $('#inflowList').DataTable({
 		"aoColumnDefs": [
-			{'bSortable': false, 'aTargets': [4] },
-			{'className': 'dt-center', 'aTargets': [4] }//,
+			{'bSortable': false, 'aTargets': [5] },
+			{'className': 'dt-center', 'aTargets': [5] }//,
 			//{'visible': false, 'aTargets': [0] }
 		],
 		"scrollX": true,

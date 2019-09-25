@@ -2,7 +2,6 @@
 include_once 'head.php';
 ?>
 <body>
-<?php if (login_check($mysqli) == true) : ?>
 <?php
 include_once 'header.php';
 ?>
@@ -47,12 +46,6 @@ $(function() {
 	$( "#close" ).datepicker({ dateFormat: 'yy-mm-dd' });
 });
 </script>
-<?php else : ?>
-
-No pasa
-
-<?php endif; ?>
-
 <?php
 include_once 'footer.php';
 ?>

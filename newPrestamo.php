@@ -43,7 +43,7 @@ $fecha =  date('Y-m-d');;
         	<select id="emp" name="emp" style="margin-top:10px;" required>
             <option value="" selected disabled>Selecciona...</option>
         	<?php
-			$myQuery = $db->query("SELECT ID_EMPLEADO,NUMERO, CONCAT(NOMBRE, ' (',NUMERO,')') NOMBRE FROM empleados");
+			$myQuery = $db->query("SELECT ID_EMPLEADO,NUMERO, NOMBRE FROM empleados");
 			while($row = $myQuery->fetch()){
 				echo "<option value='".$row["ID_EMPLEADO"]."'>".$row["NOMBRE"]."</option>";
 			};
@@ -119,6 +119,7 @@ var itemLine = "<div class='item'>\
 					<td class='tdPrice' align='right'><span style='float:left'>$</span><div class='priceDiv'>0.00</div></td>\
 					<td class='tdImport' align='right'><span style='float:left'>$</span><div class='importDiv'>0.00</div></td>\
 					<td class='tdExistq' <input type='number' id='existq' name='existq[]' required class='inputText existq' </td>\
+					<td class='tdTrash' align='right'><i class='fa fa-trash-o remove' aria-hidden='true'></i></td>\
 				</tr>\
 			</table>\
 		</div>";

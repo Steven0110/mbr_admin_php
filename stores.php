@@ -14,7 +14,6 @@ if(isset($ID)) {
 	$rowStore = $resultStore->fetch();
 	
 	$code = $rowStore["code"];
-	$last = $rowStore["last"];
 	$name = $rowStore["name"];
 	$phone = $rowStore["phone"];
 	$address = $rowStore["address"];
